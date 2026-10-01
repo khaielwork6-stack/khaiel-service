@@ -31,23 +31,19 @@ Everything marked **PROPOSED** is a recommendation you haven't approved. On the 
 1. **Hero:** *What is this?* One promise, a green Play-style button, three reassurances. Beside it, a live showcase: how many people are playing the games I've worked on right now, rotating through each game's real thumbnail.
 2. **My work:** *Why trust you?* "Hey, I'm Khaiel", and four stats (total visits, peak players or favorites, playing right now, 30+ games worked on). Beside them is a leaderboard of the biggest games, each credited to its studio, with visits and live players pulled from Roblox every 6 hours.
 3. **The story:** *Why do you know what works?* One statement that lights up word by word as you scroll: years of failed games taught me what the algorithm rewards, and keeping up with it is my job.
-4. **Services:** *What can you do for me?* Six services, each with a live illustration (labelled "Example" wherever it shows numbers):
-   - **Full Game Development:** bricks build a house on a baseplate, then "Published".
-   - **Growth & the Algorithm:** "Your game" climbs a Recommended sort to #1.
-   - **Thumbnails, Icons & Trailers:** a thumbnail A/B test, and B wins.
-   - **Monetization:** a Roblox-style shop with purchases rolling in.
-   - **Scripting & Systems:** a Luau script types itself out, with 0 errors.
-   - **Growth Partner:** a week of update, event and admin-abuse days, and the player count reacting.
+4. **Services:** *What can you do for me?* Six services, each illustrated with real Roblox data from the games I've worked on (refreshed every 6 hours):
+   - **Full Game Development:** a real thumbnail drops in as studded bricks, then "Live on Roblox" with its visits.
+   - **Growth & the Algorithm:** the games sort themselves by who's playing right now.
+   - **Thumbnails, Icons & Trailers:** two real thumbnails of the same game, side by side.
+   - **Monetization:** the game's real store and prices, with Roblox's purchase prompt.
+   - **Scripting & Systems:** a badge script in Roblox Studio, then a real badge and how many players have it.
+   - **Growth Partner:** which games were updated in the last 7 days, and on which day.
 
-   Then a scrolling "…and a lot more" wall of other services, the audit card ("Free with any package") and a "Don't see what you need? Message me anyway" card with a live inbox of typical requests.
-5. **Find your leak:** *Not sure what you need?* Opens with a simulated server chat where players keep leaving. Then six plain-language problems plus "I'm not sure". Tapping one opens:
-   - the Creator Hub metric to check;
-   - what it usually means;
-   - what I'd do;
-   - a **Fix this** button and the service that covers it.
-6. **How it works:** *What happens if I send it?* Send it → a plan built for your game (the audit) → I build it, ship it and grow it. Then a sample audit report.
+   Then a scrolling "…and a lot more" wall of other services, the audit card ("Free with any package") and a "Don't see what you need? Message me anyway" card with a Discord-style inbox.
+5. **Find your leak:** *Not sure what you need?* Six bars, one per moment players leave. Tap one for a short card: the Creator Hub metric to check, three fixes, and a **Fix this** button with the service that covers it. "Not sure?" opens the free audit.
+6. **How it works:** *What happens if I send it?* Send it → a plan built for your game (the audit) → I build it, ship it and grow it.
 7. **FAQ:** eight questions, including "What if what I need isn't listed?" and "I don't have a game yet".
-8. **Send me your game:** a scrolling wall of the games' thumbnails, then a 3-step form. Step 1 takes a link or "No game yet", and any mix of services.
+8. **Send me your game:** a scrolling wall of the games' thumbnails, then the 3-step form beside a "DM me on Discord" card for people who'd rather skip the form. Step 1 takes a link or "No game yet" and any mix of services; step 2 any mix of problems; step 3 an email or a Discord username.
 
 ## 4. Offers and pricing (all PROPOSED)
 

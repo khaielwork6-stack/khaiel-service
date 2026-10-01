@@ -1,6 +1,6 @@
 /*
   Site interactions. No dependencies, no build step.
-  Review mode · config links · header & menu · reveals · server chat · my games · live showcase ·
+  Review mode · config links · header & menu · reveals · my games · live showcase ·
   the story · services · leak finder · accordions · send form · mobile dock
 */
 (function () {
@@ -60,6 +60,29 @@
     });
     $$("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
     if (CFG.gamesWorkedOn) $$("[data-worked]").forEach(function (el) { el.textContent = CFG.gamesWorkedOn + "+"; });
+
+    // the "DM me on Discord" card next to the form
+    $$("[data-discord-card]").forEach(function (a) { if (CFG.discordUrl) a.href = CFG.discordUrl; });
+    var user = String(CFG.discordUsername || "").replace(/^@/, "").trim();
+    if (user) {
+      $$("[data-discord-user]").forEach(function (el) { el.textContent = "@" + user; el.hidden = false; });
+      $$("[data-copy-discord]").forEach(function (b) {
+        b.hidden = false;
+        b.addEventListener("click", function () {
+          var label = $("span", b);
+          (navigator.clipboard ? navigator.clipboard.writeText(user) : Promise.reject()).then(
+            function () { label.textContent = "Copied @" + user; },
+            function () { label.textContent = "@" + user; });
+          setTimeout(function () { label.textContent = "Copy username"; }, 2200);
+        });
+      });
+    }
+    var rows = $("[data-contact-rows]");
+    if (rows && (CFG.contactEmail || CFG.tiktokUrl)) {
+      rows.hidden = false;
+      if (CFG.contactEmail) { $("[data-row-email]", rows).hidden = false; $("[data-email-text]", rows).textContent = CFG.contactEmail; }
+      if (CFG.tiktokUrl) $("[data-row-tiktok]", rows).hidden = false;
+    }
   }
 
   /* ------------------------------------------------ run animations only while they're on screen */
@@ -129,52 +152,9 @@
     els.forEach(function (el) { io.observe(el); });
   }
 
-  /* ------------------------------------------------ hero: simulated server chat
-     Players keep "leaving the game" in the hero's game window, and the player count ticks down.
-     Names are made up. The window is labelled as a simulation. */
-  var NAMES = ["Guest_4821", "blox_kid22", "noobmaster_2012", "xX_Dragon_Xx", "pizza_lover91", "sk8r_bloxx", "builder_bean",
-    "Lunar_Owlet", "TacoTuesday77", "cool_dude_ru", "MintyMango", "obby_queen", "PixelPanda08", "RobloxianRay", "zoomzoom_kart",
-    "Captain_Cube", "frosty_flakes", "NoobSlayer_99", "lil_tycoon", "SpeedyBacon", "starry_mia", "BlockBoss3000"];
-  var NAME_COLORS = ["#FD2943", "#01A2FF", "#02B857", "#A36FD4", "#DA8541", "#F5CD30", "#E8BAC8", "#D7C59A"];
-  function initChat() {
-    var log = $("[data-chat-log]"), countEl = $("[data-chat-count]");
-    if (!log || !countEl) return;
-    var players = 1284, last = "";
-    function say(kind) {
-      var name;
-      do { name = NAMES[Math.floor(Math.random() * NAMES.length)]; } while (name === last);
-      last = name;
-      var li = document.createElement("li");
-      li.className = kind === "join" ? "is-join" : "is-left";
-      var b = document.createElement("b");
-      b.textContent = name;
-      b.style.color = NAME_COLORS[Math.floor(Math.random() * NAME_COLORS.length)];
-      var em = document.createElement("em");
-      em.textContent = kind === "join" ? " joined the game." : " left the game.";
-      li.appendChild(b); li.appendChild(em);
-      log.appendChild(li);
-      while (log.children.length > 4) log.removeChild(log.firstChild);
-      players += kind === "join" ? 1 : -(1 + Math.floor(Math.random() * 3));
-      if (players < 990) players = 1284;
-      countEl.textContent = players.toLocaleString("en-US");
-      if (kind !== "join") {
-        var pill = countEl.parentElement;
-        pill.classList.add("is-drop");
-        setTimeout(function () { pill.classList.remove("is-drop"); }, 450);
-      }
-    }
-    for (var i = 0; i < 4; i++) say(i === 2 ? "join" : "left");
-    if (reduceMotion) return;
-    var timer = 0, visible = true;
-    function tick() { say(Math.random() < 0.22 ? "join" : "left"); }
-    function run() { if (!timer && visible && !document.hidden) timer = setInterval(tick, 1400); }
-    function halt() { clearInterval(timer); timer = 0; }
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (en) { visible = en[0].isIntersecting; visible ? run() : halt(); }).observe(log);
-    }
-    document.addEventListener("visibilitychange", function () { document.hidden ? halt() : run(); });
-    run();
-  }
+  // Roblox's thumbs-up and player icons, used in every game list on the page
+  var THUMB = '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="currentColor"><path d="M2 7h2.5v7H2zM6 14V7.2L9 2c1 0 1.7.8 1.5 1.8L10 6h3.4c.9 0 1.6.9 1.4 1.8l-1.2 5A1.5 1.5 0 0 1 12.1 14z"/></svg>';
+  var PERSON = '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="currentColor"><circle cx="8" cy="5" r="3"/><path d="M2.5 14c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5z"/></svg>';
 
   /* ------------------------------------------------ my games: profile, stats and leaderboard
      Data comes from assets/data/roblox.js, which the GitHub workflow refreshes from Roblox.
@@ -228,8 +208,6 @@
     var hasPeak = peak != null;
     // the board shows the biggest games; config.js holds how many you've worked on in total
     var worked = real ? +CFG.gamesWorkedOn || 0 : 0;
-    var THUMB = '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="currentColor"><path d="M2 7h2.5v7H2zM6 14V7.2L9 2c1 0 1.7.8 1.5 1.8L10 6h3.4c.9 0 1.6.9 1.4 1.8l-1.2 5A1.5 1.5 0 0 1 12.1 14z"/></svg>';
-    var PERSON = '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="currentColor"><circle cx="8" cy="5" r="3"/><path d="M2.5 14c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5z"/></svg>';
 
     // Roblox doesn't publish peak CCU. Until you add it in data/roblox.config.json, that tile
     // shows total favorites and the leaderboard's second column shows players online now.
@@ -478,179 +456,337 @@
   }
 
   /* ------------------------------------------------ services: one live illustration per service
-     Each one only animates while it's on screen. Every number in them is labelled "Example". */
-  var HOUSE = [
-    "....rr.......",
-    "...rrrr...gg.",
-    "..rrrrrr.gggg",
-    "..wwwwww..gg.",
-    "..wywwyw..t..",
-    "..wwddww..t.."
-  ];
-  var BRICK = { r: "#c4281c", w: "#d9d6cc", y: "#f5cd30", d: "#7c5c46", g: "#4b974b", t: "#6b4a33" };
+     Nothing in them is made up. They're built from assets/data/roblox.js: the games' real
+     thumbnails, live player counts, game passes and prices, badges and update dates. */
+  function warm(src) { if (src) { var i = new Image(); i.decoding = "async"; i.src = src; } }
+  function pulse(el, cls, ms) { el.classList.add(cls); setTimeout(function () { el.classList.remove(cls); }, ms); }
 
-  function initBuild(vis) {
-    var scene = $("[data-build]", vis);
-    if (!scene) return;
-    var bricks = [];
-    HOUSE.forEach(function (line, r) {
-      line.split("").forEach(function (ch) {
-        var b = document.createElement("i");
-        if (BRICK[ch]) { b.style.setProperty("--c", BRICK[ch]); b.setAttribute("data-r", r); bricks.push(b); }
-        else b.className = "is-air";
-        scene.appendChild(b);
-      });
-    });
-    scene.style.gridTemplateColumns = "repeat(" + HOUSE[0].length + ", var(--b))";
-    // built from the ground up
-    bricks.sort(function (a, b) { return b.getAttribute("data-r") - a.getAttribute("data-r"); })
-      .forEach(function (b, k) { b.style.setProperty("--k", k); });
-    if (reduceMotion) { vis.classList.add("is-built"); return; }
-    ticker(vis, 7000, function () {
-      vis.classList.remove("is-built");
-      setTimeout(function () { vis.classList.add("is-built"); }, 450);
+  // 01 build: a real game's thumbnail drops in brick by brick, then goes live
+  function initMosaic(vis, games) {
+    var tiles = $("[data-mosaic]", vis), cap = $("[data-mosaic-cap]", vis);
+    var list = games.filter(function (g) { return g.thumb; });
+    if (!tiles || !list.length) return;
+    var COLS = 12, ROWS = 7;
+    tiles.style.setProperty("--cols", COLS);
+    tiles.style.setProperty("--rows", ROWS);
+    for (var r = 0; r < ROWS; r++) {
+      for (var c = 0; c < COLS; c++) {
+        var t = document.createElement("i");
+        t.style.backgroundPosition = (c / (COLS - 1) * 100).toFixed(2) + "% " + (r / (ROWS - 1) * 100).toFixed(2) + "%";
+        // from the ground up, with a little jitter so it doesn't look mechanical
+        t.style.setProperty("--k", (ROWS - 1 - r) * COLS + c + Math.floor(Math.random() * 6));
+        tiles.appendChild(t);
+      }
+    }
+    function show(g) {
+      tiles.style.setProperty("--img", 'url("' + g.thumb + '")');
+      $("img", cap).src = g.icon;
+      $("b", cap).textContent = g.name;
+      $("small", cap).textContent = compact(g.visits) + " visits · by " + g.creator;
+    }
+    if (reduceMotion) { show(list[0]); vis.classList.add("is-built", "is-done"); return; }
+    var n = 0;
+    show(list[0]);
+    ticker(vis, 7600, function () {
+      var g = list[n++ % list.length], first = n === 1;
+      warm(list[n % list.length].thumb);
+      vis.classList.remove("is-built", "is-done");
+      setTimeout(function () { show(g); vis.classList.add("is-built"); }, first ? 60 : 450);
+      setTimeout(function () { vis.classList.add("is-done"); }, first ? 2960 : 3350);
     });
   }
 
-  function initRank(vis) {
+  // 02 grow: the games sort themselves by who's playing right now, #1 climbing from the bottom
+  function initRank(vis, games) {
     var list = $("[data-rank]", vis);
-    if (!list) return;
-    var rows = $$("li", list), you = $(".is-you", list), count = $("[data-rank-count]", list);
-    var COUNTS = ["14.8K", "9.6K", "6.9K", "4.6K", "1.9K"];
-    var start = rows.map(function (li) { return +li.style.getPropertyValue("--p"); });
-    var pos = function (li) { return +li.style.getPropertyValue("--p"); };
-    function place(li, p) { li.style.setProperty("--p", p); $("b", li).textContent = p + 1; }
+    var top = games.filter(function (g) { return g.playing != null; })
+      .sort(function (a, b) { return b.playing - a.playing; }).slice(0, 5);
+    if (!list || top.length < 2) return;
+    var rows = top.map(function (g) {
+      var li = document.createElement("li");
+      li.innerHTML = '<b></b><img alt="" width="64" height="64"><span class="v-rank__name"><strong></strong><small></small></span>' +
+        '<span class="v-rank__n">' + PERSON + "<em></em></span>";
+      $("img", li).src = g.icon;
+      $("strong", li).textContent = g.name;
+      $("small", li).innerHTML = THUMB + (g.likeRatio != null ? g.likeRatio + "%" : "—");
+      $("em", li).textContent = compact(g.playing);
+      list.appendChild(li);
+      return li;
+    });
+    var N = rows.length, slot = [];
+    list.style.setProperty("--n", N);
+    function place(i, s) { slot[i] = s; rows[i].style.setProperty("--p", s); $("b", rows[i]).textContent = s + 1; }
+    function scramble() { rows.forEach(function (li, i) { place(i, N - 1 - i); li.classList.remove("is-up", "is-top"); }); }
+    // one step: the best game that isn't in its spot yet climbs one row
     function climb() {
-      var p = pos(you);
-      var above = rows.filter(function (li) { return pos(li) === p - 1; })[0];
-      place(above, p);
-      place(you, p - 1);
-      count.textContent = COUNTS[p - 1];
-      you.classList.toggle("is-top", p - 1 === 0);
+      for (var s = 0; s < N; s++) {
+        if (slot[s] === s) continue;
+        var cur = slot[s], other = slot.indexOf(slot[s] - 1);
+        place(s, cur - 1);
+        place(other, cur);
+        rows.forEach(function (li, i) { li.classList.toggle("is-up", i === s); });
+        return true;
+      }
+      rows.forEach(function (li) { li.classList.remove("is-up"); });
+      rows[0].classList.add("is-top");
+      return false;
     }
-    if (reduceMotion) { while (pos(you) > 0) climb(); return; }
+    scramble();
+    if (reduceMotion) { while (climb()) {} return; }
     var hold = 0;
-    ticker(vis, 1300, function () {
-      if (pos(you) > 0) { climb(); return; }
-      if (++hold < 3) return;
+    ticker(vis, 760, function () {
+      if (climb()) return;
+      if (++hold < 4) return;
       hold = 0;
       list.classList.add("is-fading");
       setTimeout(function () {
         list.classList.add("is-reset");
-        rows.forEach(function (li, i) { place(li, start[i]); });
-        count.textContent = COUNTS[4];
-        you.classList.remove("is-top");
+        scramble();
         void list.offsetWidth;
         list.classList.remove("is-reset", "is-fading");
       }, 320);
     });
   }
 
-  function initAB(vis) {
-    var pair = $("[data-ab]", vis);
-    if (!pair) return;
-    var nums = $$("[data-ab-num]", pair);
-    nums.forEach(function (num) {
-      // bars are drawn out of 10% click-through
-      num.closest(".v-ab__card").style.setProperty("--v", (+num.getAttribute("data-ab-num") / 10).toFixed(3));
-    });
-    function finish() { nums.forEach(function (num) { num.textContent = (+num.getAttribute("data-ab-num")).toFixed(1) + "%"; }); pair.classList.add("is-done"); }
-    if (reduceMotion) { finish(); return; }
-    ticker(vis, 5600, function () {
-      pair.classList.remove("is-done");
-      pair.classList.add("is-zero");
-      nums.forEach(function (num) { num.textContent = "0.0%"; });
-      setTimeout(function () {
-        pair.classList.remove("is-zero");
-        nums.forEach(function (num) {
-          countUp(num, +num.getAttribute("data-ab-num"), function (n) { return n.toFixed(1) + "%"; });
-        });
-      }, 380);
-      setTimeout(function () { pair.classList.add("is-done"); }, 2100);
-    });
-  }
-
-  function initShop(vis) {
-    var toast = $("[data-shop-toast]", vis), rev = $("[data-shop-rev]", vis), items = $$(".v-item", vis);
-    if (!toast || !items.length) return;
-    var total = 12480, n = 0;
-    var ORDER = [1, 0, 1, 2, 1, 1, 0, 1, 2]; // the starter pack sells most, like it should
-    function buy() {
-      var item = items[ORDER[n % ORDER.length]], price = +item.getAttribute("data-price");
-      n++;
-      $("b", toast).textContent = NAMES[(n * 5) % NAMES.length];
-      $(".v-toast__txt span", toast).textContent = item.getAttribute("data-item");
-      $("strong", toast).textContent = "+R$ " + price;
-      toast.classList.remove("is-on");
-      void toast.offsetWidth;
-      toast.classList.add("is-on");
-      items.forEach(function (it) { it.classList.toggle("is-bought", it === item); });
-      total += price;
-      rev.textContent = "R$ " + total.toLocaleString("en-US");
+  // 03 creative: two real thumbnails of the same game, side by side
+  function initAB(vis, games) {
+    var pair = $("[data-ab]", vis), cap = $("[data-ab-cap]", vis);
+    var list = games.filter(function (g) { return g.thumbs && g.thumbs.length > 1; });
+    if (!pair || !list.length) return;
+    var imgs = $$(".v-thumb img", pair);
+    function show(g) {
+      imgs[0].src = g.thumbs[1];
+      imgs[1].src = g.thumbs[0];
+      $("img", cap).src = g.icon;
+      $("span", cap).textContent = g.name;
     }
-    if (reduceMotion) { buy(); return; }
-    ticker(vis, 2600, buy);
+    if (reduceMotion) { show(list[0]); pair.classList.add("is-in", "is-done"); return; }
+    var n = 0;
+    show(list[0]);
+    ticker(vis, 5400, function () {
+      var g = list[n++ % list.length], first = n === 1;
+      warm(list[n % list.length].thumbs[0]);
+      warm(list[n % list.length].thumbs[1]);
+      pair.classList.remove("is-in", "is-done");
+      setTimeout(function () { show(g); pair.classList.add("is-in"); }, first ? 0 : 380);
+      setTimeout(function () { pair.classList.add("is-done"); }, first ? 1900 : 2300);
+    });
   }
 
-  function initCode(vis) {
-    var src = $("[data-code]", vis);
+  // 04 earn: the game's real store. Three passes from across its price ladder, and the purchase prompt
+  function initStore(vis, games) {
+    var grid = $("[data-store]", vis), prompt = $("[data-prompt]", vis), cursor = $("[data-cursor]", vis);
+    var list = games.filter(function (g) { return g.passes && g.passes.length >= 3; });
+    if (!grid || !list.length) return;
+    var items = [], gi = 0, step = 0;
+    function load(g) {
+      $("[data-store-icon]", vis).src = g.icon;
+      $("[data-store-name]", vis).textContent = g.name;
+      $("[data-store-count]", vis).textContent = g.passCount + " passes";
+      var p = g.passes, pick = [p[0], p[Math.floor((p.length - 1) / 2)], p[p.length - 1]];
+      grid.innerHTML = "";
+      items = pick.map(function (pass) {
+        var d = document.createElement("div");
+        d.className = "v-pass";
+        d.innerHTML = '<span class="v-pass__art"><img alt="" width="150" height="150"></span><b></b>' +
+          '<span class="v-rbx"><svg viewBox="0 0 16 16"><use href="#robux"/></svg><span></span></span>';
+        $("img", d).src = pass.icon;
+        $("b", d).textContent = pass.name;
+        $(".v-rbx span", d).textContent = pass.price.toLocaleString("en-US");
+        grid.appendChild(d);
+        return { el: d, pass: pass };
+      });
+      step = 0;
+    }
+    function point(el, x, y) {
+      var a = vis.getBoundingClientRect(), r = el.getBoundingClientRect();
+      cursor.style.transform = "translate(" + Math.round(r.left - a.left + r.width * x) + "px," + Math.round(r.top - a.top + r.height * y) + "px)";
+    }
+    function buy(item) {
+      vis.classList.remove("is-prompt", "is-bought");
+      items.forEach(function (it) { it.el.classList.toggle("is-hover", it === item); });
+      cursor.classList.add("is-on");
+      point(item.el, 0.6, 0.55);
+      setTimeout(function () {
+        pulse(cursor, "is-click", 200);
+        $("img", prompt).src = item.pass.icon;
+        $("b", prompt).textContent = item.pass.name;
+        $(".v-rbx span", prompt).textContent = item.pass.price.toLocaleString("en-US");
+        vis.classList.add("is-prompt");
+      }, 750);
+      setTimeout(function () { point($(".v-prompt__btn", prompt), 0.55, 0.6); }, 1250);
+      setTimeout(function () { pulse(cursor, "is-click", 200); vis.classList.add("is-bought"); }, 1950);
+      setTimeout(function () { vis.classList.remove("is-prompt"); items.forEach(function (it) { it.el.classList.remove("is-hover"); }); }, 2900);
+    }
+    load(list[0]);
+    if (reduceMotion) return;
+    ticker(vis, 3400, function () {
+      if (step < items.length) { buy(items[step++]); return; }
+      // next game's store
+      cursor.classList.remove("is-on");
+      vis.classList.add("is-switch");
+      setTimeout(function () { load(list[++gi % list.length]); vis.classList.remove("is-switch"); }, 350);
+    });
+  }
+
+  // 05 code: a script types itself out in Studio, then a real badge from one of the games pops
+  function initCode(vis, games) {
+    var src = $("[data-code]", vis), toast = $("[data-badge]", vis);
     if (!src) return;
     var lines = $$(".ln", src);
     lines.forEach(function (ln) { ln.style.setProperty("--n", Math.max(1, ln.textContent.length)); });
+    var badges = [];
+    games.forEach(function (g) { (g.badges || []).forEach(function (b) { badges.push({ b: b, g: g }); }); });
+    badges.sort(function (x, y) { return y.b.awarded - x.b.awarded; });
+    var bi = 0;
+    function award() {
+      if (!badges.length || !toast) return;
+      var x = badges[bi++ % badges.length];
+      $("img", toast).src = x.b.icon;
+      $("b", toast).textContent = x.b.name;
+      $("em", toast).textContent = x.b.awarded.toLocaleString("en-US") + " players have it · " + x.g.name;
+      vis.classList.add("is-done");
+    }
+    if (reduceMotion) { lines.forEach(function (l) { l.classList.add("is-on"); }); award(); return; }
     var i = 0, hold = 0;
-    if (reduceMotion) { lines.forEach(function (l) { l.classList.add("is-on"); }); vis.classList.add("is-done"); return; }
-    ticker(vis, 760, function () {
+    ticker(vis, 640, function () {
       if (i < lines.length) {
         lines.forEach(function (l) { l.classList.remove("is-cur"); });
         lines[i].classList.add("is-on", "is-cur");
-        if (++i === lines.length) vis.classList.add("is-done");
+        if (++i === lines.length) setTimeout(award, 500);
         return;
       }
-      if (++hold < 5) return;
+      if (++hold < 6) return;
       hold = 0; i = 0;
       vis.classList.remove("is-done");
       lines.forEach(function (l) { l.classList.remove("is-on", "is-cur"); });
     });
   }
 
-  // made-up requests, the kind that actually land in a Roblox dev's DMs
-  var ASKS = ["Can you cut a trailer for my update?", "My CCU dropped after the last update", "Need a pet and egg system",
-    "How do I get on the Home page?", "Can you make my icon pop?", "Want to run an admin abuse event",
-    "My game lags on phones, help", "What should my gamepasses cost?", "Can you build my idea from scratch?",
-    "Need someone to run our TikTok"];
-  var ASK_TIMES = ["now", "1m", "4m", "9m"];
+  // 06 partner: which games were updated in the last 7 days, straight from Roblox
+  function initUpdates(vis, games) {
+    var days = $("[data-upd]", vis), foot = $("[data-upd-foot]", vis), count = $("[data-upd-count]", vis);
+    if (!days) return;
+    var DAY = 864e5, today = new Date(); today.setHours(0, 0, 0, 0);
+    var cols = [];
+    for (var d = 6; d >= 0; d--) {
+      var date = new Date(today.getTime() - d * DAY);
+      var col = document.createElement("div");
+      col.className = "v-upd__col";
+      col.innerHTML = '<span class="v-upd__icons"></span><span class="v-upd__day"></span>';
+      $(".v-upd__day", col).textContent = d === 0 ? "Today" : date.toLocaleDateString("en-US", { weekday: "short" });
+      days.appendChild(col);
+      cols.push({ el: col, games: [] });
+    }
+    var recent = games.filter(function (g) {
+      if (!g.updated) return false;
+      var u = new Date(g.updated); u.setHours(0, 0, 0, 0);
+      var ago = Math.round((today - u) / DAY);
+      if (ago < 0 || ago > 6) return false;
+      cols[6 - ago].games.push(g);
+      return true;
+    });
+    cols.forEach(function (c) {
+      c.games.forEach(function (g) {
+        var img = document.createElement("img");
+        img.alt = ""; img.width = 64; img.height = 64; img.src = g.icon;
+        $(".v-upd__icons", c.el).appendChild(img);
+      });
+    });
+    count.innerHTML = '<i class="live"></i>' + recent.length + " of " + games.length;
+    var fImg = $("img", foot), fText = $("span", foot);
+    function say(g, label) {
+      fImg.hidden = !g;
+      if (g) fImg.src = g.icon;
+      fText.textContent = label;
+    }
+    var summary = recent.length + " of " + games.length + " games updated this week";
+    function finish() {
+      cols.forEach(function (c) { c.el.classList.add("is-on"); c.el.classList.remove("is-now"); });
+      say(null, summary);
+    }
+    if (reduceMotion || !recent.length) { finish(); return; }
+    var s = -1, hold = 0;
+    ticker(vis, 820, function () {
+      if (s < 6) {
+        s++;
+        cols.forEach(function (c, k) { c.el.classList.toggle("is-on", k <= s); c.el.classList.toggle("is-now", k === s); });
+        var hit = cols[s].games;
+        if (hit.length) {
+          var when = s === 6 ? "Today" : $(".v-upd__day", cols[s].el).textContent;
+          say(hit[0], when + " · " + hit[0].name + (hit.length > 1 ? " & " + (hit.length - 1) + " more" : ""));
+        }
+        if (s === 6) setTimeout(finish, 600);
+        return;
+      }
+      if (++hold < 5) return;
+      hold = 0; s = -1;
+      cols.forEach(function (c) { c.el.classList.remove("is-on", "is-now"); });
+      say(null, "Checking this week's updates…");
+    });
+  }
+
+  // "Message me anyway": a Discord inbox with the kind of requests Roblox devs actually send
+  var DMS = [
+    ["zoomzoom.kart", "yo can u cut a trailer for my update this friday?"],
+    ["pixelpanda08", "ccu went from 800 to 200 after the update 😭 can u look"],
+    ["captain.cube", "need a pet + egg hatching system, how much?"],
+    ["minty.mango", "how do i get my game on the home page"],
+    ["speedybacon", "can you make my icon actually pop lol"],
+    ["lunar.owlet", "wanna run an admin abuse event saturday, can u help"],
+    ["blockboss3000", "game lags on mobile, need it fixed asap"],
+    ["lil.tycoon", "what should my gamepasses cost?"],
+    ["starry.mia", "got a game idea, can you build it from scratch?"],
+    ["frosty.flakes", "need someone to run our tiktok fr"]
+  ];
+  var DISCORD_COLORS = ["#5865F2", "#757E8A", "#3BA55C", "#FAA61A", "#ED4245", "#EB459F"];
   function initAsks() {
-    var list = $("[data-asks]");
+    var list = $("[data-asks]"), count = $("[data-asks-count]");
     if (!list) return;
     var i = 0;
-    function push() {
-      var who = NAMES[(i * 7 + 3) % NAMES.length];
-      var li = document.createElement("li");
-      li.innerHTML = '<i></i><span class="ask__txt"><b></b><span></span></span><time></time>';
-      $("i", li).textContent = who.charAt(0).toUpperCase();
-      $("i", li).style.background = NAME_COLORS[i % NAME_COLORS.length];
-      $("b", li).textContent = who;
-      $(".ask__txt span", li).textContent = ASKS[i % ASKS.length];
-      list.insertBefore(li, list.firstChild);
-      while (list.children.length > ASK_TIMES.length) list.removeChild(list.lastChild);
-      $$("time", list).forEach(function (t, k) { t.textContent = ASK_TIMES[k]; });
-      i++;
+    function clock(minsAgo) {
+      return "Today at " + new Date(Date.now() - minsAgo * 6e4).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
     }
-    for (var k = 0; k < 3; k++) push();
+    function push(minsAgo) {
+      var dm = DMS[i % DMS.length];
+      var li = document.createElement("li");
+      li.innerHTML = '<span class="dcw__av"><svg viewBox="0 0 24 24"><use href="#discord"/></svg></span>' +
+        '<span class="dcw__msg"><span class="dcw__line"><b></b><time></time></span><span class="dcw__txt"></span></span>';
+      $(".dcw__av", li).style.background = DISCORD_COLORS[i % DISCORD_COLORS.length];
+      $("b", li).textContent = dm[0];
+      $("time", li).textContent = clock(minsAgo);
+      $(".dcw__txt", li).textContent = dm[1];
+      list.insertBefore(li, list.firstChild);
+      while (list.children.length > 4) list.removeChild(list.lastChild);
+      i++;
+      if (count) count.textContent = Math.min(i, 9) + (i > 9 ? "+" : "");
+    }
+    push(9); push(4); push(1);
     $$("li", list).forEach(function (li) { li.style.animation = "none"; });
     if (reduceMotion) return;
-    ticker(list, 2800, push);
+    ticker(list, 3000, function () { push(0); });
+  }
+
+  // tilt and glare on the cards you can touch
+  function tilt(card, max) {
+    card.addEventListener("pointermove", function (e) {
+      var r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      card.style.setProperty("--mx", Math.round(x * r.width) + "px");
+      card.style.setProperty("--my", Math.round(y * r.height) + "px");
+      if (max) {
+        card.style.setProperty("--ry", ((x - 0.5) * max).toFixed(2) + "deg");
+        card.style.setProperty("--rx", ((0.5 - y) * max).toFixed(2) + "deg");
+      }
+    });
+    if (max) card.addEventListener("pointerleave", function () { card.style.setProperty("--rx", "0deg"); card.style.setProperty("--ry", "0deg"); });
   }
 
   function initServices() {
+    var games = realGames();
+    var MAKE = { mosaic: initMosaic, rank: initRank, ab: initAB, shop: initStore, code: initCode, updates: initUpdates };
     $$("[data-vis]").forEach(function (vis) {
-      var kind = vis.getAttribute("data-vis");
-      if (kind === "build") initBuild(vis);
-      else if (kind === "rank") initRank(vis);
-      else if (kind === "ab") initAB(vis);
-      else if (kind === "shop") initShop(vis);
-      else if (kind === "code") initCode(vis);
-      else whenVisible(vis); // CSS-only loops just need pausing offscreen
+      var make = MAKE[vis.getAttribute("data-vis")];
+      if (make && games.length) make(vis, games);
     });
     initAsks();
 
@@ -664,65 +800,43 @@
       whenVisible(row);
     });
 
-    // a soft spotlight follows the pointer around each card's edge
-    if (!window.matchMedia("(hover: hover)").matches) return;
-    $$(".svc, .audit-card, .dm-card").forEach(function (card) {
-      card.addEventListener("pointermove", function (e) {
-        var r = card.getBoundingClientRect();
-        card.style.setProperty("--mx", (e.clientX - r.left).toFixed(0) + "px");
-        card.style.setProperty("--my", (e.clientY - r.top).toFixed(0) + "px");
-      });
-    });
+    if (!window.matchMedia("(hover: hover)").matches || reduceMotion) return;
+    $$(".svc, .audit-card").forEach(function (card) { tilt(card, 0); });
+    $$("[data-discord-card]").forEach(function (card) { tilt(card, 10); });
   }
 
-  /* ------------------------------------------------ leak finder
-     Phones: an accordion, everything closed until tapped.
-     Desktop: the list on the left, one answer always open on the right. */
+  /* ------------------------------------------------ find your leak
+     Six bars, one per moment players leave. Tap a bar (or use the arrow keys) to see it. */
   function initLeaks() {
-    var wrap = $("[data-leaks]");
+    var wrap = $("[data-funnel]");
     if (!wrap) return;
-    var btns = $$(".leak__btn", wrap);
-
-    function open(btn, focusScroll) {
-      btns.forEach(function (b) {
-        var on = b === btn;
-        b.setAttribute("aria-expanded", String(on));
-        $("#" + b.getAttribute("aria-controls")).hidden = !on;
+    var tabs = $$("[data-leak]", wrap), panels = $$("[data-panel]", wrap), unsure = $("[data-leak-unsure]", wrap);
+    function open(key, focus) {
+      tabs.forEach(function (t) {
+        var on = t.getAttribute("data-leak") === key;
+        t.setAttribute("aria-selected", String(on));
+        t.tabIndex = on || (key === "unsure" && t === tabs[0]) ? 0 : -1;
+        if (on && focus) t.focus();
       });
-      if (focusScroll && !desktop.matches) {
-        var top = btn.getBoundingClientRect().top;
-        if (top < 70 || top > window.innerHeight * 0.5) {
-          window.scrollTo({ top: window.scrollY + top - 84, behavior: reduceMotion ? "auto" : "smooth" });
-        }
-      }
+      if (unsure) { unsure.classList.toggle("is-on", key === "unsure"); unsure.setAttribute("aria-expanded", String(key === "unsure")); }
+      panels.forEach(function (p) { p.hidden = p.getAttribute("data-panel") !== key; });
     }
-    function closeAll() { open(null); }
-
-    btns.forEach(function (b, i) {
-      b.addEventListener("click", function () {
-        var isOpen = b.getAttribute("aria-expanded") === "true";
-        if (isOpen && !desktop.matches) closeAll();
-        else open(b, true);
-      });
-      b.addEventListener("keydown", function (e) {
-        var n = null;
-        if (e.key === "ArrowDown") n = btns[(i + 1) % btns.length];
-        if (e.key === "ArrowUp") n = btns[(i - 1 + btns.length) % btns.length];
-        if (n) { e.preventDefault(); n.focus(); if (desktop.matches) open(n); }
+    tabs.forEach(function (t, i) {
+      t.addEventListener("click", function () { open(t.getAttribute("data-leak")); });
+      t.addEventListener("keydown", function (e) {
+        var step = /Right|Down/.test(e.key) ? 1 : /Left|Up/.test(e.key) ? -1 : 0;
+        if (!step) return;
+        e.preventDefault();
+        open(tabs[(i + step + tabs.length) % tabs.length].getAttribute("data-leak"), true);
       });
     });
-
-    function sync() {
-      var any = btns.some(function (b) { return b.getAttribute("aria-expanded") === "true"; });
-      if (desktop.matches && !any) open(btns[0]);
-    }
-    sync();
-    desktop.addEventListener("change", sync);
+    if (unsure) unsure.addEventListener("click", function () { open("unsure"); });
+    open(tabs[0].getAttribute("data-leak"));
   }
 
-  /* ------------------------------------------------ accordions */
+  /* ------------------------------------------------ FAQ accordions */
   function initAccordions() {
-    $$(".finding__btn, .qa button").forEach(function (b) {
+    $$(".qa button").forEach(function (b) {
       var qa = b.closest(".qa");
       b.addEventListener("click", function () {
         var open = b.getAttribute("aria-expanded") !== "true";
@@ -736,7 +850,7 @@
   var form = $("[data-form]");
   var steps = $$("[data-fstep]");
   var step = 1;
-  var DRAFT = "khaiel-form-v3";
+  var DRAFT = "khaiel-form-v4";
 
   function setStep(n, focus) {
     step = n;
@@ -797,9 +911,10 @@
       }
     }
     if (n === 3) {
-      var email = $("#f-email");
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim())) { setError("Add your email so I can reply.", email); return false; }
-      if (!form.querySelector('input[name="age"]:checked')) { setError("Pick your age. Under 18 is completely fine."); return false; }
+      // an email or a Discord username, either is enough to reply
+      var email = $("#f-email"), discord = $("#f-discord"), e = email.value.trim();
+      if (!e && !discord.value.trim()) { setError("Add an email or your Discord so I can reply.", email); return false; }
+      if (e && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e)) { setError("That email doesn't look right.", email); return false; }
     }
     return true;
   }
@@ -854,11 +969,12 @@
   var LABELS = {
     game_link: "Game", no_game: "No game yet", service: "Needs", notes: "Notes", problem: "Holding it back", budget: "Budget",
     m_dau: "Daily players", m_session_min: "Avg session (min)", m_d1: "D1 %", m_d7: "D7 %", m_payer: "Payer conversion %",
-    email: "Email", name: "Name", discord: "Discord", age: "Age", source: "Source"
+    email: "Email", discord: "Discord", name: "Name", source: "Source"
   };
   function summary(d) {
     return Object.keys(LABELS).filter(function (k) { return d[k]; }).map(function (k) {
-      return LABELS[k] + ": " + (k === "problem" ? PROBLEM[d[k]] || d[k] : d[k]);
+      var v = k === "problem" ? d[k].split(", ").map(function (p) { return PROBLEM[p] || p; }).join(", ") : d[k];
+      return LABELS[k] + ": " + v;
     }).join("\n");
   }
 
@@ -866,7 +982,7 @@
     form.hidden = true;
     var done = $("[data-done]");
     done.hidden = false;
-    $("[data-done-email]").textContent = data.email || "your email";
+    $("[data-done-email]").textContent = data.email || (data.discord ? data.discord + " on Discord" : "you");
     if (fallback) {
       $("[data-done-title]").textContent = "Almost there. One more tap.";
       $("[data-done-text]").hidden = true;
@@ -958,7 +1074,7 @@
       covered = Array.from(seen.values()).some(Boolean);
       update();
     }, { rootMargin: "-25% 0px -25% 0px" });
-    [$("[data-leaks]"), $("[data-svc-grid]"), $(".svc-extra")].forEach(function (el) { if (el) io.observe(el); });
+    [$("[data-funnel]"), $("[data-svc-grid]"), $(".svc-extra")].forEach(function (el) { if (el) io.observe(el); });
     // and from the moment the form comes into view
     new IntersectionObserver(function (en) { atEnd = en[0].isIntersecting || en[0].boundingClientRect.top < 0; update(); }).observe($("#send"));
   }
@@ -966,7 +1082,6 @@
   initReview();
   wireConfig();
   initHeader();
-  initChat();
   initGames();
   initLive();
   initWall();

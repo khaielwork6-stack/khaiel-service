@@ -28,5 +28,9 @@ window.SITE_CONFIG = {
 
   // Optional social links. Leave empty to hide.
   tiktokUrl: "",
-  discordUrl: ""
+  discordUrl: "https://discord.com/users/875776204387520552",
+
+  // Your Discord username (without the @). Shows on the "DM me on Discord" card and
+  // adds a "Copy username" button. Leave empty to show just the button.
+  discordUsername: ""
 };

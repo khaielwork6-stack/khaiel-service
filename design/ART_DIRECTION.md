@@ -20,17 +20,19 @@ The interface borrows from the Roblox app itself:
 | My work | Stats, leaderboard, "Play them yourself" tiles | Roblox thumbnails, icons and stats |
 | Find your leak | Server chat window: players join and leave, and the count drops. Labeled "Simulated" | Drawn in code. Fictional usernames, not tied to any real game |
 | The story | A statement that lights up word by word as you scroll | Type only |
-| Services: Full Game Development | Bricks drop onto a studded baseplate and build a house; the pill flips from "Building" to "Published" | Drawn in code |
-| Services: Growth & the Algorithm | "Your game" climbs a Recommended sort to #1. Labeled "Example" | Drawn in code |
-| Services: Thumbnails, Icons & Trailers | A thumbnail A/B test (dull vs. bright with a classic noob and a "+1"); B wins. Labeled "Example" | Drawn in code (SVG noob) |
-| Services: Monetization | A Roblox-style shop; purchase toasts roll in and today's Robux climbs | Drawn in code |
-| Services: Scripting & Systems | A Luau script types itself out in Studio colours, then "0 errors" | Drawn in code |
-| Services: Growth Partner | A week of update, event and admin-abuse days, with a playhead and the player count spiking. Labeled "Example" | Drawn in code (SVG) |
-| Services: audit and "Message me anyway" | A mini audit report; an inbox of typical requests behind an orbiting green-and-gold border | Drawn in code |
+| Find your leak | Six studded bars, one per moment players leave, with the lost players dripping out | Drawn in code (an illustration of the idea, labelled as such) |
+| Services: Full Game Development | One of the games' real thumbnails drops in as studded Roblox bricks, then "Live on Roblox" with its real visits and studio | Roblox thumbnails and stats |
+| Services: Growth & the Algorithm | The games sort themselves by who's playing right now; #1 climbs from the bottom | Roblox icons, like ratios, live player counts |
+| Services: Thumbnails, Icons & Trailers | Two real thumbnails of the same game side by side; the one Roblox shows first gets "Main thumbnail" | Roblox thumbnails (every game has 2–6) |
+| Services: Monetization | The game's real store: three passes from across its price ladder, Roblox's "Buy item" prompt, a cursor buying each | Roblox game passes, icons and prices |
+| Services: Scripting & Systems | A badge script types itself out in a Roblox Studio window, then a real badge pops with how many players have it | Roblox badges and award counts |
+| Services: Growth Partner | The last 7 days, with each game's icon on the day it was last updated | Roblox "updated" dates |
+| Services: "Message me anyway" | A Discord "Message Requests" window with the kind of requests Roblox devs send | Drawn in code (Discord dark theme) |
+| Contact: "DM me on Discord" | A Discord profile card that tilts toward the pointer, with an aurora banner and an orbiting border; links to the Discord profile | Drawn in code |
 | "Let's plug the leak" | A tilted, scrolling wall of the game thumbnails | Roblox thumbnails |
 | Link preview (`assets/og.jpg`) | The headline beside the four biggest games' thumbnails | Roblox thumbnails, composited locally |
 
-All Roblox assets are loaded from Roblox's CDN (`rbxcdn.com`). The URLs come from `assets/data/roblox.js`, which the stats workflow refreshes every 6 hours. Nothing is copied into the repo except `og.jpg`.
+All Roblox assets are loaded from Roblox's CDN (`rbxcdn.com`). The URLs come from `assets/data/roblox.js`, which the stats workflow refreshes every 6 hours: thumbnails, icons, live stats, game passes (with prices and icons), badges (with award counts) and update dates. Nothing is copied into the repo except `og.jpg`. When a game changes its passes, thumbnails or badges on Roblox, the site follows within 6 hours.
 
 ## Rules
 - **Credit the studio.** These games belong to other studios. Wherever a game appears, its studio is named ("by Grassini"), and the copy says "games I've worked on", never "my games".

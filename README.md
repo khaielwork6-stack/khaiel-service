@@ -20,7 +20,8 @@ The games you've worked on drive most of the visuals: the live showcase in the h
    }
    ```
 2. Commit and push. The **Update Roblox stats** GitHub workflow runs and rewrites `assets/data/roblox.js`. It then reruns every 6 hours. It pulls:
-   - each game's name, icon, visits, players right now, favorites and like ratio;
+   - each game's name, icon, thumbnails, visits, players right now, favorites, like ratio and last-updated date;
+   - each game's for-sale game passes (name, price, icon) and its most-earned badges, which drive the Services illustrations;
    - your avatar headshot.
 
    You can also run it locally: `powershell -File scripts/update-roblox.ps1`.
@@ -34,6 +35,9 @@ While `reviewMode: true` is set in `assets/js/config.js`, a small pill sits in t
 
 ## Connect the form
 Paste a Formspree URL (or any JSON POST endpoint) into `formEndpoint`, and set `contactEmail`. Until then, submitting opens a prefilled email, so no lead is lost.
+
+## Discord
+`discordUrl` in `assets/js/config.js` powers the "DM me on Discord" card next to the form and the Discord buttons. Set `discordUsername` (without the @) to show your handle on the card and add a "Copy username" button.
 
 ## Structure
 ```

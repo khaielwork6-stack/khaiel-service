@@ -33,6 +33,10 @@
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="robux" viewBox="0 0 16 16"><path d="M8 1.3 13.8 4.65v6.7L8 14.7 2.2 11.35v-6.7z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><rect x="5.6" y="5.6" width="4.8" height="4.8" rx=".8" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="discord" viewBox="0 0 24 24"><path fill="currentColor" d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.028C.533 9.046-.32 13.58.099 18.058a.082.082 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .078-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.099.246.198.373.292a.077.077 0 0 1-.007.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.331c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></symbol>
+  </svg>
 
   <header class="header" data-header>
     <div class="wrap header__inner">
@@ -161,10 +165,12 @@
         <div class="svc-grid" data-svc-grid>
 
           <article class="svc rv">
-            <div class="svc__vis vig v-build" aria-hidden="true" data-vis="build">
-              <span class="v-pill"><span class="v-pill__a">Building</span><span class="v-pill__b">Published</span><i></i></span>
-              <div class="v-build__scene" data-build></div>
-              <div class="v-build__plate"></div>
+            <div class="svc__vis vig v-mosaic" aria-hidden="true" data-vis="mosaic">
+              <div class="v-mosaic__frame">
+                <div class="v-mosaic__tiles" data-mosaic></div>
+                <span class="v-pill"><span class="v-pill__a">Building</span><span class="v-pill__b">Live on Roblox</span><i></i></span>
+                <div class="v-cap" data-mosaic-cap><img alt="" width="30" height="30"><span><b></b><small></small></span></div>
+              </div>
             </div>
             <div class="svc__body">
               <p class="svc__tag"><span>01</span>Build</p>
@@ -185,14 +191,8 @@
           <article class="svc rv">
             <div class="svc__vis vig v-rank" aria-hidden="true" data-vis="rank">
               <div class="v-win">
-                <div class="v-win__bar"><span>Recommended for you</span><em>Example</em></div>
-                <ol class="v-rank__list" data-rank>
-                  <li style="--p:0"><b>1</b><i style="--c:#e8833a"></i><span><s></s><s></s></span><small>12.4K</small></li>
-                  <li style="--p:1"><b>2</b><i style="--c:#3b7bff"></i><span><s></s><s></s></span><small>8.1K</small></li>
-                  <li style="--p:2"><b>3</b><i style="--c:#a36fd4"></i><span><s></s><s></s></span><small>6.0K</small></li>
-                  <li style="--p:3"><b>4</b><i style="--c:#d7c59a"></i><span><s></s><s></s></span><small>4.2K</small></li>
-                  <li class="is-you" style="--p:4"><b>5</b><i></i><span><strong>Your game</strong></span><small data-rank-count>1.9K</small></li>
-                </ol>
+                <div class="v-win__bar"><span>Most played right now</span><em class="v-live"><i class="live"></i>Live</em></div>
+                <ol class="v-rank__list" data-rank></ol>
               </div>
             </div>
             <div class="svc__body">
@@ -215,25 +215,16 @@
             <div class="svc__vis vig v-ab" aria-hidden="true" data-vis="ab">
               <div class="v-ab__pair" data-ab>
                 <div class="v-ab__card">
-                  <div class="v-thumb v-thumb--a">
-                    <span class="v-thumb__title">my game</span>
-                    <svg class="v-noob" viewBox="0 0 24 36"><use href="#noob"/></svg>
-                  </div>
-                  <div class="v-ab__meta"><span>A</span><b data-ab-num="3.1">0.0%</b></div>
-                  <i class="v-ab__bar"><i></i></i>
+                  <div class="v-thumb"><img alt="" width="768" height="432"></div>
+                  <div class="v-ab__meta"><span>A</span><i></i></div>
                 </div>
                 <div class="v-ab__card is-b">
-                  <div class="v-thumb v-thumb--b">
-                    <span class="v-thumb__plus">+1</span>
-                    <svg class="v-noob" viewBox="0 0 24 36"><use href="#noob"/></svg>
-                    <span class="v-thumb__play"><svg viewBox="0 0 10 10"><path d="M2.5 1.5v7l6-3.5z"/></svg>0:15</span>
-                  </div>
-                  <div class="v-ab__meta"><span>B</span><b data-ab-num="7.4">0.0%</b></div>
-                  <i class="v-ab__bar"><i></i></i>
-                  <span class="v-ab__win">Winner</span>
+                  <div class="v-thumb"><img alt="" width="768" height="432"></div>
+                  <div class="v-ab__meta"><span>B</span><i></i></div>
+                  <span class="v-ab__win">Main thumbnail</span>
                 </div>
               </div>
-              <span class="v-ab__label">Click-through rate · Example</span>
+              <p class="v-ab__label" data-ab-cap><img alt="" width="18" height="18"><span></span></p>
             </div>
             <div class="svc__body">
               <p class="svc__tag"><span>03</span>Creative</p>
@@ -253,25 +244,16 @@
 
           <article class="svc rv">
             <div class="svc__vis vig v-shop" aria-hidden="true" data-vis="shop">
-              <div class="v-win">
-                <div class="v-win__bar"><span>Shop</span><em class="v-shop__rev">Today <b data-shop-rev>R$ 12,480</b></em></div>
-                <div class="v-shop__items">
-                  <div class="v-item" data-item="2x Cash" data-price="199">
-                    <svg viewBox="0 0 32 32"><rect x="3" y="11" width="24" height="14" rx="2.5" fill="#2f8a45"/><rect x="5" y="7" width="24" height="14" rx="2.5" fill="#4fc46b"/><circle cx="17" cy="14" r="3.6" fill="#2f8a45"/></svg>
-                    <b>2x Cash</b><span>R$ 199</span>
-                  </div>
-                  <div class="v-item is-best" data-item="Starter Pack" data-price="99">
-                    <em>Best value</em>
-                    <svg viewBox="0 0 32 32"><rect x="5" y="14" width="22" height="13" rx="2" fill="#8d55c7"/><rect x="3" y="10" width="26" height="6" rx="2" fill="#b483ea"/><rect x="14" y="10" width="4" height="17" fill="#ffc83d"/><path d="M16 10c-2.4-5-8.5-4.6-7-.8.9 1.6 4.6 1 7 .8zm0 0c2.4-5 8.5-4.6 7-.8-.9 1.6-4.6 1-7 .8z" fill="#ffc83d"/></svg>
-                    <b>Starter Pack</b><span>R$ 99</span>
-                  </div>
-                  <div class="v-item" data-item="VIP" data-price="349">
-                    <svg viewBox="0 0 32 32"><path d="M4 22.5 5.5 9.5l6 5.5 4.5-8 4.5 8 6-5.5 1.5 13z" fill="#ffc83d"/><rect x="4" y="22.5" width="24" height="4.5" rx="1.2" fill="#e0a92a"/></svg>
-                    <b>VIP</b><span>R$ 349</span>
-                  </div>
+              <div class="v-win v-store">
+                <div class="v-win__bar"><span class="v-store__title"><img alt="" width="18" height="18" data-store-icon><span data-store-name></span></span><em data-store-count></em></div>
+                <div class="v-store__grid" data-store></div>
+                <div class="v-prompt" data-prompt>
+                  <p class="v-prompt__head">Buy item</p>
+                  <div class="v-prompt__item"><img alt="" width="44" height="44"><span><b></b><span class="v-rbx"><svg viewBox="0 0 16 16"><use href="#robux"/></svg><span></span></span></span></div>
+                  <span class="v-prompt__btn"><span class="v-prompt__a">Buy</span><span class="v-prompt__b">Purchased</span></span>
                 </div>
               </div>
-              <div class="v-toast" data-shop-toast><span class="v-toast__ok"><svg viewBox="0 0 16 16"><path d="M3.5 8.5 6.5 11.5 12.5 4.5"/></svg></span><span class="v-toast__txt"><b></b> bought <span></span></span><strong></strong></div>
+              <svg class="v-cursor" viewBox="0 0 24 24" data-cursor><path d="M5.5 3.2 19 11.6l-6.3 1.4-3.2 5.8z"/></svg>
             </div>
             <div class="svc__body">
               <p class="svc__tag"><span>04</span>Earn</p>
@@ -291,11 +273,11 @@
 
           <article class="svc rv">
             <div class="svc__vis vig v-code" aria-hidden="true" data-vis="code">
-              <div class="v-win">
-                <div class="v-win__bar"><span>PlayerData.lua</span><em>Script</em></div>
-                <pre class="v-code__src" data-code><span class="ln"><span class="k">local</span> Players = game:GetService(<span class="s">"Players"</span>)</span><span class="ln"><span class="k">local</span> Data = require(script.SafeData)</span><span class="ln"> </span><span class="ln">Players.PlayerAdded:Connect(<span class="k">function</span>(p)</span><span class="ln">  <span class="k">local</span> save = Data:Load(p)</span><span class="ln">  p:SetAttribute(<span class="s">"Cash"</span>, save.Cash)</span><span class="ln"><span class="k">end</span>)</span></pre>
-                <div class="v-code__out"><i></i>Loaded player data in 0.08s · 0 errors</div>
+              <div class="v-studio">
+                <div class="v-studio__tabs"><span class="is-on"><i></i>BadgeHandler</span><span><i></i>PlayerData</span></div>
+                <pre class="v-code__src" data-code><span class="ln"><span class="k">local</span> Badges = <span class="g">game</span>:<span class="f">GetService</span>(<span class="s">"BadgeService"</span>)</span><span class="ln"><span class="k">local</span> Players = <span class="g">game</span>:<span class="f">GetService</span>(<span class="s">"Players"</span>)</span><span class="ln"> </span><span class="ln">Players.PlayerAdded:<span class="f">Connect</span>(<span class="k">function</span>(player)</span><span class="ln">  <span class="k">local</span> data = PlayerData.<span class="f">load</span>(player)</span><span class="ln">  <span class="k">if</span> data.firstJoin <span class="k">then</span></span><span class="ln">    Badges:<span class="f">AwardBadge</span>(player.UserId, BADGE)</span><span class="ln">  <span class="k">end</span></span><span class="ln"><span class="k">end</span>)</span></pre>
               </div>
+              <div class="v-badge" data-badge><img alt="" width="44" height="44"><span><small>Badge awarded</small><b></b><em></em></span></div>
             </div>
             <div class="svc__body">
               <p class="svc__tag"><span>05</span>Code</p>
@@ -314,18 +296,11 @@
           </article>
 
           <article class="svc svc--star rv">
-            <div class="svc__vis vig v-week" aria-hidden="true" data-vis="week">
+            <div class="svc__vis vig v-upd" aria-hidden="true" data-vis="updates">
               <div class="v-win">
-                <div class="v-win__bar"><span>This week</span><em>Example</em></div>
-                <div class="v-week__days">
-                  <span style="--d:0">Mon</span><span style="--d:1">Tue</span><span style="--d:2">Wed</span><span style="--d:3">Thu</span><span style="--d:4">Fri</span><span style="--d:5">Sat</span><span style="--d:6">Sun</span>
-                  <em class="is-up" style="--d:0;grid-column:1 / span 2">Update</em><em class="is-ev" style="--d:3;grid-column:4 / span 2">Event</em><em class="is-ad" style="--d:5;grid-column:6 / span 2">Admin abuse</em>
-                </div>
-                <div class="v-week__chart">
-                  <svg viewBox="0 0 280 64" preserveAspectRatio="none"><path class="v-week__area" d="M0 56 L20 30 L40 46 L60 48 L100 44 L120 42 L140 18 L160 34 L180 36 L200 32 L220 6 L240 22 L260 24 L280 20 L280 64 L0 64 Z"/><path class="v-week__line" d="M0 56 L20 30 L40 46 L60 48 L100 44 L120 42 L140 18 L160 34 L180 36 L200 32 L220 6 L240 22 L260 24 L280 20"/></svg>
-                  <i class="v-week__head"></i>
-                </div>
-                <p class="v-week__label"><i class="live"></i>Players online</p>
+                <div class="v-win__bar"><span>Updated in the last 7 days</span><em class="v-live" data-upd-count></em></div>
+                <div class="v-upd__days" data-upd></div>
+                <p class="v-upd__foot" data-upd-foot><img alt="" width="18" height="18"><span></span></p>
               </div>
             </div>
             <div class="svc__body">
@@ -389,12 +364,12 @@
                 <div class="dm-card__actions">
                   <a class="btn btn--primary" href="#send" data-pick-service="Something else">Tell me what you need
                     <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
+                  <a class="btn btn--discord" href="#" data-discord hidden><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#discord"/></svg>DM me on Discord</a>
                   <a class="btn btn--ghost" href="#" data-tiktok hidden>DM me on TikTok</a>
-                  <a class="btn btn--ghost" href="#" data-discord hidden>Discord</a>
                 </div>
               </div>
-              <div class="dm-card__inbox" aria-hidden="true">
-                <p class="dm-card__inbox-head"><span>Message requests</span><i class="live"></i></p>
+              <div class="dm-card__inbox dcw" aria-hidden="true">
+                <div class="dcw__head"><svg viewBox="0 0 24 24"><use href="#discord"/></svg><span>Message Requests</span><b data-asks-count>0</b></div>
                 <ol class="dm-card__asks" data-asks></ol>
               </div>
             </div>
@@ -403,200 +378,117 @@
 
         <p class="pricing__note rv">Rather learn it yourself? <a href="#send" data-pick-service="Coaching">1:1 AI workflow coaching</a>, <span data-proposed>$199</span> per session.</p>
       </div>
-
-      <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-        <symbol id="noob" viewBox="0 0 24 36"><rect x="7" y="0" width="10" height="10" rx="2" fill="#f5cd30"/><rect x="6" y="11" width="12" height="12" rx="1" fill="#0d69ac"/><rect x="1.2" y="11" width="4.3" height="12" rx="1" fill="#f5cd30"/><rect x="18.5" y="11" width="4.3" height="12" rx="1" fill="#f5cd30"/><rect x="6" y="23.6" width="5.8" height="12" rx="1" fill="#4b974b"/><rect x="12.2" y="23.6" width="5.8" height="12" rx="1" fill="#4b974b"/><circle cx="10" cy="4.4" r=".95" fill="#1d1d1d"/><circle cx="14" cy="4.4" r=".95" fill="#1d1d1d"/><path d="M9.4 6.8c1.5 1.3 3.7 1.3 5.2 0" stroke="#1d1d1d" stroke-width=".85" fill="none" stroke-linecap="round"/></symbol>
-      </svg>
     </section>
 
     <!-- ============================== FIND YOUR LEAK ============================== -->
     <section class="section leak-section" id="leak" aria-labelledby="leak-title">
       <div class="wrap">
-        <header class="leak-head rv">
-          <div class="leak-head__copy">
-            <p class="eyebrow">Find your leak</p>
-            <h2 id="leak-title">Where is your game losing players?</h2>
-            <p class="sub">Every Roblox game loses players at the same six moments. Tap the one that sounds like yours.</p>
-          </div>
-          <div class="chatcard" aria-hidden="true">
-            <div class="chatcard__bar">
-              <span class="chatcard__title"><svg viewBox="0 0 20 20"><path d="M4 5.5h12v7H9l-3.5 3v-3H4z"/></svg>Your server</span>
-              <span class="chatcard__count"><svg viewBox="0 0 16 16"><circle cx="8" cy="5" r="3"/><path d="M2.5 14c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5z"/></svg><b data-chat-count>1,284</b></span>
-            </div>
-            <ol class="chat__log" data-chat-log></ol>
-            <p class="chatcard__note">Simulated. Every "left the game" is a leak.</p>
-          </div>
+        <header class="head head--center rv">
+          <p class="eyebrow">Find your leak</p>
+          <h2 id="leak-title">Where's your game leaking?</h2>
+          <p class="sub">Tap the moment that sounds like yours.</p>
         </header>
 
-        <div class="leaks rv" data-leaks>
-          <div class="leak">
-            <button class="leak__btn" type="button" id="lb-click" aria-expanded="false" aria-controls="lp-click" data-leak="click">
-              <span class="leak__n">1</span>
-              <span class="leak__label"><b>Nobody clicks it</b><small>Getting discovered</small></span>
-              <span class="leak__bar" style="--w:100%;--k:78%" aria-hidden="true"><i></i></span>
-            </button>
-            <div class="leak__panel" id="lp-click" role="region" aria-labelledby="lb-click" hidden>
-              <p class="leak__metric">In Creator Hub, check <b>Play through rate</b></p>
-              <h3>People see your game, but they don't click.</h3>
-              <p class="leak__why">Usually the icon or thumbnail loses the click, or the game is barely being shown at all.</p>
-              <p class="leak__sub">What I'd do</p>
-              <ul class="checks">
-                <li>Redesign your icon and thumbnails against the games you compete with</li>
-                <li>Rewrite your title and description around one clear promise</li>
-                <li>Plan a thumbnail test and a launch push for your next update</li>
-              </ul>
-              <div class="leak__foot">
-                <a class="btn btn--primary" href="#send" data-pick-problem="click" data-pick-service="Thumbnails &amp; trailers">Fix this
-                  <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
-                <span>Covered by <a href="#services">Thumbnails, Icons &amp; Trailers</a></span>
-              </div>
+        <div class="funnel rv" data-funnel>
+          <div class="funnel__chart">
+            <div class="funnel__bars" role="tablist" aria-label="Where players leave">
+              <button class="fbar" type="button" role="tab" id="fb-click" aria-controls="fp-click" aria-selected="true" data-leak="click" style="--h:100%;--prev:100%">
+                <span class="fbar__col"><span class="fbar__lost"><i></i><i></i></span><span class="fbar__kept"></span></span><span class="fbar__label">Clicks</span>
+              </button>
+              <button class="fbar" type="button" role="tab" id="fb-hook" aria-controls="fp-hook" aria-selected="false" tabindex="-1" data-leak="hook" style="--h:78%;--prev:100%">
+                <span class="fbar__col"><span class="fbar__lost"><i></i><i></i></span><span class="fbar__kept"></span></span><span class="fbar__label">1st minute</span>
+              </button>
+              <button class="fbar" type="button" role="tab" id="fb-loop" aria-controls="fp-loop" aria-selected="false" tabindex="-1" data-leak="loop" style="--h:60%;--prev:78%">
+                <span class="fbar__col"><span class="fbar__lost"><i></i><i></i></span><span class="fbar__kept"></span></span><span class="fbar__label">Fun</span>
+              </button>
+              <button class="fbar" type="button" role="tab" id="fb-d1" aria-controls="fp-d1" aria-selected="false" tabindex="-1" data-leak="d1" style="--h:42%;--prev:60%">
+                <span class="fbar__col"><span class="fbar__lost"><i></i><i></i></span><span class="fbar__kept"></span></span><span class="fbar__label">Day 1</span>
+              </button>
+              <button class="fbar" type="button" role="tab" id="fb-d7" aria-controls="fp-d7" aria-selected="false" tabindex="-1" data-leak="d7" style="--h:28%;--prev:42%">
+                <span class="fbar__col"><span class="fbar__lost"><i></i><i></i></span><span class="fbar__kept"></span></span><span class="fbar__label">Day 7</span>
+              </button>
+              <button class="fbar" type="button" role="tab" id="fb-spend" aria-controls="fp-spend" aria-selected="false" tabindex="-1" data-leak="spend" style="--h:16%;--prev:28%">
+                <span class="fbar__col"><span class="fbar__lost"><i></i><i></i></span><span class="fbar__kept"></span></span><span class="fbar__label">Buying</span>
+              </button>
+            </div>
+            <div class="funnel__foot">
+              <span>Players still with you, at each moment</span>
+              <button class="funnel__unsure" type="button" data-leak-unsure aria-controls="fp-unsure">Not sure? <b>Get the free audit</b></button>
             </div>
           </div>
 
-          <div class="leak">
-            <button class="leak__btn" type="button" id="lb-hook" aria-expanded="false" aria-controls="lp-hook" data-leak="hook">
-              <span class="leak__n">2</span>
-              <span class="leak__label"><b>Players quit in the first minute</b><small>First session</small></span>
-              <span class="leak__bar" style="--w:78%;--k:77%" aria-hidden="true"><i></i></span>
-            </button>
-            <div class="leak__panel" id="lp-hook" role="region" aria-labelledby="lb-hook" hidden>
-              <p class="leak__metric">In Creator Hub, check <b>First play bounce rate</b></p>
-              <h3>New players leave before the fun starts.</h3>
-              <p class="leak__why">Usually a long walk, a wall of text or a menu stands between spawning and the first reward.</p>
-              <p class="leak__sub">What I'd do</p>
-              <ul class="checks">
-                <li>Play it as a brand-new player on phone and PC, and record it</li>
-                <li>Redesign the first five minutes so the first reward lands in seconds</li>
-                <li>Track every onboarding step, so you can see exactly where players quit</li>
-              </ul>
-              <div class="leak__foot">
-                <a class="btn btn--primary" href="#send" data-pick-problem="hook" data-pick-service="Growth &amp; algorithm">Fix this
-                  <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
-                <span>Covered by <a href="#services">Growth &amp; the Algorithm</a>, from <span data-proposed>$2,500</span></span>
+          <div class="funnel__panels">
+            <article class="lc" id="fp-click" role="tabpanel" aria-labelledby="fb-click" data-panel="click">
+              <p class="lc__stage"><span>1</span>Getting discovered</p>
+              <h3>People see it, but don't click.</h3>
+              <p class="lc__check">Check <b>Play through rate</b> in Creator Hub</p>
+              <ul class="lc__fixes"><li>Icon &amp; thumbnail redesign</li><li>One-promise title</li><li>Thumbnail A/B test</li></ul>
+              <div class="lc__foot">
+                <a class="btn btn--primary" href="#send" data-pick-problem="click" data-pick-service="Thumbnails &amp; trailers">Fix this<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
+                <span>Thumbnails, Icons &amp; Trailers</span>
               </div>
-            </div>
-          </div>
-
-          <div class="leak">
-            <button class="leak__btn" type="button" id="lb-loop" aria-expanded="false" aria-controls="lp-loop" data-leak="loop">
-              <span class="leak__n">3</span>
-              <span class="leak__label"><b>They get bored fast</b><small>Engagement</small></span>
-              <span class="leak__bar" style="--w:60%;--k:70%" aria-hidden="true"><i></i></span>
-            </button>
-            <div class="leak__panel" id="lp-loop" role="region" aria-labelledby="lb-loop" hidden>
-              <p class="leak__metric">In Creator Hub, check <b>Average session time</b></p>
-              <h3>Players run out of reasons to keep playing.</h3>
-              <p class="leak__why">Usually the next goal is too far away, or there's nothing new to chase after the first few upgrades.</p>
-              <p class="leak__sub">What I'd do</p>
-              <ul class="checks">
-                <li>Map your core loop and how fast players progress through it</li>
-                <li>Rebalance rewards so a next goal is always within reach</li>
-                <li>Add reasons to play longer, especially with friends</li>
-              </ul>
-              <div class="leak__foot">
-                <a class="btn btn--primary" href="#send" data-pick-problem="loop" data-pick-service="Growth &amp; algorithm">Fix this
-                  <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
-                <span>Covered by <a href="#services">Growth &amp; the Algorithm</a>, from <span data-proposed>$2,500</span></span>
+            </article>
+            <article class="lc" id="fp-hook" role="tabpanel" aria-labelledby="fb-hook" data-panel="hook" hidden>
+              <p class="lc__stage"><span>2</span>First session</p>
+              <h3>New players quit in the first minute.</h3>
+              <p class="lc__check">Check <b>First play bounce rate</b> in Creator Hub</p>
+              <ul class="lc__fixes"><li>First reward in seconds</li><li>No walks, no text walls</li><li>Every onboarding step tracked</li></ul>
+              <div class="lc__foot">
+                <a class="btn btn--primary" href="#send" data-pick-problem="hook" data-pick-service="Growth &amp; algorithm">Fix this<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
+                <span>Growth &amp; the Algorithm</span>
               </div>
-            </div>
-          </div>
-
-          <div class="leak">
-            <button class="leak__btn" type="button" id="lb-d1" aria-expanded="false" aria-controls="lp-d1" data-leak="d1">
-              <span class="leak__n">4</span>
-              <span class="leak__label"><b>They don't come back tomorrow</b><small>Day 1 retention</small></span>
-              <span class="leak__bar" style="--w:42%;--k:67%" aria-hidden="true"><i></i></span>
-            </button>
-            <div class="leak__panel" id="lp-d1" role="region" aria-labelledby="lb-d1" hidden>
-              <p class="leak__metric">In Creator Hub, check <b>D1 retention</b></p>
-              <h3>Players try it once and never return.</h3>
-              <p class="leak__why">Usually they leave with nothing unfinished and nothing waiting for them tomorrow.</p>
-              <p class="leak__sub">What I'd do</p>
-              <ul class="checks">
-                <li>Design a reason to come back that fits your game, not just a daily reward</li>
-                <li>Rework how the first session ends</li>
-                <li>Compare Day 1 retention before and after the change</li>
-              </ul>
-              <div class="leak__foot">
-                <a class="btn btn--primary" href="#send" data-pick-problem="d1" data-pick-service="Growth &amp; algorithm">Fix this
-                  <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
-                <span>Covered by <a href="#services">Growth &amp; the Algorithm</a>, from <span data-proposed>$2,500</span></span>
+            </article>
+            <article class="lc" id="fp-loop" role="tabpanel" aria-labelledby="fb-loop" data-panel="loop" hidden>
+              <p class="lc__stage"><span>3</span>Engagement</p>
+              <h3>They run out of reasons to stay.</h3>
+              <p class="lc__check">Check <b>Average session time</b> in Creator Hub</p>
+              <ul class="lc__fixes"><li>Always a next goal</li><li>Rebalanced rewards</li><li>Play-with-friends hooks</li></ul>
+              <div class="lc__foot">
+                <a class="btn btn--primary" href="#send" data-pick-problem="loop" data-pick-service="Growth &amp; algorithm">Fix this<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
+                <span>Growth &amp; the Algorithm</span>
               </div>
-            </div>
-          </div>
-
-          <div class="leak">
-            <button class="leak__btn" type="button" id="lb-d7" aria-expanded="false" aria-controls="lp-d7" data-leak="d7">
-              <span class="leak__n">5</span>
-              <span class="leak__label"><b>They're gone within a week</b><small>Day 7 retention</small></span>
-              <span class="leak__bar" style="--w:28%;--k:57%" aria-hidden="true"><i></i></span>
-            </button>
-            <div class="leak__panel" id="lp-d7" role="region" aria-labelledby="lb-d7" hidden>
-              <p class="leak__metric">In Creator Hub, check <b>D7 retention</b></p>
-              <h3>Players drift away after a few days.</h3>
-              <p class="leak__why">Usually the game runs out of depth after day three, or nothing changes from week to week.</p>
-              <p class="leak__sub">What I'd do</p>
-              <ul class="checks">
-                <li>Plan long-term goals like collections, mastery and rebirths</li>
-                <li>Build an 8-week calendar of updates and events</li>
-                <li>Ship the first new system or event</li>
-              </ul>
-              <div class="leak__foot">
-                <a class="btn btn--primary" href="#send" data-pick-problem="d7" data-pick-service="Growth partner">Fix this
-                  <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
-                <span>Covered by <a href="#services">Growth Partner</a>, from <span data-proposed>$4,000</span>/mo</span>
+            </article>
+            <article class="lc" id="fp-d1" role="tabpanel" aria-labelledby="fb-d1" data-panel="d1" hidden>
+              <p class="lc__stage"><span>4</span>Day 1 retention</p>
+              <h3>They play once and never come back.</h3>
+              <p class="lc__check">Check <b>D1 retention</b> in Creator Hub</p>
+              <ul class="lc__fixes"><li>Something waiting tomorrow</li><li>A better first-session ending</li><li>Streaks that fit your game</li></ul>
+              <div class="lc__foot">
+                <a class="btn btn--primary" href="#send" data-pick-problem="d1" data-pick-service="Growth &amp; algorithm">Fix this<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
+                <span>Growth &amp; the Algorithm</span>
               </div>
-            </div>
-          </div>
-
-          <div class="leak">
-            <button class="leak__btn" type="button" id="lb-spend" aria-expanded="false" aria-controls="lp-spend" data-leak="spend">
-              <span class="leak__n">6</span>
-              <span class="leak__label"><b>They play, but nobody buys</b><small>Monetization</small></span>
-              <span class="leak__bar" style="--w:16%;--k:38%" aria-hidden="true"><i></i></span>
-            </button>
-            <div class="leak__panel" id="lp-spend" role="region" aria-labelledby="lb-spend" hidden>
-              <p class="leak__metric">In Creator Hub, check <b>Payer conversion rate</b></p>
-              <h3>Players love it, but nobody buys anything.</h3>
-              <p class="leak__why">Usually the wrong things are for sale, offered at the wrong moment, at a guessed price.</p>
-              <p class="leak__sub">What I'd do</p>
-              <ul class="checks">
-                <li>Map every offer and when players see it</li>
-                <li>Build a fair price ladder for passes and products</li>
-                <li>Redesign the shop so buying feels easy and worth it</li>
-              </ul>
-              <div class="leak__foot">
-                <a class="btn btn--primary" href="#send" data-pick-problem="spend" data-pick-service="Monetization">Fix this
-                  <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
-                <span>Covered by <a href="#services">Monetization</a></span>
+            </article>
+            <article class="lc" id="fp-d7" role="tabpanel" aria-labelledby="fb-d7" data-panel="d7" hidden>
+              <p class="lc__stage"><span>5</span>Day 7 retention</p>
+              <h3>They drift away within a week.</h3>
+              <p class="lc__check">Check <b>D7 retention</b> in Creator Hub</p>
+              <ul class="lc__fixes"><li>Collections &amp; rebirths</li><li>Weekly updates</li><li>An events calendar</li></ul>
+              <div class="lc__foot">
+                <a class="btn btn--primary" href="#send" data-pick-problem="d7" data-pick-service="Growth partner">Fix this<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
+                <span>Growth Partner</span>
               </div>
-            </div>
-          </div>
-
-          <div class="leak leak--unsure">
-            <button class="leak__btn" type="button" id="lb-unsure" aria-expanded="false" aria-controls="lp-unsure" data-leak="unsure">
-              <span class="leak__n">?</span>
-              <span class="leak__label"><b>I'm not sure</b><small>That's completely normal</small></span>
-            </button>
-            <div class="leak__panel" id="lp-unsure" role="region" aria-labelledby="lb-unsure" hidden>
-              <p class="leak__metric">Start here</p>
-              <h3>Most people aren't sure. That's what the audit is for.</h3>
-              <p class="leak__why">I check all six moments, rank what's hurting your game most, and tell you exactly what to fix first.</p>
-              <p class="leak__sub">You get</p>
-              <ul class="checks">
-                <li>A recorded playthrough of your game as a brand-new player</li>
-                <li>Your analytics reviewed, if you have them</li>
-                <li>A ranked list of fixes you can act on right away</li>
-              </ul>
-              <div class="leak__foot">
-                <a class="btn btn--primary" href="#send" data-pick-problem="unsure" data-pick-service="Game audit">Start with an audit
-                  <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
-                <span>From <span data-proposed>$149</span>, or <span data-proposed>free</span> with any package</span>
+            </article>
+            <article class="lc" id="fp-spend" role="tabpanel" aria-labelledby="fb-spend" data-panel="spend" hidden>
+              <p class="lc__stage"><span>6</span>Monetization</p>
+              <h3>They play, but nobody buys.</h3>
+              <p class="lc__check">Check <b>Payer conversion rate</b> in Creator Hub</p>
+              <ul class="lc__fixes"><li>A real price ladder</li><li>Starter pack at the right moment</li><li>A shop that sells</li></ul>
+              <div class="lc__foot">
+                <a class="btn btn--primary" href="#send" data-pick-problem="spend" data-pick-service="Monetization">Fix this<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
+                <span>Monetization</span>
               </div>
-            </div>
+            </article>
+            <article class="lc lc--audit" id="fp-unsure" role="region" aria-label="Not sure where it's leaking" data-panel="unsure" hidden>
+              <p class="lc__stage"><span>?</span>Not sure</p>
+              <h3>That's what the free audit is for.</h3>
+              <p class="lc__check">I check all six moments for you</p>
+              <ul class="lc__fixes"><li>Played as a new player</li><li>Your analytics read</li><li>Fixes ranked by impact</li></ul>
+              <div class="lc__foot">
+                <a class="btn btn--primary" href="#send" data-pick-problem="unsure" data-pick-service="Game audit">Start with an audit<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
+                <span><span data-proposed>Free</span> with any package</span>
+              </div>
+            </article>
           </div>
-
-          <p class="leaks__note">Bar lengths show the idea, not real data.</p>
         </div>
       </div>
     </section>
@@ -626,70 +518,6 @@
             <p>Pick the services you need. I do the work inside your game and show you the before-and-after numbers.</p>
           </li>
         </ol>
-
-        <div class="showcase">
-          <div class="showcase__copy rv">
-            <h3>What the audit looks like</h3>
-            <p>Not vague advice. A short list of what's holding your game back, ranked by impact, with exactly what to change and how we'll know it worked.</p>
-            <p class="showcase__fine">A sample report for a made-up game. Tap a fix to open it.</p>
-          </div>
-
-          <article class="report rv" aria-label="Sample audit report for a fictional game">
-            <header class="report__head">
-              <div>
-                <p class="report__type">Game audit · sample</p>
-                <h4 class="report__game">Magma Factory Tycoon</h4>
-              </div>
-              <span class="report__stamp">Fictional example</span>
-            </header>
-            <div class="report__score" aria-label="Scorecard">
-              <span class="sc sc--ok"><b>Clicks</b>OK</span>
-              <span class="sc sc--leak"><b>First min</b>Leak</span>
-              <span class="sc sc--watch"><b>Fun</b>Watch</span>
-              <span class="sc sc--leak"><b>Day 1</b>Leak</span>
-              <span class="sc sc--ok"><b>Day 7</b>OK</span>
-              <span class="sc sc--watch"><b>Sales</b>Watch</span>
-            </div>
-            <ol class="findings">
-              <li class="finding">
-                <button type="button" class="finding__btn" aria-expanded="true">
-                  <span class="finding__p">1</span>
-                  <span class="finding__t">The first money-maker is a 40-second walk from spawn.</span>
-                  <span class="finding__tags"><span class="ft ft--hi">High impact</span><span class="ft">Easy fix</span></span>
-                </button>
-                <div class="finding__body"><div>
-                  <p><b>What I saw.</b> Most new players quit before they ever reach the first dropper.</p>
-                  <p><b>The fix.</b> Spawn players facing their first machine, so the first purchase happens in under 15 seconds.</p>
-                  <p><b>How we'll know.</b> First play bounce rate goes down.</p>
-                </div></div>
-              </li>
-              <li class="finding">
-                <button type="button" class="finding__btn" aria-expanded="false">
-                  <span class="finding__p">2</span>
-                  <span class="finding__t">Nothing is left unfinished when players log off.</span>
-                  <span class="finding__tags"><span class="ft ft--hi">High impact</span><span class="ft">Medium fix</span></span>
-                </button>
-                <div class="finding__body"><div>
-                  <p><b>What I saw.</b> Upgrades finish instantly, so there's no reason to come back tomorrow.</p>
-                  <p><b>The fix.</b> Add one overnight upgrade, and show the next unlock on the way out.</p>
-                  <p><b>How we'll know.</b> D1 retention goes up.</p>
-                </div></div>
-              </li>
-              <li class="finding">
-                <button type="button" class="finding__btn" aria-expanded="false">
-                  <span class="finding__p">3</span>
-                  <span class="finding__t">The shop pops up before anything has a value.</span>
-                  <span class="finding__tags"><span class="ft">Medium impact</span><span class="ft">Easy fix</span></span>
-                </button>
-                <div class="finding__body"><div>
-                  <p><b>What I saw.</b> The offer gets closed almost every time it appears.</p>
-                  <p><b>The fix.</b> Show the first offer right after the first rebirth preview, when 2x cash means something.</p>
-                  <p><b>How we'll know.</b> Payer conversion rate goes up.</p>
-                </div></div>
-              </li>
-            </ol>
-          </article>
-        </div>
       </div>
     </section>
 
@@ -753,6 +581,7 @@
           <p class="sub">Two minutes. I'll reply within <span data-proposed>2 business days</span> with what I'd do first, even if the answer is “you don't need me yet.”</p>
         </header>
 
+        <div class="send__grid">
         <div class="send__card rv">
           <form class="form" id="form" novalidate data-form>
             <ol class="form__steps" aria-hidden="true">
@@ -793,16 +622,16 @@
               <legend class="sr-only">Step 2 of 3: details (optional)</legend>
               <p class="fstep__intro">All optional. It just helps me reply with something useful.</p>
               <div class="field">
-                <span class="label" id="l-problem">What's holding it back?</span>
-                <div class="chips" role="radiogroup" aria-labelledby="l-problem">
-                  <label class="chip"><input type="radio" name="problem" value="click"><span>Nobody clicks it</span></label>
-                  <label class="chip"><input type="radio" name="problem" value="hook"><span>Players quit in the first minute</span></label>
-                  <label class="chip"><input type="radio" name="problem" value="loop"><span>They get bored fast</span></label>
-                  <label class="chip"><input type="radio" name="problem" value="d1"><span>They don't come back</span></label>
-                  <label class="chip"><input type="radio" name="problem" value="d7"><span>They're gone within a week</span></label>
-                  <label class="chip"><input type="radio" name="problem" value="spend"><span>Nobody buys</span></label>
-                  <label class="chip"><input type="radio" name="problem" value="new"><span>It's not out yet</span></label>
-                  <label class="chip"><input type="radio" name="problem" value="unsure"><span>I'm not sure</span></label>
+                <span class="label" id="l-problem">What's holding it back? <span class="opt">Pick any</span></span>
+                <div class="chips" role="group" aria-labelledby="l-problem">
+                  <label class="chip"><input type="checkbox" name="problem" value="click"><span>Nobody clicks it</span></label>
+                  <label class="chip"><input type="checkbox" name="problem" value="hook"><span>Players quit in the first minute</span></label>
+                  <label class="chip"><input type="checkbox" name="problem" value="loop"><span>They get bored fast</span></label>
+                  <label class="chip"><input type="checkbox" name="problem" value="d1"><span>They don't come back</span></label>
+                  <label class="chip"><input type="checkbox" name="problem" value="d7"><span>They're gone within a week</span></label>
+                  <label class="chip"><input type="checkbox" name="problem" value="spend"><span>Nobody buys</span></label>
+                  <label class="chip"><input type="checkbox" name="problem" value="new"><span>It's not out yet</span></label>
+                  <label class="chip"><input type="checkbox" name="problem" value="unsure"><span>I'm not sure</span></label>
                 </div>
               </div>
               <div class="field">
@@ -830,27 +659,20 @@
 
             <fieldset class="fstep" data-fstep="3">
               <legend class="sr-only">Step 3 of 3: where should I reply?</legend>
+              <p class="fstep__intro">Where should I reply? An email or your Discord is enough.</p>
               <div class="field-row">
                 <div class="field">
                   <label for="f-email">Email</label>
-                  <input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
+                  <input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com">
                 </div>
                 <div class="field">
-                  <label for="f-name">Name <span class="opt">Optional</span></label>
-                  <input id="f-name" name="name" type="text" autocomplete="nickname" placeholder="What should I call you?">
+                  <label for="f-discord">Discord</label>
+                  <input id="f-discord" name="discord" type="text" autocomplete="off" placeholder="username">
                 </div>
               </div>
               <div class="field">
-                <label for="f-discord">Discord <span class="opt">Optional</span></label>
-                <input id="f-discord" name="discord" type="text" autocomplete="off" placeholder="username">
-              </div>
-              <div class="field">
-                <span class="label" id="l-age">Your age</span>
-                <div class="chips" role="radiogroup" aria-labelledby="l-age">
-                  <label class="chip"><input type="radio" name="age" value="18+" required><span>18 or older</span></label>
-                  <label class="chip"><input type="radio" name="age" value="Under 18"><span>Under 18</span></label>
-                </div>
-                <p class="field__hint">Under 18 is fine. A parent or guardian just needs to approve any paid work.</p>
+                <label for="f-name">Name <span class="opt">Optional</span></label>
+                <input id="f-name" name="name" type="text" autocomplete="nickname" placeholder="What should I call you?">
               </div>
             </fieldset>
 
@@ -878,11 +700,39 @@
               </div>
             </div>
           </div>
-          <noscript><p class="noscript">This form needs JavaScript. Please enable it, or message me on TikTok.</p></noscript>
+          <noscript><p class="noscript">This form needs JavaScript. Please enable it, or message me on Discord.</p></noscript>
+        </div>
+
+        <div class="send__or" aria-hidden="true"><span>or</span></div>
+
+        <aside class="dc rv" aria-labelledby="dc-title">
+          <p class="dc__kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#discord"/></svg>Skip the form</p>
+          <h3 class="dc__title" id="dc-title">DM me on Discord.</h3>
+          <p class="dc__sub">Faster than any form. Say what you need and I'll reply right there.</p>
+
+          <a class="dc__card" href="https://discord.com/users/875776204387520552" target="_blank" rel="noopener" data-discord-card>
+            <span class="dc__glare" aria-hidden="true"></span>
+            <span class="dc__banner" aria-hidden="true"><i></i><i></i><i></i><svg viewBox="0 0 24 24"><use href="#discord"/></svg></span>
+            <span class="dc__head">
+              <span class="dc__avatar" aria-hidden="true"><img data-headshot hidden alt="" width="80" height="80"><span>K</span><i></i></span>
+              <span class="dc__badge"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#discord"/></svg>Discord</span>
+            </span>
+            <span class="dc__who"><b>Khaiel</b><small data-discord-user hidden></small></span>
+            <span class="dc__meta"><span><i class="dc__dot"></i>DMs open</span><span>Roblox dev · <span data-worked>30+</span> games</span></span>
+            <span class="dc__typing" aria-hidden="true"><span><i></i><i></i><i></i></span>Your message goes straight to me</span>
+            <span class="dc__btn">Message me on Discord<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 15 15 5m-7 0h7v7"/></svg></span>
+          </a>
+          <button class="dc__copy" type="button" data-copy-discord hidden><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="7" y="7" width="9" height="9" rx="2"/><path d="M13 4.5H6A1.5 1.5 0 0 0 4.5 6v7"/></svg><span>Copy username</span></button>
+
+          <ul class="dc__rows" data-contact-rows hidden>
+            <li data-row-email hidden><a href="#" data-email><span>Email</span><b data-email-text></b></a></li>
+            <li data-row-tiktok hidden><a href="#" data-tiktok><span>TikTok</span><b>Watch my breakdowns</b></a></li>
+          </ul>
+        </aside>
         </div>
 
         <ul class="assure assure--center rv">
-          <li>Only your link and email are required</li>
+          <li>Just a link (or an idea) and a way to reply</li>
           <li>No payment to send</li>
           <li>Your game stays yours</li>
         </ul>

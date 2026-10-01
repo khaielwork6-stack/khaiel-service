@@ -40,19 +40,66 @@ $ids = ($entries | ForEach-Object { $_.universeId }) -join ","
 $games = (Get-Json "https://games.roblox.com/v1/games?universeIds=$ids").data
 $votes = (Get-Json "https://games.roblox.com/v1/games/votes?universeIds=$ids").data
 $icons = (Get-Json "https://thumbnails.roblox.com/v1/games/icons?universeIds=$ids&size=256x256&format=Png&isCircular=false&returnPolicy=PlaceHolder").data
-$thumbs = (Get-Json "https://thumbnails.roblox.com/v1/games/multiget/thumbnails?universeIds=$ids&countPerUniverse=1&defaults=true&size=768x432&format=Png&isCircular=false").data
+$thumbs = (Get-Json "https://thumbnails.roblox.com/v1/games/multiget/thumbnails?universeIds=$ids&countPerUniverse=6&defaults=true&size=768x432&format=Png&isCircular=false").data
+
+# The services section shows each game's real store and badges. These are optional extras:
+# if Roblox changes one of these endpoints, the stats above still update.
+function Get-Optional($url) { try { return Get-Json $url } catch { Write-Host "Skipped: $url"; return $null } }
+
+function Get-Passes($universeId) {
+  $r = Get-Optional "https://apis.roblox.com/game-passes/v1/universes/$universeId/game-passes?passView=Full&pageSize=50"
+  if (-not $r -or -not $r.gamePasses) { return @{ count = 0; list = @() } }
+  $forSale = @($r.gamePasses | Where-Object { $_.isForSale -and $_.price -gt 0 } | Sort-Object { [long]$_.price })
+  if (-not $forSale.Count) { return @{ count = 0; list = @() } }
+  # a spread across the price ladder (cheap, mid, premium), one pass per price point
+  $n = $forSale.Count; $k = [math]::Min(6, $n)
+  $seen = @{}
+  $pick = @(for ($i = 0; $i -lt $k; $i++) {
+    $p = $forSale[[int][math]::Round($i * ($n - 1) / [math]::Max(1, $k - 1))]
+    if (-not $seen[[string]$p.price]) { $seen[[string]$p.price] = $true; $p }
+  })
+  $art = @{}
+  if ($pick.Count) {
+    $passIds = ($pick | ForEach-Object { $_.id }) -join ","
+    $t = Get-Optional "https://thumbnails.roblox.com/v1/game-passes?gamePassIds=$passIds&size=150x150&format=Png&isCircular=false"
+    if ($t) { $t.data | Where-Object { $_.state -eq "Completed" } | ForEach-Object { $art[[string]$_.targetId] = $_.imageUrl } }
+  }
+  $list = foreach ($p in $pick) {
+    if (-not $art[[string]$p.id]) { continue }
+    [ordered]@{ name = $p.displayName.Trim(); price = [long]$p.price; icon = $art[[string]$p.id] }
+  }
+  return @{ count = $forSale.Count; list = @($list) }
+}
+
+function Get-Badges($universeId) {
+  $r = Get-Optional "https://badges.roblox.com/v1/universes/$universeId/badges?limit=100&sortOrder=Asc"
+  if (-not $r -or -not $r.data) { return @() }
+  $top = @($r.data | Where-Object { $_.enabled -ne $false } | Sort-Object { [long]$_.statistics.awardedCount } -Descending | Select-Object -First 3)
+  if (-not $top.Count) { return @() }
+  $badgeIds = ($top | ForEach-Object { $_.id }) -join ","
+  $art = @{}
+  $t = Get-Optional "https://thumbnails.roblox.com/v1/badges/icons?badgeIds=$badgeIds&size=150x150&format=Png&isCircular=false"
+  if ($t) { $t.data | Where-Object { $_.state -eq "Completed" } | ForEach-Object { $art[[string]$_.targetId] = $_.imageUrl } }
+  return @(foreach ($b in $top) {
+    if (-not $art[[string]$b.id]) { continue }
+    [ordered]@{ name = $b.name.Trim(); awarded = [long]$b.statistics.awardedCount; pastDay = [long]$b.statistics.pastDayAwardedCount; icon = $art[[string]$b.id] }
+  })
+}
 
 $list = foreach ($e in $entries) {
   $g = $games | Where-Object { $_.id -eq $e.universeId } | Select-Object -First 1
   $v = $votes | Where-Object { $_.id -eq $e.universeId } | Select-Object -First 1
   $i = $icons | Where-Object { $_.targetId -eq $e.universeId } | Select-Object -First 1
   $t = $thumbs | Where-Object { $_.universeId -eq $e.universeId } | Select-Object -First 1
+  $shots = @(if ($t -and $t.thumbnails) { $t.thumbnails | Where-Object { $_.state -eq "Completed" -and $_.imageUrl } | ForEach-Object { $_.imageUrl } })
+  $passes = Get-Passes $e.universeId
   $total = [double]($v.upVotes + $v.downVotes)
   [ordered]@{
     name      = $g.name
     url       = "https://www.roblox.com/games/$($e.placeId)"
     icon      = $i.imageUrl
-    thumb     = $(if ($t -and $t.thumbnails) { $t.thumbnails[0].imageUrl } else { $null })
+    thumb     = $(if ($shots.Count) { $shots[0] } else { $null })
+    thumbs    = $shots
     creator   = $g.creator.name
     role      = $e.role
     visits    = [long]$g.visits
@@ -60,6 +107,10 @@ $list = foreach ($e in $entries) {
     favorites = [long]$g.favoritedCount
     likeRatio = $(if ($total -gt 0) { [math]::Round($v.upVotes / $total * 100) } else { $null })
     peakCCU   = $e.peakCCU
+    updated   = $(if ($g.updated) { ([datetime]$g.updated).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ") } else { $null })
+    passCount = $passes.count
+    passes    = $passes.list
+    badges    = @(Get-Badges $e.universeId)
   }
 }
 $list = @($list | Sort-Object { $_.visits } -Descending)
