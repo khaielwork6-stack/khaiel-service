@@ -217,45 +217,64 @@ p { margin: 0; }
 .assure--center { justify-content: center; margin-top: 28px; }
 .js .hero-in { animation: rise 0.9s var(--ease) both; animation-delay: calc(var(--i) * 90ms + 80ms); }
 
-/* the game window */
-.game { position: relative; margin: 0; }
-.game__screen {
+/* live showcase: the real games, straight from Roblox */
+.livecard {
   position: relative;
-  overflow: hidden;
-  border-radius: 18px;
-  background: #0d0e10;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 40px 90px -40px rgba(0, 0, 0, 0.9), 0 0 70px -20px rgba(var(--green-rgb), 0.35);
-  aspect-ratio: 1;
+  padding: 18px;
+  border-radius: 20px;
+  background: var(--card);
+  box-shadow: 0 0 0 1px var(--line-2), 0 40px 90px -40px rgba(0, 0, 0, 0.9), 0 0 90px -30px rgba(var(--green-rgb), 0.35);
 }
-.game__screen img { width: 100%; height: 100%; object-fit: cover; }
-.game__bar { position: absolute; top: 12px; left: 12px; right: 12px; display: flex; align-items: center; gap: 8px; pointer-events: none; }
-.game__btn { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: rgba(0, 0, 0, 0.5); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
-.game__btn svg { width: 18px; height: 18px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.game__players { margin-left: auto; display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 12px; border-radius: 10px; background: rgba(0, 0, 0, 0.55); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); font-size: 0.9rem; font-weight: 800; font-variant-numeric: tabular-nums; }
-.game__players svg { width: 14px; height: 14px; fill: #fff; }
-.game__players.is-drop b { color: var(--red); }
-.chat { position: absolute; top: 56px; left: 12px; width: min(270px, 70%); padding: 6px 10px; border-radius: 10px; background: rgba(0, 0, 0, 0.32); pointer-events: none; }
-.chat__log { display: flex; flex-direction: column; justify-content: flex-end; height: 76px; margin: 0; padding: 0; list-style: none; overflow: hidden; font-size: 0.78rem; font-weight: 600; line-height: 1.3; }
-.chat__log li { padding: 2px 0; color: #e8e9ea; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8); animation: chat-in 0.35s var(--ease) both; }
+.live__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.live__badge { display: inline-flex; align-items: center; gap: 9px; padding: 5px 11px 5px 10px; border-radius: 8px; background: rgba(var(--green-rgb), 0.14); color: var(--green-hi); font-size: 0.74rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.live__updated { font-size: 0.76rem; font-weight: 600; color: var(--text-3); }
+.live__count { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; margin-bottom: 14px; }
+.live__count b { font-size: clamp(2.2rem, 5vw, 3rem); font-weight: 900; letter-spacing: -0.03em; line-height: 1; color: var(--green-hi); font-variant-numeric: tabular-nums; }
+.live__count span { max-width: 16rem; font-size: 0.92rem; font-weight: 700; line-height: 1.3; color: var(--text-2); }
+.live__stage { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 14px; background: #0d0e10; box-shadow: 0 0 0 1px var(--line); }
+.slide { position: absolute; inset: 0; display: block; opacity: 0; visibility: hidden; text-decoration: none; transition: opacity 0.8s var(--ease), visibility 0.8s; }
+.slide.is-on { opacity: 1; visibility: visible; z-index: 1; }
+.slide__img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.07); transition: transform 7s linear; }
+.slide.is-on .slide__img { transform: scale(1); }
+.slide__info { position: absolute; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 48px 14px 12px; background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.88)); }
+.slide__icon { width: 44px; height: 44px; border-radius: 10px; box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.18); }
+.slide__name { min-width: 0; }
+.slide__name b { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 1rem; font-weight: 800; line-height: 1.25; }
+.slide__name small { display: block; font-size: 0.78rem; font-weight: 600; color: rgba(255, 255, 255, 0.72); }
+.slide__stat { display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px; border-radius: 8px; background: rgba(0, 0, 0, 0.6); color: var(--green-hi); font-size: 0.86rem; font-weight: 800; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.slide__stat .live::after { display: none; }
+@media (hover: hover) { .slide:hover .slide__name b { color: var(--green-hi); } }
+@media (max-width: 559px) {
+  .slide__info { grid-template-columns: 40px minmax(0, 1fr); grid-template-areas: "icon name" "icon stat"; gap: 4px 10px; padding: 34px 12px 10px; background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.62) 34%, rgba(0, 0, 0, 0.9)); }
+  .slide__icon { grid-area: icon; width: 40px; height: 40px; }
+  .slide__name { grid-area: name; }
+  .slide__name b { font-size: 0.92rem; }
+  .slide__name small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.72rem; }
+  .slide__stat { grid-area: stat; justify-self: start; padding: 2px 8px; font-size: 0.76rem; }
+}
+.live__strip { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; margin: 12px 0 0; padding: 0; list-style: none; }
+.live__strip button { position: relative; display: block; width: 100%; aspect-ratio: 1; padding: 0; border: 0; overflow: hidden; border-radius: 10px; background: var(--card-2); box-shadow: 0 0 0 1px var(--line); opacity: 0.5; cursor: pointer; transition: opacity 0.25s, transform 0.25s var(--ease), box-shadow 0.25s; -webkit-tap-highlight-color: transparent; }
+.live__strip button img { width: 100%; height: 100%; object-fit: cover; }
+.live__strip button.is-on { opacity: 1; box-shadow: 0 0 0 2px var(--green-hi); }
+.live__strip button::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 3px; background: var(--green-hi); }
+.live__strip button.is-on::after { animation: progress var(--dur, 5s) linear forwards; }
+.livecard.is-paused .live__strip button.is-on::after { animation-play-state: paused; }
+@keyframes progress { to { width: 100%; } }
+@media (hover: hover) { .live__strip button:hover { opacity: 1; transform: translateY(-2px); } }
+@media (min-width: 760px) { .hero__grid > .livecard { width: 640px; max-width: 100%; justify-self: center; } }
+@media (min-width: 1200px) {
+  .hero { min-height: calc(100svh - var(--header-h)); display: flex; align-items: center; }
+  .hero__grid { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: 56px; }
+  .hero__grid > .livecard { width: auto; justify-self: stretch; padding: 22px; }
+}
+
+/* the Roblox chat window (in "Find your leak") */
+.chat__log { display: flex; flex-direction: column; justify-content: flex-end; height: 92px; margin: 0; padding: 8px 12px; list-style: none; overflow: hidden; font-size: 0.82rem; font-weight: 600; line-height: 1.3; }
+.chat__log li { padding: 2px 0; color: #e8e9ea; animation: chat-in 0.35s var(--ease) both; }
 .chat__log li b { font-weight: 800; }
 .chat__log li.is-left em { color: #ff8a7a; font-style: normal; }
 .chat__log li.is-join em { color: #5cf2a8; font-style: normal; }
 @keyframes chat-in { from { opacity: 0; transform: translateY(6px); } }
-.game__cap { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-size: 0.85rem; font-weight: 600; color: var(--text-3); }
-.game__cap .dot { flex: none; }
-@media (min-width: 760px) {
-  .hero__grid > .game { width: 640px; max-width: 100%; justify-self: center; }
-  .chat { width: 280px; }
-  .chat__log { height: 84px; font-size: 0.82rem; }
-}
-@media (min-width: 1200px) {
-  .hero { min-height: calc(100svh - var(--header-h)); display: flex; align-items: center; }
-  .hero__grid { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: 56px; }
-  .hero__grid > .game { width: auto; justify-self: stretch; perspective: 1600px; }
-  .game__screen { aspect-ratio: 16 / 11; transform: rotateY(-7deg) rotateX(2deg); transform-origin: left center; transition: transform 1s var(--ease); }
-  .game:hover .game__screen { transform: none; }
-  .game__screen img { object-position: 72% 50%; }
-}
 
 /* ---------- my games ---------- */
 .games { background: linear-gradient(180deg, var(--bg), var(--bg-2) 30%, var(--bg-2) 70%, var(--bg)); }
@@ -483,8 +502,7 @@ p { margin: 0; }
 /* ---------- pricing (game-tile cards) ---------- */
 .plans { display: grid; gap: 16px; align-items: stretch; }
 .plan { position: relative; display: flex; flex-direction: column; overflow: hidden; border-radius: 18px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line), inset 0 -4px 0 rgba(0, 0, 0, 0.25); transition: transform 0.4s var(--ease), box-shadow 0.3s; }
-.plan__art { position: relative; aspect-ratio: 3 / 2; overflow: hidden; margin: 8px 8px 0; border-radius: 12px; background: #0d0e10; }
-.plan__art img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); }
+.plan__art { position: relative; min-height: 272px; overflow: hidden; margin: 8px 8px 0; border-radius: 12px; background: #0d0e10; }
 .plan__body { position: relative; display: flex; flex-direction: column; flex: 1; gap: 12px; padding: 20px 22px 22px; }
 .plan__tag { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); }
 .plan h3 { font-size: 1.6rem; font-weight: 900; letter-spacing: -0.025em; }
@@ -503,7 +521,6 @@ p { margin: 0; }
 .plan--featured .plan__tag { color: var(--green-hi); }
 @media (hover: hover) {
   .plan:hover { transform: translateY(-4px); }
-  .plan:hover .plan__art img { transform: scale(1.05); }
 }
 .pricing__note { margin-top: 28px; text-align: center; color: var(--text-2); }
 .pricing__note a { color: var(--text); font-weight: 700; text-underline-offset: 4px; text-decoration-color: var(--green); }
@@ -532,15 +549,7 @@ p { margin: 0; }
 
 /* ---------- send ---------- */
 .send { position: relative; padding: clamp(32px, 5vw, 64px) 0 clamp(80px, 10vw, 130px); overflow: hidden; isolation: isolate; }
-.send__art { position: relative; z-index: -1; height: clamp(240px, 36vw, 540px); }
-.send__art img {
-  width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 60%, transparent 100%), linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 60%, transparent 100%), linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
-  mask-composite: intersect;
-}
-.send__head { position: relative; max-width: 680px; margin: clamp(-80px, -6vw, -36px) auto 32px; text-align: center; }
+.send__head { position: relative; max-width: 680px; margin: clamp(-48px, -3vw, -16px) auto 32px; text-align: center; }
 .send__head h2 { font-size: clamp(2.3rem, 6vw, 4rem); letter-spacing: -0.035em; text-shadow: 0 4px 30px rgba(0, 0, 0, 0.7); }
 .send__card { position: relative; max-width: 680px; margin: 0 auto; padding: 26px 20px 22px; border-radius: 20px; background: rgba(30, 32, 35, 0.94); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: 0 0 0 1px var(--line-2), 0 60px 120px -50px rgba(0, 0, 0, 0.9); }
 @media (min-width: 760px) { .send__card { padding: 34px 38px 30px; } }
@@ -610,6 +619,93 @@ input.is-invalid { box-shadow: inset 0 0 0 2px var(--red); }
 .done__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 16px; }
 .noscript { color: var(--text-2); }
 
+/* ---------- find your leak: header with the Roblox chat window ---------- */
+.leak-head { display: grid; gap: 26px; align-items: end; margin-bottom: clamp(36px, 5vw, 56px); }
+.leak-head__copy { max-width: 640px; }
+.chatcard { width: 100%; max-width: 400px; overflow: hidden; border-radius: 14px; background: #141518; box-shadow: inset 0 0 0 1px var(--line-2), 0 30px 60px -30px rgba(0, 0, 0, 0.8); }
+.chatcard__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 12px; border-bottom: 1px solid var(--line); background: rgba(255, 255, 255, 0.04); font-size: 0.82rem; font-weight: 800; }
+.chatcard__title { display: inline-flex; align-items: center; gap: 7px; }
+.chatcard__title svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
+.chatcard__count { display: inline-flex; align-items: center; gap: 6px; padding: 3px 9px; border-radius: 7px; background: rgba(255, 255, 255, 0.06); font-variant-numeric: tabular-nums; transition: color 0.2s; }
+.chatcard__count svg { width: 13px; height: 13px; fill: currentColor; }
+.chatcard__count.is-drop { color: var(--red); }
+.chatcard__note { padding: 0 12px 10px; font-size: 0.74rem; font-weight: 600; color: var(--text-3); }
+@media (min-width: 1000px) { .leak-head { grid-template-columns: minmax(0, 1fr) 380px; gap: 48px; } }
+
+/* ---------- plan vignettes: what you actually get, on a Roblox baseplate ---------- */
+.vig {
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background-color: #1b1d20;
+  background-image:
+    radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.10) 0 3.4px, rgba(0, 0, 0, 0.25) 3.6px 4.4px, transparent 4.6px),
+    radial-gradient(ellipse 70% 60% at 50% 40%, rgba(var(--green-rgb), 0.10), transparent 70%);
+  background-size: 22px 22px, 100% 100%;
+}
+.mini-report { width: min(100%, 300px); padding: 14px 14px 6px; border-radius: 12px; background: #f6f6f3; color: #121418; box-shadow: 0 24px 40px -14px rgba(0, 0, 0, 0.75); transform: rotate(-2.5deg); transition: transform 0.6s var(--ease); }
+.mini-report__type { display: block; margin-bottom: 8px; font-size: 0.6rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #6a7078; }
+.mini-report__score { display: flex; gap: 4px; margin-bottom: 8px; }
+.mini-report__score i { flex: 1; padding: 5px 2px; border-radius: 6px; font-style: normal; font-size: 0.6rem; font-weight: 800; text-align: center; white-space: nowrap; }
+.mini-report__score .is-ok { background: #d9f2e6; color: #00744a; }
+.mini-report__score .is-leak { background: #ffdcd6; color: #b52a1c; }
+.mini-report__score .is-watch { background: #e5e4dd; color: #5a6068; }
+.mini-report__row { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; align-items: center; gap: 8px; padding: 7px 0; border-top: 1px solid rgba(18, 20, 24, 0.1); font-size: 0.7rem; font-weight: 700; line-height: 1.25; }
+.mini-report__row b { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 5px; background: var(--green); color: #fff; font-size: 0.6rem; }
+.mini-report__row em { padding: 2px 6px; border-radius: 5px; background: #ffdcd6; color: #b52a1c; font-style: normal; font-size: 0.56rem; font-weight: 800; white-space: nowrap; }
+.mini-report__row em.is-mid { background: rgba(18, 20, 24, 0.07); color: #4f555c; }
+.mini-chart, .mini-graph { position: relative; width: min(100%, 320px); padding: 16px 16px 14px; border-radius: 14px; background: rgba(20, 21, 24, 0.94); box-shadow: 0 0 0 1px var(--line-2), 0 24px 40px -14px rgba(0, 0, 0, 0.75); transition: transform 0.6s var(--ease); }
+.mini-chart__title { display: block; margin-bottom: 14px; padding-right: 56px; font-size: 0.78rem; font-weight: 800; color: var(--text-2); }
+.mini-bar { display: grid; grid-template-columns: 84px minmax(0, 1fr); align-items: center; gap: 10px; margin-bottom: 10px; font-size: 0.72rem; font-weight: 700; color: var(--text-3); }
+.mini-bar i { position: relative; height: 14px; overflow: hidden; border-radius: 4px; background: rgba(255, 255, 255, 0.06); }
+.mini-bar i::after { content: ""; position: absolute; inset: 0 auto 0 0; width: var(--v); border-radius: 4px; background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform 1.2s var(--ease) 0.25s; }
+.mini-bar i.is-good::after { background: var(--green-hi); transition-delay: 0.6s; }
+.rv.is-in .mini-bar i::after { transform: scaleX(1); }
+.mini-chart__badge { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; padding: 5px 9px; border-radius: 7px; background: rgba(var(--green-rgb), 0.16); color: var(--green-hi); font-size: 0.72rem; font-weight: 800; }
+.mini-chart__badge svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.mini-chart__tag { position: absolute; top: 14px; right: 14px; font-size: 0.56rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); }
+.mini-graph__head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; padding-right: 56px; font-size: 0.78rem; font-weight: 800; color: var(--text-2); }
+.mini-graph__head b { display: inline-flex; align-items: center; gap: 7px; color: var(--green-hi); }
+.mini-graph svg { display: block; width: 100%; height: auto; overflow: visible; clip-path: inset(-6px 100% -6px -6px); transition: clip-path 1.6s var(--ease) 0.25s; }
+.rv.is-in .mini-graph svg { clip-path: inset(-6px -6px -6px -6px); }
+.mini-graph__area { fill: rgba(var(--green-rgb), 0.16); }
+.mini-graph__line { fill: none; stroke: var(--green-hi); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.mini-graph circle { fill: var(--gold); stroke: #141518; stroke-width: 2.5; }
+.mini-graph__marks { position: relative; height: 16px; margin-top: 6px; font-size: 0.56rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
+.mini-graph__marks span { position: absolute; transform: translateX(-50%); }
+.mini-graph__marks span:nth-child(1) { left: 36.7%; }
+.mini-graph__marks span:nth-child(2) { left: 60%; }
+.mini-graph__marks span:nth-child(3) { left: 83.3%; }
+@media (hover: hover) {
+  .plan:hover .mini-report { transform: rotate(0deg) translateY(-4px); }
+  .plan:hover .mini-chart, .plan:hover .mini-graph { transform: translateY(-4px); }
+}
+
+/* ---------- closing: a moving wall of the real game thumbnails ---------- */
+.wall {
+  position: relative;
+  z-index: -1;
+  display: grid;
+  align-content: center;
+  height: clamp(240px, 32vw, 460px);
+  overflow: hidden;
+  opacity: 0.9;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 48%, transparent 88%), linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 48%, transparent 88%), linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  mask-composite: intersect;
+}
+.wall__tilt { display: grid; gap: 14px; width: 130%; margin-left: -15%; transform: rotate(-3deg); }
+.wall__row { display: flex; gap: 14px; width: max-content; animation: wall 90s linear infinite; }
+.wall__row--rev { animation-duration: 110s; animation-direction: reverse; }
+.wall__row img { flex: none; width: clamp(200px, 22vw, 340px); aspect-ratio: 16 / 9; border-radius: 12px; object-fit: cover; background: var(--card); box-shadow: 0 0 0 1px var(--line); }
+@keyframes wall { to { translate: -50% 0; } }
+.wall[hidden] + .wrap .send__head { margin-top: 0; }
+@media (max-width: 559px) {
+  .wall__tilt, .wall__row { gap: 10px; }
+  .wall__row img { width: 168px; border-radius: 10px; }
+}
+
 /* ---------- footer ---------- */
 .footer { padding: 56px 0 calc(110px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); }
 .footer__inner { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 28px; padding-bottom: 32px; }
@@ -643,4 +739,5 @@ input.is-invalid { box-shadow: inset 0 0 0 2px var(--red); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
   .js .rv { opacity: 1; transform: none; }
+  .wall__row { animation: none; }
 }

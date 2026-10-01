@@ -189,7 +189,7 @@
     var showData = real || reviewOn;
 
     // avatar: your real Roblox headshot once robloxUserId is set; the placeholder only in review mode
-    var headshot = data.headshot && (real || reviewOn) ? data.headshot : null;
+    var headshot = real && data.headshot ? data.headshot : null;
     $$("[data-headshot]").forEach(function (img) {
       if (!headshot) return;
       img.src = headshot;
@@ -304,6 +304,111 @@
       var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { start(); io.disconnect(); } }, { threshold: 0.2 });
       io.observe(section);
     } else start();
+  }
+
+  /* ------------------------------------------------ hero: live showcase of the real games
+     A carousel of the official Roblox thumbnails, sorted by who's playing right now.
+     Every number comes from assets/data/roblox.js, refreshed from Roblox every 6 hours. */
+  function realGames() {
+    var data = window.ROBLOX_DATA || {};
+    if (data.example || !data.games) return [];
+    return data.games.filter(function (g) { return g.thumb; });
+  }
+
+  function initLive() {
+    var box = $("[data-live]");
+    if (!box) return;
+    var data = window.ROBLOX_DATA || {};
+    var games = realGames().sort(function (a, b) { return (b.playing || 0) - (a.playing || 0); });
+    if (!games.length) { box.hidden = true; return; }
+
+    var stage = $("[data-live-stage]"), strip = $("[data-live-strip]");
+    var updated = ago(data.updatedAt);
+    $("[data-live-updated]").textContent = updated ? updated.charAt(0).toUpperCase() + updated.slice(1) : "";
+    var playing = games.reduce(function (s, g) { return s + (g.playing || 0); }, 0);
+
+    var slides = [], dots = [];
+    games.forEach(function (g, i) {
+      var a = document.createElement("a");
+      a.className = "slide";
+      a.href = g.url; a.target = "_blank"; a.rel = "noopener";
+      a.innerHTML =
+        '<img class="slide__img" alt="" width="768" height="432"' + (i > 0 ? ' loading="lazy"' : "") + ">" +
+        '<span class="slide__info"><img class="slide__icon" alt="" width="44" height="44"><span class="slide__name"><b></b><small></small></span>' +
+        '<span class="slide__stat"><i class="live"></i>' + compact(g.playing) + " playing</span></span>";
+      $(".slide__img", a).src = g.thumb;
+      $(".slide__icon", a).src = g.icon;
+      $("b", a).textContent = g.name;
+      $("small", a).textContent = "by " + g.creator + (g.likeRatio != null ? " · " + g.likeRatio + "% liked" : "");
+      a.setAttribute("aria-label", g.name + " by " + g.creator + ", " + compact(g.playing) + " playing now. Opens on Roblox.");
+      stage.appendChild(a);
+      slides.push(a);
+
+      var li = document.createElement("li");
+      var b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("aria-label", "Show " + g.name);
+      b.innerHTML = '<img alt="" width="64" height="64" loading="lazy">';
+      $("img", b).src = g.icon;
+      b.addEventListener("click", function () { show(i, true); });
+      li.appendChild(b);
+      strip.appendChild(li);
+      dots.push(b);
+    });
+    strip.style.gridTemplateColumns = "repeat(" + games.length + ", minmax(0, 1fr))";
+
+    var current = -1, timer = 0, DUR = 5000, visible = true, hovered = false;
+    box.style.setProperty("--dur", DUR / 1000 + "s");
+    function show(i, user) {
+      if (i === current) return;
+      current = i;
+      slides.forEach(function (s, k) { s.classList.toggle("is-on", k === i); });
+      dots.forEach(function (d, k) {
+        d.classList.toggle("is-on", k === i);
+        d.setAttribute("aria-current", k === i ? "true" : "false");
+      });
+      if (user) restart();
+    }
+    function next() { show((current + 1) % games.length); }
+    function stop() { clearInterval(timer); timer = 0; }
+    function restart() {
+      stop();
+      if (reduceMotion || hovered || !visible || document.hidden) return;
+      timer = setInterval(next, DUR);
+    }
+    box.addEventListener("pointerenter", function () { hovered = true; box.classList.add("is-paused"); stop(); });
+    box.addEventListener("pointerleave", function () { hovered = false; box.classList.remove("is-paused"); restart(); });
+    box.addEventListener("focusin", function () { hovered = true; stop(); });
+    box.addEventListener("focusout", function () { hovered = false; restart(); });
+    document.addEventListener("visibilitychange", restart);
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (en) { visible = en[0].isIntersecting; restart(); }).observe(box);
+    }
+    show(0);
+    restart();
+    countUp($("[data-live-total]"), playing, function (n) { return Math.round(n).toLocaleString("en-US"); });
+  }
+
+  /* ------------------------------------------------ closing: moving wall of the real thumbnails */
+  function initWall() {
+    var wall = $("[data-wall]");
+    if (!wall) return;
+    var games = realGames();
+    if (!games.length) { wall.hidden = true; return; }
+    var rows = $$("[data-wall-row]", wall);
+    rows.forEach(function (row, r) {
+      var list = r ? games.slice().reverse() : games;
+      // two copies side by side so the scroll loops seamlessly
+      list.concat(list, list.length < 5 ? list.concat(list) : []).forEach(function (g) {
+        var img = document.createElement("img");
+        img.alt = "";
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.width = 768; img.height = 432;
+        img.src = g.thumb;
+        row.appendChild(img);
+      });
+    });
   }
 
   /* ------------------------------------------------ leak finder
@@ -586,6 +691,8 @@
   initHeader();
   initChat();
   initGames();
+  initLive();
+  initWall();
   initLeaks();
   initAccordions();
   initForm();

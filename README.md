@@ -3,13 +3,13 @@
 A single page that turns TikTok attention into clients: *"Your game isn't dead. It's leaking players."*
 
 - **Strategy, offers, proof and the launch checklist:** [STRATEGY.md](STRATEGY.md)
-- **Art direction and the prompt for every image:** [design/ART_DIRECTION.md](design/ART_DIRECTION.md)
+- **Art direction (real Roblox assets, no AI art):** [design/ART_DIRECTION.md](design/ART_DIRECTION.md)
 - **No build step:** plain HTML, CSS and JS. Open `index.html` in a browser to run it locally.
 
-## Show your real games (the leaderboard)
-The **My games** section shows your avatar, four live stats and a leaderboard of your games. Until you add your games, it runs on six fictional example games that only appear in review mode.
+## Your games (hero showcase, leaderboard, closing wall)
+The games you've worked on drive most of the visuals: the live showcase in the hero, the **My work** stats and leaderboard, and the scrolling wall above the form. Everything comes from Roblox: thumbnails, icons, visits, players right now and like ratio.
 
-1. Open `data/roblox.config.json` and add your games by place ID, the number in `roblox.com/games/<placeId>/…`:
+1. Open `data/roblox.config.json` and add or remove games by place ID, the number in `roblox.com/games/<placeId>/…`:
    ```json
    {
      "robloxUserId": 123456789,
@@ -38,13 +38,12 @@ Paste a Formspree URL (or any JSON POST endpoint) into `formEndpoint`, and set `
 index.html                      All content and copy. Prices live here.
 assets/css/site.css             Roblox-themed visual system, mobile-first
 assets/js/config.js             Review mode, form endpoint, links
-assets/js/site.js               Server chat, leaderboard, leak finder, form, dock
-assets/data/roblox.js           Game stats (generated; example data until configured)
+assets/js/site.js               Live showcase, server chat, leaderboard, wall, leak finder, form, dock
+assets/data/roblox.js           Game stats and thumbnail URLs (generated)
 data/roblox.config.json         Your games and Roblox user ID
 scripts/update-roblox.ps1       Fetches live stats from Roblox's public APIs
 .github/workflows/roblox-stats.yml   Runs the script every 6 hours
-assets/img/                     Web-sized art (generated in Roblox thumbnail style)
-design/prompts/                 The exact prompt used for each image
+assets/og.jpg                   Link preview card (real game thumbnails)
 ```
 
 ## Deploy

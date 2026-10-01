@@ -19,8 +19,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500..900&display=swap">
-  <link rel="preload" as="image" href="assets/img/hero-wide-1600.jpg" imagesrcset="assets/img/hero-wide-1100.jpg 1100w, assets/img/hero-wide-1600.jpg 1600w" imagesizes="70vw" media="(min-width: 1200px)">
-  <link rel="preload" as="image" href="assets/img/hero-square-900.jpg" imagesrcset="assets/img/hero-square-900.jpg 900w, assets/img/hero-square-1254.jpg 1254w" imagesizes="(min-width: 760px) 640px, 100vw" media="(max-width: 1199px)">
   <link rel="stylesheet" href="assets/css/site.css">
   <script src="assets/js/config.js"></script>
   <script>
@@ -76,7 +74,7 @@
             <span class="creator__text"><b>Khaiel</b><span><i class="presence"></i>Taking new games</span></span>
           </a>
           <h1 class="hero__title hero-in" style="--i:1" id="hero-title">Your game isn't dead. <span>It's leaking players.</span></h1>
-          <p class="hero__lede hero-in" style="--i:2">I build and run my own Roblox games. Send me yours, and I'll show you exactly where it's losing players and how to fix it.</p>
+          <p class="hero__lede hero-in" style="--i:2">I build and grow Roblox games. Send me yours, and I'll show you exactly where it's losing players and how to fix it.</p>
           <div class="hero__actions hero-in" style="--i:3">
             <a class="btn btn--primary btn--lg" href="#send" data-cta="hero">
               <svg class="i i--play" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 3.8v12.4c0 .8.9 1.3 1.6.9l10-6.2c.6-.4.6-1.3 0-1.7l-10-6.2C6.9 2.5 6 3 6 3.8z"/></svg>
@@ -91,24 +89,15 @@
           </ul>
         </div>
 
-        <figure class="game hero-in" style="--i:2" data-tilt>
-          <div class="game__screen">
-            <picture>
-              <source media="(max-width: 1199px)" srcset="assets/img/hero-square-900.jpg 900w, assets/img/hero-square-1254.jpg 1254w" sizes="(min-width: 760px) 640px, 100vw" width="900" height="900">
-              <img src="assets/img/hero-wide-1600.jpg" srcset="assets/img/hero-wide-1100.jpg 1100w, assets/img/hero-wide-1600.jpg 1600w" sizes="(min-width: 1200px) 56vw, 100vw" width="1600" height="900" fetchpriority="high"
-                alt="Roblox avatars run an obby. Several fall off the edge, and only two reach the finish.">
-            </picture>
-            <div class="game__bar" aria-hidden="true">
-              <span class="game__btn"><svg viewBox="0 0 20 20"><path d="M4 6h12M4 10h12M4 14h12"/></svg></span>
-              <span class="game__btn"><svg viewBox="0 0 20 20"><path d="M4 5.5h12v7H9l-3.5 3v-3H4z"/></svg></span>
-              <span class="game__players"><svg viewBox="0 0 16 16"><circle cx="8" cy="5" r="3"/><path d="M2.5 14c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5z"/></svg><b data-chat-count>1,284</b></span>
-            </div>
-            <div class="chat" aria-hidden="true">
-              <ol class="chat__log" data-chat-log></ol>
-            </div>
+        <aside class="livecard hero-in" style="--i:2" aria-label="Games I've worked on, live from Roblox" data-live>
+          <div class="live__top">
+            <span class="live__badge"><i class="live"></i>Live on Roblox</span>
+            <span class="live__updated" data-live-updated></span>
           </div>
-          <figcaption class="game__cap"><i class="dot dot--red"></i>A simulated server. The same thing is happening in your game right now.</figcaption>
-        </figure>
+          <p class="live__count"><b data-live-total>0</b><span>people are playing games I've worked on right now</span></p>
+          <div class="live__stage" data-live-stage></div>
+          <ol class="live__strip" data-live-strip></ol>
+        </aside>
       </div>
     </section>
     <!-- ============================== MY GAMES ============================== -->
@@ -155,10 +144,20 @@
     <!-- ============================== FIND YOUR LEAK ============================== -->
     <section class="section leak-section" id="leak" aria-labelledby="leak-title">
       <div class="wrap">
-        <header class="head head--center rv">
-          <p class="eyebrow">Find your leak</p>
-          <h2 id="leak-title">Where is your game losing players?</h2>
-          <p class="sub">Every Roblox game loses players at the same six moments. Tap the one that sounds like yours.</p>
+        <header class="leak-head rv">
+          <div class="leak-head__copy">
+            <p class="eyebrow">Find your leak</p>
+            <h2 id="leak-title">Where is your game losing players?</h2>
+            <p class="sub">Every Roblox game loses players at the same six moments. Tap the one that sounds like yours.</p>
+          </div>
+          <div class="chatcard" aria-hidden="true">
+            <div class="chatcard__bar">
+              <span class="chatcard__title"><svg viewBox="0 0 20 20"><path d="M4 5.5h12v7H9l-3.5 3v-3H4z"/></svg>Your server</span>
+              <span class="chatcard__count"><svg viewBox="0 0 16 16"><circle cx="8" cy="5" r="3"/><path d="M2.5 14c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5z"/></svg><b data-chat-count>1,284</b></span>
+            </div>
+            <ol class="chat__log" data-chat-log></ol>
+            <p class="chatcard__note">Simulated. Every "left the game" is a leak.</p>
+          </div>
         </header>
 
         <div class="leaks rv" data-leaks>
@@ -437,7 +436,15 @@
 
         <div class="plans">
           <article class="plan plan--featured rv">
-            <div class="plan__art"><img src="assets/img/plan-audit-900.jpg" width="900" height="600" alt="" loading="lazy" decoding="async"></div>
+            <div class="plan__art vig" aria-hidden="true">
+              <div class="mini-report">
+                <span class="mini-report__type">Game audit</span>
+                <div class="mini-report__score"><i class="is-ok">Clicks</i><i class="is-leak">First min</i><i class="is-watch">Fun</i><i class="is-leak">Day 1</i></div>
+                <div class="mini-report__row"><b>1</b><span>First reward is a 40-second walk</span><em>High impact</em></div>
+                <div class="mini-report__row"><b>2</b><span>Nothing left unfinished at log-off</span><em>High impact</em></div>
+                <div class="mini-report__row"><b>3</b><span>Shop opens before anything has value</span><em class="is-mid">Medium</em></div>
+              </div>
+            </div>
             <div class="plan__body">
               <p class="plan__tag">Start here</p>
               <h3>Game Audit</h3>
@@ -457,7 +464,15 @@
           </article>
 
           <article class="plan rv">
-            <div class="plan__art"><img src="assets/img/plan-fix-900.jpg" width="900" height="600" alt="" loading="lazy" decoding="async"></div>
+            <div class="plan__art vig" aria-hidden="true">
+              <div class="mini-chart">
+                <span class="mini-chart__title">Players still in after minute one</span>
+                <div class="mini-bar"><span>Before</span><i class="is-bad" style="--v:44%"></i></div>
+                <div class="mini-bar"><span>After the fix</span><i class="is-good" style="--v:76%"></i></div>
+                <span class="mini-chart__badge"><svg viewBox="0 0 16 16"><path d="M3.5 8.5 6.5 11.5 12.5 4.5"/></svg>Fix shipped</span>
+                <span class="mini-chart__tag">Example</span>
+              </div>
+            </div>
             <div class="plan__body">
               <p class="plan__tag">The next step</p>
               <h3>Fix Sprint</h3>
@@ -473,7 +488,14 @@
           </article>
 
           <article class="plan rv">
-            <div class="plan__art"><img src="assets/img/plan-grow-900.jpg" width="900" height="600" alt="" loading="lazy" decoding="async"></div>
+            <div class="plan__art vig" aria-hidden="true">
+              <div class="mini-graph">
+                <div class="mini-graph__head"><span>Players online</span><b><i class="live"></i>Climbing</b></div>
+                <svg viewBox="0 0 300 110"><path class="mini-graph__area" d="M0 96 L40 90 L80 92 L110 74 L150 70 L180 52 L220 48 L250 30 L300 18 L300 110 L0 110 Z"/><path class="mini-graph__line" d="M0 96 L40 90 L80 92 L110 74 L150 70 L180 52 L220 48 L250 30 L300 18"/><circle cx="110" cy="74" r="4"/><circle cx="180" cy="52" r="4"/><circle cx="250" cy="30" r="4"/></svg>
+                <div class="mini-graph__marks"><span>Update</span><span>Event</span><span>Update</span></div>
+                <span class="mini-chart__tag">Example</span>
+              </div>
+            </div>
             <div class="plan__body">
               <p class="plan__tag">For bigger goals</p>
               <h3>Build &amp; Grow</h3>
@@ -532,8 +554,11 @@
 
     <!-- ============================== SEND ============================== -->
     <section class="send" id="send" aria-labelledby="send-title">
-      <div class="send__art" aria-hidden="true">
-        <img src="assets/img/final-wide-1600.jpg" srcset="assets/img/final-wide-1100.jpg 1100w, assets/img/final-wide-1600.jpg 1600w" sizes="max(100vw, 900px)" width="1600" height="900" alt="" loading="lazy" decoding="async">
+      <div class="wall" aria-hidden="true" data-wall>
+        <div class="wall__tilt">
+          <div class="wall__row" data-wall-row></div>
+          <div class="wall__row wall__row--rev" data-wall-row></div>
+        </div>
       </div>
       <div class="wrap">
         <header class="send__head rv">

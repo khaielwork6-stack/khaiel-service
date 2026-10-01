@@ -1,41 +1,36 @@
-# Art direction: Roblox front page
+# Art direction: real Roblox, no generated art
 
-The site has to feel like Roblox the moment it loads, because it's a Roblox service. Every image is drawn in **front-page Roblox game thumbnail style**:
-- glossy 3D renders;
-- classic studs on every block;
-- blocky R15-style avatars with simple smiley faces;
-- saturated but tasteful colour;
-- cinematic light.
+The site has to feel like Roblox the moment it loads. Every visual is either:
+- a **real Roblox asset**: the official thumbnails and icons of the games I've worked on, or
+- **UI drawn in code** (HTML/CSS/SVG) that looks like something a developer actually sees.
 
-The interface around the images borrows from the Roblox app itself:
+**No AI-generated images.** They were tried in v3 and read as generic "AI slop". Real thumbnails from real games are more convincing than any render.
+
+The interface borrows from the Roblox app itself:
 - the dark-theme greys;
 - the green Play button;
-- the in-game window with its player count and chat;
+- the server chat and player count;
 - a leaderboard styled like the in-game player list;
 - game tiles that show 👍 like ratio and 👤 players.
 
-All images were generated with **ChatGPT image generation, run through your Codex app** (`codex exec` with the `imagegen` tool). The prompts are in [`prompts/`](prompts). The full-resolution masters are in `masters/`, which is kept locally and git-ignored.
-
-## The story the images tell, top to bottom
-| Where | Image | Story |
+## What's on the page, top to bottom
+| Where | Visual | Source |
 |---|---|---|
-| Hero | `hero-wide` (desktop) / `hero-square` (phone, tablet) | Players run an obby. Several fall off and one breaks apart mid-"oof". Only two reach the finish. **Your game is leaking players.** |
-| My games | `avatar-placeholder`, example icons `ex-1…6` | Placeholders only (see below) |
-| Pricing: Game Audit | `plan-audit` | A dev's magnifier reveals the missing block that players fall through |
-| Pricing: Fix Sprint | `plan-fix` | A builder snaps the missing block into place while players cross |
-| Pricing: Build & Grow | `plan-grow` | A packed hub with a golden noob statue and fireworks: a game on the front page |
-| "Let's plug the leak" | `final-wide` | The same obby, fixed. Everyone made it to the finish |
+| Hero | Live showcase: rotates through the games, sorted by players right now, with the total playing count | Roblox thumbnails, icons and live stats |
+| My work | Stats, leaderboard, "Play them yourself" tiles | Roblox thumbnails, icons and stats |
+| Find your leak | Server chat window: players join and leave, and the count drops. Labeled "Simulated" | Drawn in code. Fictional usernames, not tied to any real game |
+| Pricing: Game Audit | A mini audit report with a scorecard and ranked fixes | Drawn in code |
+| Pricing: Fix Sprint | A before/after bar chart: "Players still in after minute one". Labeled "Example" | Drawn in code |
+| Pricing: Build & Grow | A players-online graph climbing with each update and event. Labeled "Example" | Drawn in code (SVG) |
+| "Let's plug the leak" | A tilted, scrolling wall of the game thumbnails | Roblox thumbnails |
+| Link preview (`assets/og.jpg`) | The headline beside the four biggest games' thumbnails | Roblox thumbnails, composited locally |
 
-`v3-01-hero-wide` was generated first and attached as the **style reference** to every other prompt. That's why the set is consistent.
+All Roblox assets are loaded from Roblox's CDN (`rbxcdn.com`). The URLs come from `assets/data/roblox.js`, which the stats workflow refreshes every 6 hours. Nothing is copied into the repo except `og.jpg`.
 
-## Placeholders: never shown as yours
-- **`avatar-placeholder.jpg`** is a generic avatar. It only appears in review mode. Set `robloxUserId` in `data/roblox.config.json` and your real avatar headshot replaces it automatically.
-- **`icons/ex-1…6.jpg`** are icons for six *fictional* games used as example data. Your real games bring their own icons from Roblox.
+## Rules
+- **Credit the studio.** These games belong to other studios. Wherever a game appears, its studio is named ("by Grassini"), and the copy says "games I've worked on", never "my games".
+- **Simulated stays simulated.** The leaking-players story (the chat window, the example charts) never sits on a real game's imagery, so it can't suggest a real game is failing.
+- **Your face, or nothing.** The avatar shows only when `robloxUserId` is set. Until then, a "K" monogram.
 
-No other studio's games or assets are used anywhere. Showing someone else's game in your track record would read as a claim that you made it.
-
-## Regenerating or adding an image
-```
-Get-Content design\prompts\v3-05-plan-audit.txt -Raw | & "$env:LOCALAPPDATA\OpenAI\Codex\bin\<version>\codex.exe" exec - -i design\masters\v3-01-hero-wide.png --skip-git-repo-check -s read-only
-```
-Codex replies with the path of the PNG it saved, under `~/.codex/generated_images/`. Export it for the web as JPEG at quality 78–84.
+## Rebuilding the link preview
+The preview card is the headline plus the four most-visited games. Rebuild it when the games change: download their thumbnails from the `thumb` URLs in `assets/data/roblox.js`, place them in a 2×2 tilted grid on the right of a 1200×630 canvas (`#111214`), with the headline on the left. Export as JPEG at quality ~86.
