@@ -199,11 +199,22 @@
     if (!showData) { section.classList.add("is-intro-only"); return; }
 
     var games = (data.games || []).slice().sort(function (a, b) { return (b.visits || 0) - (a.visits || 0); });
-    var total = games.reduce(function (s, g) { return s + (g.visits || 0); }, 0);
-    var playing = games.reduce(function (s, g) { return s + (g.playing || 0); }, 0);
+    var sum = function (key) { return games.reduce(function (s, g) { return s + (g[key] || 0); }, 0); };
+    var total = sum("visits"), playing = sum("playing"), favorites = sum("favorites");
     var peaks = games.map(function (g) { return g.peakCCU; }).filter(function (v) { return v != null; });
     var peak = peaks.length ? Math.max.apply(null, peaks) : null;
     var maxVisits = games.length ? games[0].visits || 1 : 1;
+    var hasPeak = peak != null;
+    var THUMB = '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="currentColor"><path d="M2 7h2.5v7H2zM6 14V7.2L9 2c1 0 1.7.8 1.5 1.8L10 6h3.4c.9 0 1.6.9 1.4 1.8l-1.2 5A1.5 1.5 0 0 1 12.1 14z"/></svg>';
+    var PERSON = '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="currentColor"><circle cx="8" cy="5" r="3"/><path d="M2.5 14c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5z"/></svg>';
+
+    // Roblox doesn't publish peak CCU. Until you add it in data/roblox.config.json, that tile
+    // shows total favorites and the leaderboard's second column shows players online now.
+    if (!hasPeak) {
+      $("[data-peak-label]").textContent = "Favorites";
+      $("[data-peak-sub]").textContent = "players who saved these games";
+      $("[data-col2]").textContent = "Playing";
+    }
 
     var board = $("[data-board]"), rows = $("[data-board-rows]");
     if (!real) {
@@ -226,18 +237,43 @@
       link.className = "row__link";
       if (link.tagName === "A") { link.href = g.url; link.target = "_blank"; link.rel = "noopener"; }
       var meta = [];
-      if (g.playing != null) meta.push('<span><i class="live"></i>' + compact(g.playing) + " playing</span>");
-      if (g.likeRatio != null) meta.push('<span><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="currentColor"><path d="M2 7h2.5v7H2zM6 14V7.2L9 2c1 0 1.7.8 1.5 1.8L10 6h3.4c.9 0 1.6.9 1.4 1.8l-1.2 5A1.5 1.5 0 0 1 12.1 14z"/></svg>' + g.likeRatio + "%</span>");
+      if (g.creator) meta.push('<span class="row__studio"></span>');
+      if (hasPeak && g.playing != null) meta.push('<span><i class="live"></i>' + compact(g.playing) + " playing</span>");
+      if (g.likeRatio != null) meta.push("<span>" + THUMB + g.likeRatio + "%</span>");
+      var col2 = hasPeak ? compact(g.peakCCU) : '<i class="live"></i>' + compact(g.playing);
       link.innerHTML =
         '<span class="row__rank">' + (i + 1) + "</span>" +
         '<img class="row__icon" alt="" loading="lazy" decoding="async">' +
         '<span class="row__name"><b></b><small>' + meta.join("") + "</small></span>" +
-        '<span class="row__stats"><span>' + compact(g.visits) + "</span><span>" + compact(g.peakCCU) + "</span></span>";
+        '<span class="row__stats"><span>' + compact(g.visits) + '</span><span class="' + (hasPeak ? "is-peak" : "is-live") + '">' + col2 + "</span></span>";
       $("img", link).src = g.icon;
       $("b", link).textContent = g.name;
+      if (g.creator) $(".row__studio", link).textContent = "by " + g.creator;
       li.appendChild(link);
       rows.appendChild(li);
     });
+
+    // Discover-style tiles with each game's official thumbnail
+    var tiles = $("[data-tiles]"), withThumbs = games.filter(function (g) { return g.thumb; });
+    if (real && tiles && withThumbs.length) {
+      tiles.innerHTML = "";
+      withThumbs.forEach(function (g) {
+        var li = document.createElement("li");
+        li.className = "tile";
+        li.innerHTML =
+          '<a class="tile__link" target="_blank" rel="noopener">' +
+          '<span class="tile__img"><img alt="" loading="lazy" decoding="async" width="768" height="432"></span>' +
+          '<b class="tile__name"></b>' +
+          '<span class="tile__meta"><span>' + THUMB + (g.likeRatio != null ? g.likeRatio + "%" : "—") + "</span>" +
+          "<span>" + PERSON + compact(g.playing) + "</span></span></a>";
+        $("a", li).href = g.url;
+        $("a", li).setAttribute("aria-label", g.name + " on Roblox");
+        $("img", li).src = g.thumb;
+        $(".tile__name", li).textContent = g.name;
+        tiles.appendChild(li);
+      });
+      $("[data-tiles-wrap]").hidden = false;
+    }
 
     // hovering a stat lights up the game it comes from
     function hot(index) { $$(".row", rows).forEach(function (r, i) { r.classList.toggle("is-hot", i === index); }); }
@@ -246,7 +282,7 @@
       games.forEach(function (g, i) { if (g[key] != null && g[key] > v) { v = g[key]; best = i; } });
       return best;
     }
-    var owner = { visits: 0, peak: indexOfMax("peakCCU"), playing: indexOfMax("playing"), count: -1 };
+    var owner = { visits: 0, peak: indexOfMax(hasPeak ? "peakCCU" : "favorites"), playing: indexOfMax("playing"), count: -1 };
     $$("[data-stat-for]").forEach(function (el) {
       var key = el.getAttribute("data-stat-for");
       el.addEventListener("mouseenter", function () { hot(owner[key]); });
@@ -258,13 +294,14 @@
       if (started) return;
       started = true;
       board.classList.add("is-in");
+      var whole = function (n) { return Math.round(n).toLocaleString("en-US"); };
       countUp($('[data-stat="visits"]'), total, compact);
-      countUp($('[data-stat="peak"]'), peak, function (n) { return Math.round(n).toLocaleString("en-US"); });
-      countUp($('[data-stat="playing"]'), playing, function (n) { return Math.round(n).toLocaleString("en-US"); });
+      countUp($('[data-stat="peak"]'), hasPeak ? peak : favorites, hasPeak ? whole : compact);
+      countUp($('[data-stat="playing"]'), playing, whole);
       countUp($('[data-stat="count"]'), games.length, function (n) { return String(Math.round(n)); });
     }
     if ("IntersectionObserver" in window) {
-      var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { start(); io.disconnect(); } }, { threshold: 0.25 });
+      var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { start(); io.disconnect(); } }, { threshold: 0.2 });
       io.observe(section);
     } else start();
   }

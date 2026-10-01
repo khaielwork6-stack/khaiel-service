@@ -40,16 +40,19 @@ $ids = ($entries | ForEach-Object { $_.universeId }) -join ","
 $games = (Get-Json "https://games.roblox.com/v1/games?universeIds=$ids").data
 $votes = (Get-Json "https://games.roblox.com/v1/games/votes?universeIds=$ids").data
 $icons = (Get-Json "https://thumbnails.roblox.com/v1/games/icons?universeIds=$ids&size=256x256&format=Png&isCircular=false&returnPolicy=PlaceHolder").data
+$thumbs = (Get-Json "https://thumbnails.roblox.com/v1/games/multiget/thumbnails?universeIds=$ids&countPerUniverse=1&defaults=true&size=768x432&format=Png&isCircular=false").data
 
 $list = foreach ($e in $entries) {
   $g = $games | Where-Object { $_.id -eq $e.universeId } | Select-Object -First 1
   $v = $votes | Where-Object { $_.id -eq $e.universeId } | Select-Object -First 1
   $i = $icons | Where-Object { $_.targetId -eq $e.universeId } | Select-Object -First 1
+  $t = $thumbs | Where-Object { $_.universeId -eq $e.universeId } | Select-Object -First 1
   $total = [double]($v.upVotes + $v.downVotes)
   [ordered]@{
     name      = $g.name
     url       = "https://www.roblox.com/games/$($e.placeId)"
     icon      = $i.imageUrl
+    thumb     = $(if ($t -and $t.thumbnails) { $t.thumbnails[0].imageUrl } else { $null })
     creator   = $g.creator.name
     role      = $e.role
     visits    = [long]$g.visits

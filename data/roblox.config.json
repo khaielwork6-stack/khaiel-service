@@ -1,5 +1,13 @@
 {
-  "_howTo": "List your games by place ID: the number in roblox.com/games/<placeId>/name. Name, icon, visits, playing-now, favorites and likes are pulled from Roblox automatically every 6 hours. peakCCU is yours to fill in (Creator Hub > Analytics), because Roblox doesn't publish it. Set robloxUserId to show your real avatar.",
+  "_howTo": "List the games you've worked on by place ID: the number in roblox.com/games/<placeId>/name. Name, icon, thumbnail, studio, visits, playing-now, favorites and likes are pulled from Roblox automatically every 6 hours. Fill in peakCCU (Creator Hub > Analytics) and role yourself, because Roblox doesn't publish them. Set robloxUserId to show your real avatar.",
   "robloxUserId": null,
-  "games": []
+  "games": [
+    { "placeId": 109453001468682, "role": null, "peakCCU": null },
+    { "placeId": 94189087459079,  "role": null, "peakCCU": null },
+    { "placeId": 90086669327265,  "role": null, "peakCCU": null },
+    { "placeId": 91394684838353,  "role": null, "peakCCU": null },
+    { "placeId": 118805555015549, "role": null, "peakCCU": null },
+    { "placeId": 96510596525082,  "role": null, "peakCCU": null },
+    { "placeId": 87016173484759,  "role": null, "peakCCU": null }
+  ]
 }

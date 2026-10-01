@@ -43,7 +43,7 @@
         <span>KHAIEL</span>
       </a>
       <nav class="nav" aria-label="Primary">
-        <a href="#games">My games</a>
+        <a href="#games">My work</a>
         <a href="#leak">Find your leak</a>
         <a href="#pricing">Pricing</a>
         <a href="#faq">FAQ</a>
@@ -56,7 +56,7 @@
   </header>
   <div class="menu" id="menu" hidden data-menu>
     <nav aria-label="Menu">
-      <a href="#games">My games</a>
+      <a href="#games">My work</a>
       <a href="#leak">Find your leak</a>
       <a href="#how">How it works</a>
       <a href="#pricing">Pricing</a>
@@ -122,12 +122,12 @@
               <h2 id="games-title">Hey, I'm Khaiel.</h2>
             </div>
           </div>
-          <p class="games__bio">I build, run and monetize my own Roblox games, and I break down what's working on TikTok. Not a guru with a course: a developer with live games. This is the hands-on version, applied to yours.</p>
+          <p class="games__bio">I build and grow Roblox games, my own and other studios', and I break down what's working on TikTok. Not a guru with a course: a developer whose games are live right now. This is the hands-on version, applied to yours.</p>
           <div class="stats" data-stats>
-            <div class="stat" data-stat-for="visits"><span class="stat__label">Total visits</span><b class="stat__num" data-stat="visits">0</b><span class="stat__sub">across my games</span></div>
-            <div class="stat" data-stat-for="peak"><span class="stat__label">Peak players</span><b class="stat__num" data-stat="peak">0</b><span class="stat__sub">online at once (CCU)</span></div>
+            <div class="stat" data-stat-for="visits"><span class="stat__label">Total visits</span><b class="stat__num" data-stat="visits">0</b><span class="stat__sub">across games I've worked on</span></div>
+            <div class="stat" data-stat-for="peak"><span class="stat__label" data-peak-label>Peak players</span><b class="stat__num" data-stat="peak">0</b><span class="stat__sub" data-peak-sub>online at once (CCU)</span></div>
             <div class="stat" data-stat-for="playing"><span class="stat__label"><i class="live"></i>Playing right now</span><b class="stat__num" data-stat="playing">0</b><span class="stat__sub" data-stat-updated>live from Roblox</span></div>
-            <div class="stat" data-stat-for="count"><span class="stat__label">Games shipped</span><b class="stat__num" data-stat="count">0</b><span class="stat__sub">and counting</span></div>
+            <div class="stat" data-stat-for="count"><span class="stat__label">Games worked on</span><b class="stat__num" data-stat="count">0</b><span class="stat__sub">and counting</span></div>
           </div>
           <a class="link-arrow" href="#" data-tiktok hidden>Watch my breakdowns on TikTok
             <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
@@ -135,13 +135,20 @@
 
         <div class="board rv" data-board>
           <div class="board__head">
-            <span class="board__title"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3h10v3a5 5 0 0 1-10 0zM5 4H2.5v1.5A3 3 0 0 0 5 8.4M15 4h2.5v1.5A3 3 0 0 1 15 8.4M8 13h4v3H8zM6 17h8"/></svg>Leaderboard</span>
-            <span class="board__cols"><span>Visits</span><span>Peak</span></span>
+            <span class="board__title"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3h10v3a5 5 0 0 1-10 0zM5 4H2.5v1.5A3 3 0 0 0 5 8.4M15 4h2.5v1.5A3 3 0 0 1 15 8.4M8 13h4v3H8zM6 17h8"/></svg>Games I've worked on</span>
+            <span class="board__cols"><span>Visits</span><span data-col2>Peak</span></span>
           </div>
           <ol class="board__rows" data-board-rows></ol>
-          <p class="board__foot" data-board-foot>Visits and live players come straight from Roblox.</p>
+          <p class="board__foot" data-board-foot>Games I've worked on. Visits and live players come straight from Roblox.</p>
           <p class="board__example" data-board-example hidden>Example data. Add your games in <code>data/roblox.config.json</code></p>
         </div>
+      </div>
+      <div class="wrap tiles-wrap rv" data-tiles-wrap hidden>
+        <div class="tiles__head">
+          <h3>Play them yourself</h3>
+          <p>Every number above is live on Roblox. Tap a game to open it.</p>
+        </div>
+        <ul class="tiles" data-tiles></ul>
       </div>
     </section>
 
@@ -675,7 +682,7 @@
         <p>Find the leak. Fix the game.</p>
       </div>
       <nav class="footer__nav" aria-label="Footer">
-        <a href="#games">My games</a>
+        <a href="#games">My work</a>
         <a href="#leak">Find your leak</a>
         <a href="#how">How it works</a>
         <a href="#pricing">Pricing</a>
