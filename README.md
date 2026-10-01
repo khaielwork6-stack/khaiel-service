@@ -27,6 +27,8 @@ The games you've worked on drive most of the visuals: the live showcase in the h
 
 **Peak CCU** isn't published by Roblox. Copy it from Creator Hub → Analytics into `peakCCU`.
 
+The board shows your biggest games. Your total count ("30+ games worked on") lives in `assets/js/config.js` as `gamesWorkedOn`.
+
 ## Review mode
 While `reviewMode: true` is set in `assets/js/config.js`, a small pill sits in the corner. Press **Show** to highlight every proposed price and policy (`data-proposed`). Set `reviewMode: false` before sending traffic. You can preview either mode with `?review=1` or `?review=0`.
 

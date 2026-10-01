@@ -1,4 +1,4 @@
-# Khaiel: strategy and launch brief (v2, simplified)
+# Khaiel: strategy and launch brief (v4, full services)
 
 Everything marked **PROPOSED** is a recommendation you haven't approved. On the site these values carry `data-proposed`. While review mode is on, a small pill in the corner lets you highlight them.
 
@@ -9,7 +9,7 @@ Everything marked **PROPOSED** is a recommendation you haven't approved. On the 
 | v1 problem | v2 fix |
 |---|---|
 | Visitors had to learn a vocabulary first: "Leak Map", "checkpoints", Click/Hook/Loop/D1/D7/Spend, "Roblox signal", "sprints", "Quick Read", "Fix Block" | Plain words. The six moments are named the way a developer feels them: "Nobody clicks it", "Players quit in the first minute"… |
-| 11 things to buy | **3 offers**: Game Audit → Fix Sprint → Build & Grow, plus coaching as a one-line footnote |
+| 11 things to buy, in no order | **6 clear services** with one live illustration each, then a "…and a lot more" wall and "Don't see it? Message me anyway". The audit is free with any package, so it's a bonus, not the product |
 | About 15 different button labels | **One action everywhere: "Send me your game."** The other buttons ("Fix this", "Start with an audit") go to the same form, already filled in |
 | The dashboard was a mini-app: 2 modes, 6 tabs, 4 sub-panels each, 6 charts | **One tap-and-read list.** Tap the problem that sounds like yours to see what it means, what I'd do, and the button |
 | Prices, sprints and timelines repeated in 4 places | Each fact lives in one place |
@@ -18,10 +18,10 @@ Everything marked **PROPOSED** is a recommendation you haven't approved. On the 
 
 ## 2. Positioning
 
-**Promise:** Send me your game. I'll show you exactly where it's losing players and how to fix it.
+**Promise:** Development, growth, thumbnails, trailers, monetization: everything a Roblox game needs to take off, from someone who's done it across 30+ games.
 
-- **For** Roblox developers whose live game has stalled.
-- **Credibility:** a developer whose games are live right now: 190M+ visits across the games I've worked on. Not a guru with a course.
+- **For** Roblox developers whose live game has stalled, and people with an idea who want it built properly.
+- **Credibility:** 30+ games worked on (scripting some, marketing others), 190M+ visits across the biggest seven, and the honest story: years of games that failed are how I learned what the algorithm rewards. It changes constantly, and keeping up is the job.
 - **Honesty:** the work is guaranteed (scope, deliverables, timeline). Outcomes are not.
 
 **Hero line:** *"Your game isn't dead. It's leaking players."* It turns "my game is dead" into something specific and fixable.
@@ -29,33 +29,46 @@ Everything marked **PROPOSED** is a recommendation you haven't approved. On the 
 ## 3. The page, in order (each section answers one question)
 
 1. **Hero:** *What is this?* One promise, a green Play-style button, three reassurances. Beside it, a live showcase: how many people are playing the games I've worked on right now, rotating through each game's real thumbnail.
-2. **My work:** *Why trust you?* "Hey, I'm Khaiel", and four stats (total visits, peak players or favorites, playing right now, games worked on). Beside them is a leaderboard of the games, each credited to its studio, with visits and live players pulled from Roblox every 6 hours.
-3. **Find your leak:** *Where is my problem?* Opens with a simulated server chat where players keep leaving. Then the KPI dashboard, simplified into a funnel of six plain-language problems plus "I'm not sure". Each bar shows the players kept (lime) and the players lost (ember). Tapping a problem opens:
+2. **My work:** *Why trust you?* "Hey, I'm Khaiel", and four stats (total visits, peak players or favorites, playing right now, 30+ games worked on). Beside them is a leaderboard of the biggest games, each credited to its studio, with visits and live players pulled from Roblox every 6 hours.
+3. **The story:** *Why do you know what works?* One statement that lights up word by word as you scroll: years of failed games taught me what the algorithm rewards, and keeping up with it is my job.
+4. **Services:** *What can you do for me?* Six services, each with a live illustration (labelled "Example" wherever it shows numbers):
+   - **Full Game Development:** bricks build a house on a baseplate, then "Published".
+   - **Growth & the Algorithm:** "Your game" climbs a Recommended sort to #1.
+   - **Thumbnails, Icons & Trailers:** a thumbnail A/B test, and B wins.
+   - **Monetization:** a Roblox-style shop with purchases rolling in.
+   - **Scripting & Systems:** a Luau script types itself out, with 0 errors.
+   - **Growth Partner:** a week of update, event and admin-abuse days, and the player count reacting.
+
+   Then a scrolling "…and a lot more" wall of other services, the audit card ("Free with any package") and a "Don't see what you need? Message me anyway" card with a live inbox of typical requests.
+5. **Find your leak:** *Not sure what you need?* Opens with a simulated server chat where players keep leaving. Then six plain-language problems plus "I'm not sure". Tapping one opens:
    - the Creator Hub metric to check;
    - what it usually means;
    - what I'd do;
-   - a **Fix this** button.
-4. **How it works:** *What happens if I send it?* Three steps, then a sample audit report.
-5. **Pricing:** *What does it cost?* Three plans, each illustrated with what you actually get: an audit report, a before/after chart, a growth graph.
-6. **FAQ:** six questions.
-7. **Send me your game:** a scrolling wall of the games' thumbnails, then a 3-step form.
+   - a **Fix this** button and the service that covers it.
+6. **How it works:** *What happens if I send it?* Send it → a plan built for your game (the audit) → I build it, ship it and grow it. Then a sample audit report.
+7. **FAQ:** eight questions, including "What if what I need isn't listed?" and "I don't have a game yet".
+8. **Send me your game:** a scrolling wall of the games' thumbnails, then a 3-step form. Step 1 takes a link or "No game yet", and any mix of services.
 
 ## 4. Offers and pricing (all PROPOSED)
 
-| Offer | What it is | Price | Timing |
+| Service | What it is | Price | Timing |
 |---|---|---|---|
-| **Game Audit: Quick Read** | Recorded new-player teardown with your top 3 fixes. No data needed | **$149** | ~5 business days |
-| **Game Audit: Full Audit** | All six moments, your analytics, a ranked fix list, a 60-min call | **$950** | 7–10 business days |
-| **Fix Sprint** | One problem area planned, built into the game, playtested, with before-and-after numbers | from **$2,500** | 2–4 weeks |
-| **Build & Grow** | Custom builds, scripting, bug fixes, QA, or a monthly growth partner | quoted; partner from **$4,000/mo** | — |
+| **Full Game Development** | Idea to launch: core loop, scripting, building, UI, monetization, launch plan | quoted per project | by scope |
+| **Growth & the Algorithm** | Click-through, play-through, first-session funnel, session length, D1/D7 | sprint from **$2,500** | 2–4 weeks |
+| **Thumbnails, Icons & Trailers** | A/B-testable icons and thumbnails, trailers, TikTok clips, ad creatives | quoted per asset or pack | — |
+| **Monetization** | Gamepass and dev product ladder, starter packs, subscriptions, limited-time deals | quoted per sprint | — |
+| **Scripting & Systems** | Data, trading, pets, rebirths, quests; lag and crash fixes; anti-exploit | quoted per task or project | — |
+| **Growth Partner** | Weekly updates, events and admin-abuse events, analytics review, next week's plan | from **$4,000/mo** | monthly |
+| **Game Audit** | Quick Read (recorded teardown, top 3 fixes) or Full Audit (all six moments, analytics, 60-min call) | **free with any package**; alone **$149** / **$950** | 5 / 7–10 business days |
 | **AI workflow coaching** | 1:1 sessions | **$199** / session | — |
 
-**Bridge from audit to fix:** if a client books a Fix Sprint within **30 days**, their audit fee comes off the price.
+**Audit credit:** a client who paid for an audit on its own and books a package within **30 days** gets the audit fee off the price.
 
 **Pricing logic:**
 - Effective rate of about $95–$120 per senior hour.
-- The Quick Read lets small TikTok budgets say yes without eating your week, so cap it per week.
-- Sprints are priced after the audit, so scope comes from evidence.
+- Every package starts with the free audit, so every quote comes from evidence, not guesses.
+- The $149 Quick Read lets small TikTok budgets say yes without eating your week, so cap it per week.
+- Before launch, decide "from" prices for Full Game, Creative, Monetization and Scripting, or keep them as "Quoted".
 
 **Decide before launch:**
 - Refund policy (suggestion: full refund before work starts).
@@ -72,7 +85,7 @@ Nothing on the site invents proof. Fill these in, or the slots stay hidden:
    - **Period.**
    - **Which games**, and your share if any are co-owned.
    - **Dated screenshots.**
-2. **Your games:** seven are live on the site. Still needed for each: **peak CCU** (Creator Hub → Analytics) and, optionally, **your role** (e.g. "Lead scripter"). Add them in `data/roblox.config.json`.
+2. **Your games:** your seven biggest are live on the site. Still needed for each: **peak CCU** (Creator Hub → Analytics) and, optionally, **your role** (e.g. "Lead scripter"). Add them in `data/roblox.config.json`. Your total ("30+") is `gamesWorkedOn` in `assets/js/config.js`.
 3. **TikTok:** handle, follower count and the date you checked.
 4. **Your Roblox user ID** so your real avatar shows. Until then, a "K" monogram.
 5. **Case studies and testimonials:** real ones only, with permission.

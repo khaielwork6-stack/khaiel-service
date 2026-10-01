@@ -1,7 +1,7 @@
 /*
   Site interactions. No dependencies, no build step.
-  Review mode · config links · header & menu · reveals · server chat · my games · leak finder ·
-  accordions · send form · mobile dock
+  Review mode · config links · header & menu · reveals · server chat · my games · live showcase ·
+  the story · services · leak finder · accordions · send form · mobile dock
 */
 (function () {
   "use strict";
@@ -15,7 +15,8 @@
 
   var PROBLEM = {
     click: "Nobody clicks it", hook: "Players quit in the first minute", loop: "They get bored fast",
-    d1: "They don't come back tomorrow", d7: "They're gone within a week", spend: "They play, but nobody buys", unsure: "Not sure"
+    d1: "They don't come back tomorrow", d7: "They're gone within a week", spend: "They play, but nobody buys",
+    new: "It's not out yet", unsure: "Not sure"
   };
 
   function store(key, val) {
@@ -58,6 +59,26 @@
       });
     });
     $$("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
+    if (CFG.gamesWorkedOn) $$("[data-worked]").forEach(function (el) { el.textContent = CFG.gamesWorkedOn + "+"; });
+  }
+
+  /* ------------------------------------------------ run animations only while they're on screen */
+  function whenVisible(el, start, stop) {
+    var vis = false, on = false;
+    function sync() {
+      var want = vis && !document.hidden;
+      if (want === on) return;
+      on = want;
+      el.classList.toggle("is-live", on);
+      if (on) { if (start) start(); } else if (stop) stop();
+    }
+    if (!("IntersectionObserver" in window)) { vis = true; sync(); return; }
+    new IntersectionObserver(function (en) { vis = en[0].isIntersecting; sync(); }, { rootMargin: "80px 0px" }).observe(el);
+    document.addEventListener("visibilitychange", sync);
+  }
+  function ticker(el, ms, fn) {
+    var t = 0;
+    whenVisible(el, function () { fn(); t = setInterval(fn, ms); }, function () { clearInterval(t); t = 0; });
   }
 
   /* ------------------------------------------------ header & menu */
@@ -205,6 +226,8 @@
     var peak = peaks.length ? Math.max.apply(null, peaks) : null;
     var maxVisits = games.length ? games[0].visits || 1 : 1;
     var hasPeak = peak != null;
+    // the board shows the biggest games; config.js holds how many you've worked on in total
+    var worked = real ? +CFG.gamesWorkedOn || 0 : 0;
     var THUMB = '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="currentColor"><path d="M2 7h2.5v7H2zM6 14V7.2L9 2c1 0 1.7.8 1.5 1.8L10 6h3.4c.9 0 1.6.9 1.4 1.8l-1.2 5A1.5 1.5 0 0 1 12.1 14z"/></svg>';
     var PERSON = '<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="currentColor"><circle cx="8" cy="5" r="3"/><path d="M2.5 14c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5z"/></svg>';
 
@@ -223,8 +246,10 @@
       $("[data-board-foot]").textContent = "Example data. Your real games appear here with live numbers from Roblox.";
       $("[data-stat-updated]").textContent = "example data";
     } else {
-      $("[data-board-foot]").textContent = "Visits and live players come straight from Roblox, " + ago(data.updatedAt) + ".";
+      $("[data-board-foot]").textContent = (worked > games.length ? "My " + games.length + " biggest of " + worked + "+. " : "") +
+        "Visits and live players come straight from Roblox, " + ago(data.updatedAt) + ".";
       $("[data-stat-updated]").textContent = "live from Roblox";
+      if (worked > games.length) $("[data-count-sub]").textContent = "the " + games.length + " biggest are on the board";
     }
 
     rows.innerHTML = "";
@@ -298,7 +323,8 @@
       countUp($('[data-stat="visits"]'), total, compact);
       countUp($('[data-stat="peak"]'), hasPeak ? peak : favorites, hasPeak ? whole : compact);
       countUp($('[data-stat="playing"]'), playing, whole);
-      countUp($('[data-stat="count"]'), games.length, function (n) { return String(Math.round(n)); });
+      var many = worked > games.length;
+      countUp($('[data-stat="count"]'), many ? worked : games.length, function (n) { return Math.round(n) + (many ? "+" : ""); });
     }
     if ("IntersectionObserver" in window) {
       var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { start(); io.disconnect(); } }, { threshold: 0.2 });
@@ -411,6 +437,244 @@
     });
   }
 
+  /* ------------------------------------------------ the story: words light up as you scroll */
+  function initCreed() {
+    var sec = $("[data-creed]"), text = $("[data-creed-text]");
+    if (!sec || !text) return;
+    var words = [];
+    (function wrap(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (n) {
+        if (n.nodeType === 1) { wrap(n); return; }
+        if (n.nodeType !== 3) return;
+        var frag = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(function (part) {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+          var w = document.createElement("span");
+          w.className = "w";
+          w.textContent = part;
+          frag.appendChild(w);
+          words.push(w);
+        });
+        node.replaceChild(frag, n);
+      });
+    })(text);
+    if (reduceMotion || !("IntersectionObserver" in window)) { words.forEach(function (w) { w.classList.add("is-lit"); }); return; }
+
+    var lit = -1, raf = 0;
+    function update() {
+      raf = 0;
+      // starts when the text's top reaches 85% down the screen, done when its bottom passes 45%
+      var r = text.getBoundingClientRect(), vh = window.innerHeight;
+      var p = Math.max(0, Math.min(1, (vh * 0.85 - r.top) / (vh * 0.4 + r.height)));
+      var n = Math.round(p * words.length);
+      if (n === lit) return;
+      lit = n;
+      words.forEach(function (w, i) { w.classList.toggle("is-lit", i < n); });
+    }
+    function onScroll() { if (!raf) raf = requestAnimationFrame(update); }
+    whenVisible(sec, function () { window.addEventListener("scroll", onScroll, { passive: true }); update(); },
+      function () { window.removeEventListener("scroll", onScroll); });
+  }
+
+  /* ------------------------------------------------ services: one live illustration per service
+     Each one only animates while it's on screen. Every number in them is labelled "Example". */
+  var HOUSE = [
+    "....rr.......",
+    "...rrrr...gg.",
+    "..rrrrrr.gggg",
+    "..wwwwww..gg.",
+    "..wywwyw..t..",
+    "..wwddww..t.."
+  ];
+  var BRICK = { r: "#c4281c", w: "#d9d6cc", y: "#f5cd30", d: "#7c5c46", g: "#4b974b", t: "#6b4a33" };
+
+  function initBuild(vis) {
+    var scene = $("[data-build]", vis);
+    if (!scene) return;
+    var bricks = [];
+    HOUSE.forEach(function (line, r) {
+      line.split("").forEach(function (ch) {
+        var b = document.createElement("i");
+        if (BRICK[ch]) { b.style.setProperty("--c", BRICK[ch]); b.setAttribute("data-r", r); bricks.push(b); }
+        else b.className = "is-air";
+        scene.appendChild(b);
+      });
+    });
+    scene.style.gridTemplateColumns = "repeat(" + HOUSE[0].length + ", var(--b))";
+    // built from the ground up
+    bricks.sort(function (a, b) { return b.getAttribute("data-r") - a.getAttribute("data-r"); })
+      .forEach(function (b, k) { b.style.setProperty("--k", k); });
+    if (reduceMotion) { vis.classList.add("is-built"); return; }
+    ticker(vis, 7000, function () {
+      vis.classList.remove("is-built");
+      setTimeout(function () { vis.classList.add("is-built"); }, 450);
+    });
+  }
+
+  function initRank(vis) {
+    var list = $("[data-rank]", vis);
+    if (!list) return;
+    var rows = $$("li", list), you = $(".is-you", list), count = $("[data-rank-count]", list);
+    var COUNTS = ["14.8K", "9.6K", "6.9K", "4.6K", "1.9K"];
+    var start = rows.map(function (li) { return +li.style.getPropertyValue("--p"); });
+    var pos = function (li) { return +li.style.getPropertyValue("--p"); };
+    function place(li, p) { li.style.setProperty("--p", p); $("b", li).textContent = p + 1; }
+    function climb() {
+      var p = pos(you);
+      var above = rows.filter(function (li) { return pos(li) === p - 1; })[0];
+      place(above, p);
+      place(you, p - 1);
+      count.textContent = COUNTS[p - 1];
+      you.classList.toggle("is-top", p - 1 === 0);
+    }
+    if (reduceMotion) { while (pos(you) > 0) climb(); return; }
+    var hold = 0;
+    ticker(vis, 1300, function () {
+      if (pos(you) > 0) { climb(); return; }
+      if (++hold < 3) return;
+      hold = 0;
+      list.classList.add("is-fading");
+      setTimeout(function () {
+        list.classList.add("is-reset");
+        rows.forEach(function (li, i) { place(li, start[i]); });
+        count.textContent = COUNTS[4];
+        you.classList.remove("is-top");
+        void list.offsetWidth;
+        list.classList.remove("is-reset", "is-fading");
+      }, 320);
+    });
+  }
+
+  function initAB(vis) {
+    var pair = $("[data-ab]", vis);
+    if (!pair) return;
+    var nums = $$("[data-ab-num]", pair);
+    nums.forEach(function (num) {
+      // bars are drawn out of 10% click-through
+      num.closest(".v-ab__card").style.setProperty("--v", (+num.getAttribute("data-ab-num") / 10).toFixed(3));
+    });
+    function finish() { nums.forEach(function (num) { num.textContent = (+num.getAttribute("data-ab-num")).toFixed(1) + "%"; }); pair.classList.add("is-done"); }
+    if (reduceMotion) { finish(); return; }
+    ticker(vis, 5600, function () {
+      pair.classList.remove("is-done");
+      pair.classList.add("is-zero");
+      nums.forEach(function (num) { num.textContent = "0.0%"; });
+      setTimeout(function () {
+        pair.classList.remove("is-zero");
+        nums.forEach(function (num) {
+          countUp(num, +num.getAttribute("data-ab-num"), function (n) { return n.toFixed(1) + "%"; });
+        });
+      }, 380);
+      setTimeout(function () { pair.classList.add("is-done"); }, 2100);
+    });
+  }
+
+  function initShop(vis) {
+    var toast = $("[data-shop-toast]", vis), rev = $("[data-shop-rev]", vis), items = $$(".v-item", vis);
+    if (!toast || !items.length) return;
+    var total = 12480, n = 0;
+    var ORDER = [1, 0, 1, 2, 1, 1, 0, 1, 2]; // the starter pack sells most, like it should
+    function buy() {
+      var item = items[ORDER[n % ORDER.length]], price = +item.getAttribute("data-price");
+      n++;
+      $("b", toast).textContent = NAMES[(n * 5) % NAMES.length];
+      $(".v-toast__txt span", toast).textContent = item.getAttribute("data-item");
+      $("strong", toast).textContent = "+R$ " + price;
+      toast.classList.remove("is-on");
+      void toast.offsetWidth;
+      toast.classList.add("is-on");
+      items.forEach(function (it) { it.classList.toggle("is-bought", it === item); });
+      total += price;
+      rev.textContent = "R$ " + total.toLocaleString("en-US");
+    }
+    if (reduceMotion) { buy(); return; }
+    ticker(vis, 2600, buy);
+  }
+
+  function initCode(vis) {
+    var src = $("[data-code]", vis);
+    if (!src) return;
+    var lines = $$(".ln", src);
+    lines.forEach(function (ln) { ln.style.setProperty("--n", Math.max(1, ln.textContent.length)); });
+    var i = 0, hold = 0;
+    if (reduceMotion) { lines.forEach(function (l) { l.classList.add("is-on"); }); vis.classList.add("is-done"); return; }
+    ticker(vis, 760, function () {
+      if (i < lines.length) {
+        lines.forEach(function (l) { l.classList.remove("is-cur"); });
+        lines[i].classList.add("is-on", "is-cur");
+        if (++i === lines.length) vis.classList.add("is-done");
+        return;
+      }
+      if (++hold < 5) return;
+      hold = 0; i = 0;
+      vis.classList.remove("is-done");
+      lines.forEach(function (l) { l.classList.remove("is-on", "is-cur"); });
+    });
+  }
+
+  // made-up requests, the kind that actually land in a Roblox dev's DMs
+  var ASKS = ["Can you cut a trailer for my update?", "My CCU dropped after the last update", "Need a pet and egg system",
+    "How do I get on the Home page?", "Can you make my icon pop?", "Want to run an admin abuse event",
+    "My game lags on phones, help", "What should my gamepasses cost?", "Can you build my idea from scratch?",
+    "Need someone to run our TikTok"];
+  var ASK_TIMES = ["now", "1m", "4m", "9m"];
+  function initAsks() {
+    var list = $("[data-asks]");
+    if (!list) return;
+    var i = 0;
+    function push() {
+      var who = NAMES[(i * 7 + 3) % NAMES.length];
+      var li = document.createElement("li");
+      li.innerHTML = '<i></i><span class="ask__txt"><b></b><span></span></span><time></time>';
+      $("i", li).textContent = who.charAt(0).toUpperCase();
+      $("i", li).style.background = NAME_COLORS[i % NAME_COLORS.length];
+      $("b", li).textContent = who;
+      $(".ask__txt span", li).textContent = ASKS[i % ASKS.length];
+      list.insertBefore(li, list.firstChild);
+      while (list.children.length > ASK_TIMES.length) list.removeChild(list.lastChild);
+      $$("time", list).forEach(function (t, k) { t.textContent = ASK_TIMES[k]; });
+      i++;
+    }
+    for (var k = 0; k < 3; k++) push();
+    $$("li", list).forEach(function (li) { li.style.animation = "none"; });
+    if (reduceMotion) return;
+    ticker(list, 2800, push);
+  }
+
+  function initServices() {
+    $$("[data-vis]").forEach(function (vis) {
+      var kind = vis.getAttribute("data-vis");
+      if (kind === "build") initBuild(vis);
+      else if (kind === "rank") initRank(vis);
+      else if (kind === "ab") initAB(vis);
+      else if (kind === "shop") initShop(vis);
+      else if (kind === "code") initCode(vis);
+      else whenVisible(vis); // CSS-only loops just need pausing offscreen
+    });
+    initAsks();
+
+    // "…and a lot more": two copies of each row so the scroll loops seamlessly
+    $$("[data-more-row]").forEach(function (row) {
+      $$("li", row).forEach(function (li) {
+        var c = li.cloneNode(true);
+        c.setAttribute("aria-hidden", "true");
+        row.appendChild(c);
+      });
+      whenVisible(row);
+    });
+
+    // a soft spotlight follows the pointer around each card's edge
+    if (!window.matchMedia("(hover: hover)").matches) return;
+    $$(".svc, .audit-card, .dm-card").forEach(function (card) {
+      card.addEventListener("pointermove", function (e) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty("--mx", (e.clientX - r.left).toFixed(0) + "px");
+        card.style.setProperty("--my", (e.clientY - r.top).toFixed(0) + "px");
+      });
+    });
+  }
+
   /* ------------------------------------------------ leak finder
      Phones: an accordion, everything closed until tapped.
      Desktop: the list on the left, one answer always open on the right. */
@@ -472,7 +736,7 @@
   var form = $("[data-form]");
   var steps = $$("[data-fstep]");
   var step = 1;
-  var DRAFT = "khaiel-form-v2";
+  var DRAFT = "khaiel-form-v3";
 
   function setStep(n, focus) {
     step = n;
@@ -504,10 +768,14 @@
     if (v && !/^https?:\/\//i.test(v)) v = "https://" + v;
     return v;
   }
+  function noGame() { var c = $("[data-no-game]"); return !!(c && c.checked); }
   function checkLink() {
     var input = $("#f-link"), hint = $("[data-link-hint]"), v = normLink(input.value);
     hint.classList.remove("is-ok", "is-warn");
-    if (!input.value.trim()) { hint.textContent = "Copy it from the address bar or the Share button."; return false; }
+    if (!input.value.trim()) {
+      hint.textContent = noGame() ? "No problem. Tell me about the idea below." : "Copy it from the address bar or the Share button.";
+      return false;
+    }
     if (!/^https?:\/\/([a-z0-9-]+\.)*(roblox\.com|ro\.blox\.com)(\/|$)/i.test(v)) {
       hint.textContent = "That doesn't look like a Roblox link yet.";
       hint.classList.add("is-warn");
@@ -521,9 +789,12 @@
   function validate(n) {
     if (n === 1) {
       var link = $("#f-link");
-      if (!link.value.trim()) { setError("Paste your game's Roblox link to continue.", link); return false; }
-      if (!checkLink()) { setError("That should be a roblox.com game link.", link); return false; }
-      link.value = normLink(link.value);
+      if (!link.value.trim()) {
+        if (!noGame()) { setError("Paste your game's Roblox link, or tick “No game yet”.", link); return false; }
+      } else {
+        if (!checkLink()) { setError("That should be a roblox.com game link.", link); return false; }
+        link.value = normLink(link.value);
+      }
     }
     if (n === 3) {
       var email = $("#f-email");
@@ -533,6 +804,7 @@
     return true;
   }
 
+  // a problem replaces the previous pick; a service is added to the ones already ticked
   function prefill(o) {
     if (!form) return;
     ["problem", "service"].forEach(function (k) {
@@ -545,7 +817,10 @@
 
   function collect() {
     var data = {};
-    new FormData(form).forEach(function (v, k) { if (String(v).trim()) data[k] = String(v).trim(); });
+    new FormData(form).forEach(function (v, k) {
+      v = String(v).trim();
+      if (v) data[k] = data[k] ? data[k] + ", " + v : v;
+    });
     return data;
   }
   var saveT;
@@ -556,10 +831,12 @@
     Object.keys(d).forEach(function (k) {
       $$('[name="' + k + '"]', form).forEach(function (el) {
         if (el.type === "hidden") return;
-        if (el.type === "radio") el.checked = el.value === d[k]; else el.value = d[k];
+        if (el.type === "radio") el.checked = el.value === d[k];
+        else if (el.type === "checkbox") el.checked = String(d[k]).split(", ").indexOf(el.value) !== -1;
+        else el.value = d[k];
       });
     });
-    if (d.game_link) checkLink();
+    checkLink();
   }
 
   function captureSource() {
@@ -575,7 +852,7 @@
   }
 
   var LABELS = {
-    game_link: "Game", problem: "What's wrong", notes: "Notes", service: "Interested in", budget: "Budget",
+    game_link: "Game", no_game: "No game yet", service: "Needs", notes: "Notes", problem: "Holding it back", budget: "Budget",
     m_dau: "Daily players", m_session_min: "Avg session (min)", m_d1: "D1 %", m_d7: "D7 %", m_payer: "Payer conversion %",
     email: "Email", name: "Name", discord: "Discord", age: "Age", source: "Source"
   };
@@ -594,7 +871,7 @@
       $("[data-done-title]").textContent = "Almost there. One more tap.";
       $("[data-done-text]").hidden = true;
       $("[data-fallback]").hidden = false;
-      $("[data-mailto]").href = "mailto:" + (CFG.contactEmail || "") + "?subject=" + encodeURIComponent("Game submission: " + (data.game_link || "")) + "&body=" + encodeURIComponent(summary(data));
+      $("[data-mailto]").href = "mailto:" + (CFG.contactEmail || "") + "?subject=" + encodeURIComponent("New project: " + (data.game_link || "starting from an idea")) + "&body=" + encodeURIComponent(summary(data));
       $("[data-copy]").addEventListener("click", function (e) {
         var b = e.currentTarget;
         (navigator.clipboard ? navigator.clipboard.writeText(summary(data)) : Promise.reject()).then(
@@ -623,7 +900,7 @@
       }
     });
     form.addEventListener("input", function (e) {
-      if (e.target.id === "f-link") checkLink();
+      if (e.target.id === "f-link" || e.target.hasAttribute("data-no-game")) checkLink();
       e.target.classList.remove("is-invalid");
       saveDraft();
     });
@@ -643,7 +920,7 @@
       fetch(CFG.formEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(Object.assign({ _subject: "New game: " + (data.game_link || "") }, data))
+        body: JSON.stringify(Object.assign({ _subject: "New project: " + (data.game_link || "starting from an idea") }, data))
       }).then(function (res) {
         if (!res.ok) throw new Error(res.status);
         finish(data, false);
@@ -654,7 +931,7 @@
       });
     });
 
-    // every "Fix this" / "Start with an audit" / plan button carries its choice into the form
+    // every "Fix this" / service / audit button carries its choice into the form
     $$("[data-pick-problem], [data-pick-service]").forEach(function (a) {
       a.addEventListener("click", function () {
         prefill({ problem: a.getAttribute("data-pick-problem"), service: a.getAttribute("data-pick-service") });
@@ -674,14 +951,14 @@
       $("a", dock).tabIndex = on ? 0 : -1;
     }
     new IntersectionObserver(function (en) { heroSeen = en[0].isIntersecting; update(); }).observe($(".hero__actions"));
-    // hide it wherever the page already shows its own buttons: the leak finder, the plans, the form
+    // hide it wherever the page already shows its own buttons: the services, the leak finder, the form
     var seen = new Map();
     var io = new IntersectionObserver(function (en) {
       en.forEach(function (x) { seen.set(x.target, x.isIntersecting); });
       covered = Array.from(seen.values()).some(Boolean);
       update();
     }, { rootMargin: "-25% 0px -25% 0px" });
-    [$("[data-leaks]"), $(".plans")].forEach(function (el) { if (el) io.observe(el); });
+    [$("[data-leaks]"), $("[data-svc-grid]"), $(".svc-extra")].forEach(function (el) { if (el) io.observe(el); });
     // and from the moment the form comes into view
     new IntersectionObserver(function (en) { atEnd = en[0].isIntersecting || en[0].boundingClientRect.top < 0; update(); }).observe($("#send"));
   }
@@ -693,6 +970,8 @@
   initGames();
   initLive();
   initWall();
+  initCreed();
+  initServices();
   initLeaks();
   initAccordions();
   initForm();

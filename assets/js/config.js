@@ -14,6 +14,10 @@ window.SITE_CONFIG = {
 
   brand: "Khaiel",
 
+  // How many Roblox games you've worked on in total. The leaderboard only shows the
+  // biggest ones (data/roblox.config.json); this number shows as "30+" across the page.
+  gamesWorkedOn: 30,
+
   // Where the intake form posts. Works with Formspree (https://formspree.io/f/xxxx),
   // Basin, Getform, or any endpoint that accepts a JSON POST.
   // Leave empty and the form falls back to a prefilled email to `contactEmail`.
