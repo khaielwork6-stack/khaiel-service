@@ -1,0 +1,1149 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Khaiel — Roblox Game Audits, Growth Sprints &amp; Development</title>
+  <meta name="description" content="Find out exactly where your Roblox game is losing players, then fix it. Fixed-price game audits, growth sprints and development from a creator who runs live Roblox games.">
+  <meta name="theme-color" content="#07090c">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Your Roblox game isn't dead. It's leaking.">
+  <meta property="og:description" content="Find the checkpoint where your game loses players, and get it fixed. Fixed-price audits, growth sprints and development.">
+  <!-- Social previews need absolute URLs. Update both if you move to a custom domain. -->
+  <meta property="og:url" content="https://khaielwork6-stack.github.io/khaiel-service/">
+  <meta property="og:image" content="https://khaielwork6-stack.github.io/khaiel-service/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Martian+Mono:wght@400..600&display=swap">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script src="assets/js/config.js"></script>
+  <script>
+    (function () {
+      var d = document.documentElement, c = window.SITE_CONFIG || {}, q = new URLSearchParams(location.search).get("review");
+      d.classList.remove("no-js"); d.classList.add("js");
+      d.dataset.review = q === "1" ? "on" : q === "0" ? "off" : (c.reviewMode ? "on" : "off");
+    })();
+  </script>
+  <script defer src="assets/js/flow.js"></script>
+  <script defer src="assets/js/site.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <div class="review-banner" role="note">
+    <strong>Review mode</strong>
+    <span>Striped markers show proposed prices and policies, plus proof that still needs evidence. Visitors never see these markers. Turn review mode off in <code>assets/js/config.js</code>.</span>
+  </div>
+
+  <header class="site-header" data-header>
+    <div class="site-header__inner">
+      <a class="logo" href="#top" aria-label="Khaiel, back to top">
+        <svg class="logo__mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M17 24H10a3 3 0 0 1-3-3V10a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle class="logo__drop" cx="23.5" cy="23.5" r="3"/></svg>
+        <span class="logo__word">KHAIEL</span>
+        <span class="logo__tag">Roblox growth studio</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#leak-map">Leak Map</a>
+        <a href="#sample">Sample audit</a>
+        <a href="#services">Services</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a class="btn btn--primary btn--sm header-cta" href="#submit" data-cta="header">Submit your game</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-btn>
+        <span class="sr-only">Menu</span><i></i><i></i>
+      </button>
+    </div>
+  </header>
+  <div class="mobile-menu" id="mobile-menu" hidden data-menu>
+      <nav aria-label="Mobile">
+        <a href="#leak-map"><span>01</span>Leak Map</a>
+        <a href="#sample"><span>02</span>Sample audit</a>
+        <a href="#services"><span>03</span>Services &amp; pricing</a>
+        <a href="#about"><span>04</span>Who's behind this</a>
+        <a href="#process"><span>05</span>How it works</a>
+        <a href="#faq"><span>06</span>FAQ</a>
+      </nav>
+      <a class="btn btn--primary btn--block" href="#submit">Submit your game</a>
+  </div>
+
+  <main id="main">
+
+    <!-- ============================== HERO ============================== -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="wrap hero__copy">
+        <p class="eyebrow hero-in" style="--i:0"><span class="pulse-dot" aria-hidden="true"></span>Roblox growth &amp; development studio</p>
+        <h1 class="hero__title" id="hero-title">
+          <span class="ln"><span class="hero-in" style="--i:1">Your game</span></span>
+          <span class="ln"><span class="hero-in" style="--i:2">isn't dead.</span></span>
+          <span class="ln"><span class="hero-in hero__accent" style="--i:3">It's leaking<span class="drop" aria-hidden="true">.</span><span class="sr-only">.</span></span></span>
+        </h1>
+        <p class="hero__lede hero-in" style="--i:4">Somewhere between your thumbnail and your shop, players are slipping out. I build and run my own Roblox games. I'll find exactly where yours loses them, and help you fix it.</p>
+        <div class="hero__actions hero-in" style="--i:5">
+          <a class="btn btn--primary btn--lg" href="#submit" data-cta="hero">Submit your game
+            <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
+          <a class="btn btn--ghost btn--lg" href="#leak-map" data-open-quiz>Why isn't my game growing?</a>
+        </div>
+        <p class="hero__meta hero-in" style="--i:6">
+          <span>Fixed-price audits from <b data-proposed>$149</b></span>
+          <span>Reply within <b data-proposed>2 business days</b></span>
+        </p>
+      </div>
+
+      <div class="flow" data-flow aria-label="Animated simulation of players flowing through six checkpoints and dropping out at each one">
+        <canvas class="flow__canvas" aria-hidden="true"></canvas>
+        <ol class="flow__gates">
+          <li style="--g:0"><button type="button" data-goto-stage="click"><span class="g-n">01</span><span class="g-k">Click</span><span class="g-tip">Do players choose it?</span></button></li>
+          <li style="--g:1"><button type="button" data-goto-stage="hook"><span class="g-n">02</span><span class="g-k">Hook</span><span class="g-tip">Do they stay past minute one?</span></button></li>
+          <li style="--g:2"><button type="button" data-goto-stage="loop"><span class="g-n">03</span><span class="g-k">Loop</span><span class="g-tip">Is there always a next goal?</span></button></li>
+          <li style="--g:3"><button type="button" data-goto-stage="d1"><span class="g-n">04</span><span class="g-k">D1</span><span class="g-tip">Do they come back tomorrow?</span></button></li>
+          <li style="--g:4"><button type="button" data-goto-stage="d7"><span class="g-n">05</span><span class="g-k">D7</span><span class="g-tip">Still here next week?</span></button></li>
+          <li style="--g:5"><button type="button" data-goto-stage="spend"><span class="g-n">06</span><span class="g-k">Spend</span><span class="g-tip">Is anything worth buying?</span></button></li>
+        </ol>
+        <p class="flow__note">Simulation, not real data. Tap a checkpoint.</p>
+      </div>
+    </section>
+
+    <!-- ============================== BRIDGE ============================== -->
+    <section class="bridge" aria-labelledby="bridge-title">
+      <div class="wrap bridge__inner">
+        <figure class="comment rv">
+          <div class="comment__head">
+            <span class="comment__avatar" aria-hidden="true"></span>
+            <span class="comment__user">a comment I get every day</span>
+          </div>
+          <blockquote class="comment__text">why is my game dead?? i update it every week <span class="comment__link">roblox.com/games/…</span></blockquote>
+          <figcaption class="comment__cap">Paraphrased. Some version of this lands under every video.</figcaption>
+        </figure>
+        <div class="bridge__copy">
+          <h2 class="bridge__title rv" id="bridge-title">It's almost never <s>“the algorithm hates me.”</s> It's a leak.</h2>
+          <p class="rv">Roblox recommends games based on what players do in them. Its own docs say it plainly:</p>
+          <blockquote class="quote rv">
+            <p>“Improving your retention, engagement, and monetization directly enhances Roblox's recommendation signals.”</p>
+            <cite><a href="https://create.roblox.com/docs/discovery" target="_blank" rel="noopener">Roblox Creator Hub, Discovery</a></cite>
+          </blockquote>
+          <p class="rv">So when a game stalls, players are dropping out at a specific point, and that point can be found. Every game has six of them.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== LEAK MAP ============================== -->
+    <section class="finder section" id="leak-map" aria-labelledby="finder-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="kicker rv"><b>01</b>The Leak Map</p>
+          <h2 class="h2 scan" id="finder-title">Six checkpoints. Find the one that's breaking.</h2>
+          <p class="section-lede rv">Every Roblox game has to win the same six moments. Lose players at one, and fewer reach the next. Pick the checkpoint that hurts to see what it looks like, what I'd investigate, and exactly what fixing it involves.</p>
+        </header>
+
+        <div class="modes rv" role="tablist" aria-label="How do you want to start?">
+          <button type="button" role="tab" id="mode-map" aria-selected="true" aria-controls="panel-map" data-mode="map">
+            <span class="modes__t">I know where it hurts</span><span class="modes__s">Pick a checkpoint</span>
+          </button>
+          <button type="button" role="tab" id="mode-quiz" aria-selected="false" aria-controls="panel-quiz" data-mode="quiz" tabindex="-1">
+            <span class="modes__t">Why isn't my game growing?</span><span class="modes__s">6 quick taps to find your leak</span>
+          </button>
+          <span class="modes__thumb" aria-hidden="true"></span>
+        </div>
+
+        <!-- MAP MODE -->
+        <div class="finder__map" id="panel-map" role="tabpanel" aria-labelledby="mode-map" data-mode-panel="map">
+          <div class="rail-wrap">
+            <div class="rail" role="tablist" aria-label="Checkpoints">
+              <button type="button" role="tab" id="tab-click" aria-controls="stage-click" aria-selected="true" data-stage="click"><span class="rail__n">01</span><span class="rail__k">Click</span><span class="rail__l">Discovery</span></button>
+              <button type="button" role="tab" id="tab-hook" aria-controls="stage-hook" aria-selected="false" tabindex="-1" data-stage="hook"><span class="rail__n">02</span><span class="rail__k">Hook</span><span class="rail__l">First session</span></button>
+              <button type="button" role="tab" id="tab-loop" aria-controls="stage-loop" aria-selected="false" tabindex="-1" data-stage="loop"><span class="rail__n">03</span><span class="rail__k">Loop</span><span class="rail__l">Engagement</span></button>
+              <button type="button" role="tab" id="tab-d1" aria-controls="stage-d1" aria-selected="false" tabindex="-1" data-stage="d1"><span class="rail__n">04</span><span class="rail__k">D1</span><span class="rail__l">Day 1 retention</span></button>
+              <button type="button" role="tab" id="tab-d7" aria-controls="stage-d7" aria-selected="false" tabindex="-1" data-stage="d7"><span class="rail__n">05</span><span class="rail__k">D7</span><span class="rail__l">Day 7 retention</span></button>
+              <button type="button" role="tab" id="tab-spend" aria-controls="stage-spend" aria-selected="false" tabindex="-1" data-stage="spend"><span class="rail__n">06</span><span class="rail__k">Spend</span><span class="rail__l">Monetization</span></button>
+              <span class="rail__beam" aria-hidden="true"></span>
+            </div>
+          </div>
+
+          <div class="console brackets">
+            <!-- 01 CLICK -->
+            <article class="stage" id="stage-click" role="tabpanel" aria-labelledby="tab-click" data-stage-panel="click">
+              <header class="stage__head">
+                <p class="stage__code"><b>01 / Click</b> Discovery &amp; clicks</p>
+                <h3 class="stage__q">Do players see your game and choose it?</h3>
+                <p class="stage__lede">If almost nobody joins, nothing after this matters yet. It's usually one of three things: the game isn't being shown, it's shown but loses the click, or it wins clicks from the wrong players.</p>
+                <p class="stage__signal"><span>Roblox signal</span> Play through rate</p>
+              </header>
+              <div class="stage__body">
+                <div class="stage__diag">
+                  <h4 class="mini">Sounds like your game? <em>Tap all that apply</em></h4>
+                  <ul class="symptoms">
+                    <li><button type="button" class="symptom" aria-pressed="false">Lots of impressions, very few plays.</button></li>
+                    <li><button type="button" class="symptom" aria-pressed="false">My icon looks fine alone but disappears next to the games around it.</button></li>
+                    <li><button type="button" class="symptom" aria-pressed="false">Players join, find something different from the thumbnail, and leave.</button></li>
+                    <li><button type="button" class="symptom" aria-pressed="false">Updates don't bring anyone back.</button></li>
+                  </ul>
+                  <figure class="signal-chart">
+                    <figcaption><span class="tag-ill">Illustrative example</span>What this leak can look like</figcaption>
+                    <div class="chart" data-chart="click" role="img" aria-label="Illustrative example: 40,000 impressions led to 480 plays, a 1.2 percent play through rate."></div>
+                  </figure>
+                </div>
+                <div class="stage__work">
+                  <details class="work" open>
+                    <summary>What I investigate</summary>
+                    <ul class="ticks">
+                      <li>Your icon and thumbnails side by side with the games you actually compete with</li>
+                      <li>Whether your title, icon and first minute all make the same promise</li>
+                      <li>Where your traffic comes from (Home, Search, sponsored ads, socials) and how each source behaves</li>
+                      <li>Your update and launch timing</li>
+                    </ul>
+                  </details>
+                  <details class="work" open>
+                    <summary>What the sprint includes</summary>
+                    <ul class="ticks">
+                      <li>Icon and thumbnail art direction: three distinct concepts, briefed so any artist can execute them</li>
+                      <li>Title and description rewrites</li>
+                      <li>A thumbnail personalization test plan: what to run, for how long, and how to read it</li>
+                      <li>A launch and update plan, including short-form video angles for your game</li>
+                    </ul>
+                  </details>
+                  <div class="gets">
+                    <h4 class="mini">You get</h4>
+                    <ul class="pills"><li>Art direction board</li><li>Copy options</li><li>Test plan</li><li>Launch checklist</li><li>Review call</li></ul>
+                  </div>
+                  <div class="buy">
+                    <div class="buy__meta">
+                      <span class="buy__name">Discovery &amp; Launch Sprint</span>
+                      <span class="buy__facts"><span data-proposed>~2 weeks</span><span data-proposed>from $2,500</span></span>
+                      <span class="buy__fine">Final artwork can be quoted separately, or brief your own artist.</span>
+                    </div>
+                    <a class="btn btn--primary" href="#submit" data-start-stage="click">Fix my clicks <span class="sym-count" hidden></span>
+                      <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
+                    <a class="buy__alt" href="#services" data-start-audit>Not sure it's this one? Start with an audit</a>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 02 HOOK -->
+            <article class="stage" id="stage-hook" role="tabpanel" aria-labelledby="tab-hook" data-stage-panel="hook">
+              <header class="stage__head">
+                <p class="stage__code"><b>02 / Hook</b> First session</p>
+                <h3 class="stage__q">Do new players get hooked in the first few minutes?</h3>
+                <p class="stage__lede">New players decide fast. If the fun starts after a long walk, a wall of text or a menu, they're gone before they find it, and every player you gained from a better thumbnail is wasted.</p>
+                <p class="stage__signal"><span>Roblox signal</span> First play bounce rate</p>
+              </header>
+              <div class="stage__body">
+                <div class="stage__diag">
+                  <h4 class="mini">Sounds like your game? <em>Tap all that apply</em></h4>
+                  <ul class="symptoms">
+                    <li><button type="button" class="symptom" aria-pressed="false">Players spawn, look around, and leave within a minute.</button></li>
+                    <li><button type="button" class="symptom" aria-pressed="false">The tutorial explains the controls but not why the game is fun.</button></li>
+                    <li><button type="button" class="symptom" aria-pressed="false">The first real reward takes too long to arrive.</button></li>
+                    <li><button type="button" class="symptom" aria-pressed="false">It feels worse on a phone than on PC.</button></li>
+                  </ul>
+                  <figure class="signal-chart">
+                    <figcaption><span class="tag-ill">Illustrative example</span>New players still in the game, by minute</figcaption>
+                    <div class="chart" data-chart="hook" role="img" aria-label="Illustrative example: about half of new players leave within the first minute, then the curve flattens."></div>
+                  </figure>
+                </div>
+                <div class="stage__work">
+                  <details class="work" open>
+                    <summary>What I investigate</summary>
+                    <ul class="ticks">
+                      <li>I play as a brand-new player on phone and PC, and record it with commentary</li>
+                      <li>Time-to-fun: how many seconds until the first real reward</li>
+                      <li>Spawn, first objective, UI clarity, and load time on low-end devices</li>
+                      <li>Onboarding funnel events showing exactly which step players quit at. I'll add them if you don't have any</li>
+                    </ul>
+                  </details>
+                  <details class="work" open>
+                    <summary>What the sprint includes</summary>
+                    <ul class="ticks">
+                      <li>A redesigned first five minutes: spawn, first goal, first reward, first “oh, cool”</li>
+                      <li>Onboarding funnel events, so every step is measured</li>
+                      <li>Implementation of the agreed changes in your game, playtested</li>
+                      <li>A before/after funnel readout once enough new players have come through</li>
+                    </ul>
+                  </details>
+                  <div class="gets">
+                    <h4 class="mini">You get</h4>
+                    <ul class="pills"><li>Annotated playthrough</li><li>First-5-minutes flow</li><li>Funnel setup</li><li>Implemented changes</li><li>Readout</li></ul>
+                  </div>
+                  <div class="buy">
+                    <div class="buy__meta">
+                      <span class="buy__name">First Session Sprint</span>
+                      <span class="buy__facts"><span data-proposed>2–3 weeks</span><span data-proposed>from $3,500</span></span>
+                    </div>
+                    <a class="btn btn--primary" href="#submit" data-start-stage="hook">Fix my first minutes <span class="sym-count" hidden></span>
+                      <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
+                    <a class="buy__alt" href="#services" data-start-audit>Not sure it's this one? Start with an audit</a>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 03 LOOP -->
+            <article class="stage" id="stage-loop" role="tabpanel" aria-labelledby="tab-loop" data-stage-panel="loop">
+              <header class="stage__head">
+                <p class="stage__code"><b>03 / Loop</b> Engagement</p>
+                <h3 class="stage__q">Is there always a next thing to chase?</h3>
+                <p class="stage__lede">A game can be fun and still have short sessions. That's usually pacing: players run out of goals, or the next goal is too far away to feel real.</p>
+                <p class="stage__signal"><span>Roblox signals</span> Playtime per user · Co-play days</p>
+              </header>
+              <div class="stage__body">
+                <div class="stage__diag">
+                  <h4 class="mini">Sounds like your game? <em>Tap all that apply</em></h4>
+                  <ul class="symptoms">
+                    <li><button type="button" class="symptom" aria-pressed="false">Players like it, but sessions are short.</button></li>
+                    <li><button type="button" class="symptom" aria-pressed="false">People burn through all the content in a day.</button></li>
+                    <li><button type="button" class="symptom" aria-pressed="false">After the first few upgrades, there's nothing to chase.</button></li>
+                    <li><button type="button" class="symptom" aria-pressed="false">Playing with friends isn't any better than playing alone.</button></li>
+                  </ul>
+                  <figure class="signal-chart">
+                    <figcaption><span class="tag-ill">Illustrative example</span>Session length vs. distance to the next goal</figcaption>
+                    <div class="chart" data-chart="loop" role="img" aria-label="Illustrative example: a typical session lasts 9 minutes, but the next major goal is 34 minutes away."></div>
+                  </figure>
+                </div>
+                <div class="stage__work">
+                  <details class="work" open>
+                    <summary>What I investigate</summary>
+                    <ul class="ticks">
+                      <li>Your core loop: what players do, earn and spend, and how fast it repeats</li>
+                      <li>Progression pacing: the gap between goals at minute 5, hour 1 and day 3</li>
+                      <li>Goal stacking: is there always a short, mid and long-term goal on screen?</li>
+                      <li>Social hooks: friends, trading, leaderboards, shared servers</li>
+                    </ul>
+                  </details>
+                  <details class="work" open>
+                    <summary>What the sprint includes</summary>
+                    <ul class="ticks">
+                      <li>A loop and progression map of your game as it is, and as it should be</li>
+                      <li>A pacing and economy model for the rebalance</li>
+                      <li>Two to four prioritized feature specs</li>
+                      <li>Implementation of the agreed features and rebalance, playtested</li>
+                    </ul>
+                  </details>
+                  <div class="gets">
+                    <h4 class="mini">You get</h4>
+                    <ul class="pills"><li>Loop map</li><li>Pacing &amp; economy model</li><li>Feature specs</li><li>Implemented changes</li></ul>
+                  </div>
+                  <div class="buy">
+                    <div class="buy__meta">
+                      <span class="buy__name">Engagement Sprint</span>
+                      <span class="buy__facts"><span data-proposed>3–4 weeks</span><span data-proposed>from $4,500</span></span>
+                    </div>
+                    <a class="btn btn--primary" href="#submit" data-start-stage="loop">Fix my loop <span class="sym-count" hidden></span>
+                      <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
+                    <a class="buy__alt" href="#services" data-start-audit>Not sure it's this one? Start with an audit</a>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 04 D1 -->
+            <article class="stage" id="stage-d1" role="tabpanel" aria-labelledby="tab-d1" data-stage-panel="d1">
+              <header class="stage__head">
+                <p class="stage__code"><b>04 / D1</b> Day 1 retention</p>
+                <h3 class="stage__q">Do players come back tomorrow?</h3>
+                <p class="stage__lede">Day 1 retention is decided at the end of the first session. If players leave with nothing unfinished and nothing waiting for them, there's no reason to return.</p>
+                <p class="stage__signal"><span>Roblox signal</span> Play days per user, Day 1</p>
+              </header>
+              <div class="stage__body">
+                <div class="stage__diag">
+                  <h4 class="mini">Sounds like your game? <em>Tap all that apply</em></h4>
+                  <ul class="symptoms">
+                    <li><button type="button" class="symptom" aria-pressed="false">Lots of first sessions, very few second ones.</button></li>
+                    <li><button type="button" class="symptom" aria-pressed="false">Players log off with nothing left unfinished.</button></li>
+                    <li><button type="button" class="symptom" aria-pressed="false">There's no reason to play tomorrow instead of next week.</button></li>
+                    <li><button type="button" class="symptom" aria-pressed="false">My daily reward is the only reason to return, and it isn't enough.</button></li>
+                  </ul>
+                  <figure class="signal-chart">
+                    <figcaption><span class="tag-ill">Illustrative example</span>Share of a day's new players who return</figcaption>
+                    <div class="chart" data-chart="d1" role="img" aria-label="Illustrative example: retention drops from 100 percent on day 0 to 7 percent on day 1."></div>
+                  </figure>
+                </div>
+                <div class="stage__work">
+                  <details class="work" open>
+                    <summary>What I investigate</summary>
+                    <ul class="ticks">
+                      <li>What players are in the middle of when they quit</li>
+                      <li>Return reasons: timers, unlocks, streaks, friends, unfinished goals</li>
+                      <li>Whether the first session ever reaches your core loop</li>
+                      <li>How D1 differs by platform, country and acquisition source</li>
+                    </ul>
+                  </details>
+                  <details class="work" open>
+                    <summary>What the sprint includes</summary>
+                    <ul class="ticks">
+                      <li>A return-hook plan built around your core loop, not a generic daily reward</li>
+                      <li>Session-end design: what's left unfinished, and what's waiting tomorrow</li>
+                      <li>Implementation and tuning, playtested</li>
+                      <li>A cohort readout comparing before and after</li>
+                    </ul>
+                  </details>
+                  <div class="gets">
+                    <h4 class="mini">You get</h4>
+                    <ul class="pills"><li>Return-hook plan</li><li>Session-end redesign</li><li>Implemented systems</li><li>Cohort readout</li></ul>
+                  </div>
+                  <div class="buy">
+                    <div class="buy__meta">
+                      <span class="buy__name">Retention Sprint · D1 focus</span>
+                      <span class="buy__facts"><span data-proposed>2–3 weeks</span><span data-proposed>from $3,500</span></span>
+                    </div>
+                    <a class="btn btn--primary" href="#submit" data-start-stage="d1">Fix my Day 1 <span class="sym-count" hidden></span>
+                      <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
+                    <a class="buy__alt" href="#services" data-start-audit>Not sure it's this one? Start with an audit</a>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 05 D7 -->
+            <article class="stage" id="stage-d7" role="tabpanel" aria-labelledby="tab-d7" data-stage-panel="d7">
+              <header class="stage__head">
+                <p class="stage__code"><b>05 / D7</b> Day 7 retention</p>
+                <h3 class="stage__q">Is there still a game here next week?</h3>
+                <p class="stage__lede">Day 7 is about depth. Players who stay a week need goals bigger than one session, and a reason to believe the game will keep changing.</p>
+                <p class="stage__signal"><span>Roblox signal</span> Play days per user, Days 2–7</p>
+              </header>
+              <div class="stage__body">
+                <div class="stage__diag">
+                  <h4 class="mini">Sounds like your game? <em>Tap all that apply</em></h4>
+                  <ul class="symptoms">
+                    <li><button type="button" class="symptom" aria-pressed="false">Players come back once or twice, then vanish.</button></li>
+                    <li><button type="button" class="symptom" aria-pressed="false">Max level arrives and there's nothing left to do.</button></li>
+                    <li><button type="button" class="symptom" aria-pressed="false">Updates spike players, then numbers slide right back.</button></li>
+                    <li><button type="button" class="symptom" aria-pressed="false">My most loyal players say they're bored.</button></li>
+                  </ul>
+                  <figure class="signal-chart">
+                    <figcaption><span class="tag-ill">Illustrative example</span>Returning players, Day 1 to Day 7</figcaption>
+                    <div class="chart" data-chart="d7" role="img" aria-label="Illustrative example: of the players who return on day 1, 70 percent are gone by day 7."></div>
+                  </figure>
+                </div>
+                <div class="stage__work">
+                  <details class="work" open>
+                    <summary>What I investigate</summary>
+                    <ul class="ticks">
+                      <li>Mid-game and endgame depth: what's left after day three</li>
+                      <li>Long-term goals: collections, mastery, rebirths, seasons</li>
+                      <li>Social layers that keep groups playing together</li>
+                      <li>Your update cadence and live events</li>
+                    </ul>
+                  </details>
+                  <details class="work" open>
+                    <summary>What the sprint includes</summary>
+                    <ul class="ticks">
+                      <li>Mid- and long-term progression design</li>
+                      <li>An 8-week live-ops calendar: events, limited content, update beats</li>
+                      <li>Implementation of the first system or event, playtested</li>
+                    </ul>
+                  </details>
+                  <div class="gets">
+                    <h4 class="mini">You get</h4>
+                    <ul class="pills"><li>Progression design</li><li>8-week live-ops calendar</li><li>Update roadmap</li><li>First beat, built</li></ul>
+                  </div>
+                  <div class="buy">
+                    <div class="buy__meta">
+                      <span class="buy__name">Retention Sprint · D7 focus</span>
+                      <span class="buy__facts"><span data-proposed>3–4 weeks</span><span data-proposed>from $4,500</span></span>
+                    </div>
+                    <a class="btn btn--primary" href="#submit" data-start-stage="d7">Fix my Day 7 <span class="sym-count" hidden></span>
+                      <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
+                    <a class="buy__alt" href="#services" data-start-audit>Not sure it's this one? Start with an audit</a>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 06 SPEND -->
+            <article class="stage" id="stage-spend" role="tabpanel" aria-labelledby="tab-spend" data-stage-panel="spend">
+              <header class="stage__head">
+                <p class="stage__code"><b>06 / Spend</b> Monetization</p>
+                <h3 class="stage__q">Do engaged players have something worth buying?</h3>
+                <p class="stage__lede">Players who love a game want to support it. When they don't spend, it's usually what's for sale, when it's offered, or how it's priced. It's rarely the players.</p>
+                <p class="stage__signal"><span>Roblox signals</span> Spend days · Robux spend</p>
+              </header>
+              <div class="stage__body">
+                <div class="stage__diag">
+                  <h4 class="mini">Sounds like your game? <em>Tap all that apply</em></h4>
+                  <ul class="symptoms">
+                    <li><button type="button" class="symptom" aria-pressed="false">Lots of playtime, very little Robux.</button></li>
+                    <li><button type="button" class="symptom" aria-pressed="false">The shop is a menu nobody opens.</button></li>
+                    <li><button type="button" class="symptom" aria-pressed="false">My gamepass prices were a guess.</button></li>
+                    <li><button type="button" class="symptom" aria-pressed="false">Players buy once, then never again.</button></li>
+                  </ul>
+                  <figure class="signal-chart">
+                    <figcaption><span class="tag-ill">Illustrative example</span>From player to payer</figcaption>
+                    <div class="chart" data-chart="spend" role="img" aria-label="Illustrative example: of 10,000 players, 2,400 open the shop, 900 view an offer and 110 buy, a 1.1 percent payer conversion rate."></div>
+                  </figure>
+                </div>
+                <div class="stage__work">
+                  <details class="work" open>
+                    <summary>What I investigate</summary>
+                    <ul class="ticks">
+                      <li>When and where offers appear, compared with what players want at that moment</li>
+                      <li>Your gamepass and developer product lineup, and its price ladder</li>
+                      <li>The first-purchase moment: where a player becomes a payer</li>
+                      <li>Fairness: what makes payers feel good without driving free players away</li>
+                    </ul>
+                  </details>
+                  <details class="work" open>
+                    <summary>What the sprint includes</summary>
+                    <ul class="ticks">
+                      <li>A monetization map: every offer, where it appears, and why</li>
+                      <li>A pricing ladder and lineup changes</li>
+                      <li>Shop and offer UX redesign</li>
+                      <li>Implementation, then a readout of payer conversion, ARPPU and ARPDAU</li>
+                    </ul>
+                  </details>
+                  <div class="gets">
+                    <h4 class="mini">You get</h4>
+                    <ul class="pills"><li>Monetization map</li><li>Pricing sheet</li><li>Shop redesign</li><li>Implemented changes</li><li>Readout</li></ul>
+                  </div>
+                  <div class="buy">
+                    <div class="buy__meta">
+                      <span class="buy__name">Monetization Sprint</span>
+                      <span class="buy__facts"><span data-proposed>2–3 weeks</span><span data-proposed>from $3,500</span></span>
+                    </div>
+                    <a class="btn btn--primary" href="#submit" data-start-stage="spend">Fix my monetization <span class="sym-count" hidden></span>
+                      <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
+                    <a class="buy__alt" href="#services" data-start-audit>Not sure it's this one? Start with an audit</a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <p class="finder__source">Signal names are taken from Roblox's <a href="https://create.roblox.com/docs/discovery" target="_blank" rel="noopener">Discovery documentation</a>. Charts are illustrative, not benchmarks.</p>
+        </div>
+
+        <!-- QUIZ MODE -->
+        <div class="finder__quiz" id="panel-quiz" role="tabpanel" aria-labelledby="mode-quiz" data-mode-panel="quiz" hidden>
+          <div class="quiz console brackets" data-quiz>
+            <noscript><p>The quick diagnosis needs JavaScript. You can still <a href="#submit">submit your game</a>.</p></noscript>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== SAMPLE AUDIT ============================== -->
+    <section class="sample section" id="sample" aria-labelledby="sample-title">
+      <div class="wrap sample__grid">
+        <header class="section-head sample__head">
+          <p class="kicker rv"><b>02</b>The deliverable</p>
+          <h2 class="h2 scan" id="sample-title">Not vibes. A ranked list of fixes.</h2>
+          <p class="section-lede rv">Every audit ends the same way: your Leak Map, the evidence behind it, and a list of fixes ranked by impact and effort. You'll know exactly what to do first, whether I build it or you do.</p>
+          <ul class="sample__points rv">
+            <li><b>Evidence, not opinions.</b> Every finding points to a recording, a number or a comparison.</li>
+            <li><b>Ranked.</b> Impact against effort, so the cheap, high-impact wins come first.</li>
+            <li><b>Measurable.</b> Each fix says which number should move, and where to check it.</li>
+          </ul>
+        </header>
+
+        <div class="report-stage rv">
+          <article class="report" aria-label="Sample audit report for a fictional game">
+            <div class="report__stamp">Sample · fictional game</div>
+            <header class="report__head">
+              <p class="report__type">Full Game Audit</p>
+              <h3 class="report__game">Magma Factory Tycoon</h3>
+              <p class="report__meta">Tycoon · Live 4 months · Every name and number on this page is illustrative</p>
+            </header>
+            <div class="report__map" aria-label="Leak Map scorecard">
+              <span class="rm rm--watch"><b>Click</b>Watch</span>
+              <span class="rm rm--leak"><b>Hook</b>Leak</span>
+              <span class="rm rm--watch"><b>Loop</b>Watch</span>
+              <span class="rm rm--leak"><b>D1</b>Leak</span>
+              <span class="rm rm--ok"><b>D7</b>OK</span>
+              <span class="rm rm--watch"><b>Spend</b>Watch</span>
+            </div>
+            <p class="report__summary"><b>Summary.</b> The game wins clicks, then loses most new players before their first upgrade. Fix the first two minutes first. Everything after them depends on it.</p>
+            <ol class="findings">
+              <li class="finding">
+                <button type="button" class="finding__btn" aria-expanded="true">
+                  <span class="finding__p">P1</span>
+                  <span class="finding__t">The first money-maker is a 40-second walk from spawn.</span>
+                  <span class="finding__tags"><span class="ft ft--stage">Hook</span><span class="ft">Impact high</span><span class="ft">Effort low</span></span>
+                </button>
+                <div class="finding__body"><div>
+                  <p><b>Evidence.</b> Most new-player recordings quit before reaching the first dropper. Funnel step 2 (first purchase) loses more players than any other step.</p>
+                  <p><b>Fix.</b> Spawn players facing their first machine. Make the first purchase possible within 15 seconds.</p>
+                  <p><b>Measure.</b> Onboarding funnel step 2 completion. First play bounce rate.</p>
+                  <p class="finding__with">Fix with → First Session Sprint</p>
+                </div></div>
+              </li>
+              <li class="finding">
+                <button type="button" class="finding__btn" aria-expanded="false">
+                  <span class="finding__p">P2</span>
+                  <span class="finding__t">Nothing is left unfinished when players log off.</span>
+                  <span class="finding__tags"><span class="ft ft--stage">D1</span><span class="ft">Impact high</span><span class="ft">Effort medium</span></span>
+                </button>
+                <div class="finding__body"><div>
+                  <p><b>Evidence.</b> Upgrades complete instantly. There are no offline earnings, and no goal is in progress at session end.</p>
+                  <p><b>Fix.</b> Add one overnight upgrade, and show the next unlock and its timer on the leave screen.</p>
+                  <p><b>Measure.</b> D1 retention by daily cohort, before vs. after.</p>
+                  <p class="finding__with">Fix with → Retention Sprint</p>
+                </div></div>
+              </li>
+              <li class="finding">
+                <button type="button" class="finding__btn" aria-expanded="false">
+                  <span class="finding__p">P3</span>
+                  <span class="finding__t">The thumbnail sells a volcano adventure. The game is a factory.</span>
+                  <span class="finding__tags"><span class="ft ft--stage">Click</span><span class="ft">Impact medium</span><span class="ft">Effort low</span></span>
+                </button>
+                <div class="finding__body"><div>
+                  <p><b>Evidence.</b> Players who click expecting exploration leave the moment they see a tycoon plot.</p>
+                  <p><b>Fix.</b> Test thumbnails that show the factory at full power, with the volcano as backdrop.</p>
+                  <p><b>Measure.</b> Qualified play through rate, using thumbnail personalization.</p>
+                  <p class="finding__with">Fix with → Discovery &amp; Launch Sprint</p>
+                </div></div>
+              </li>
+              <li class="finding">
+                <button type="button" class="finding__btn" aria-expanded="false">
+                  <span class="finding__p">P4</span>
+                  <span class="finding__t">The shop pops up on join, before anything has a value.</span>
+                  <span class="finding__tags"><span class="ft ft--stage">Spend</span><span class="ft">Impact medium</span><span class="ft">Effort low</span></span>
+                </button>
+                <div class="finding__body"><div>
+                  <p><b>Evidence.</b> The offer is closed almost every time it's shown. A player at minute one can't tell what 2x cash is worth.</p>
+                  <p><b>Fix.</b> Show the first offer right after the first rebirth preview, when 2x cash finally means something.</p>
+                  <p><b>Measure.</b> Payer conversion rate, and time to first purchase.</p>
+                  <p class="finding__with">Fix with → Monetization Sprint</p>
+                </div></div>
+              </li>
+            </ol>
+            <footer class="report__foot">Full report continues: more findings, a 3-game competitor teardown, analytics notes and the recorded walkthrough call.</footer>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== SERVICES ============================== -->
+    <section class="offers section" id="services" aria-labelledby="offers-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="kicker rv"><b>03</b>Work with me</p>
+          <h2 class="h2 scan" id="offers-title">Diagnose first. Then fix what it finds.</h2>
+          <p class="section-lede rv">Fixed prices where the scope is clear, quotes where it isn't. Every path starts with finding the real problem, because fixing the wrong checkpoint is the most expensive mistake in game dev.</p>
+        </header>
+
+        <div class="ladder">
+          <!-- STEP 1 -->
+          <div class="step rv">
+            <div class="step__label">
+              <span class="step__n">Step 1</span>
+              <h3 class="step__t">Diagnose</h3>
+              <p class="step__s">Find the leak.</p>
+            </div>
+            <div class="step__body diag">
+              <article class="offer offer--quick">
+                <header>
+                  <p class="offer__k">Quick Read</p>
+                  <p class="offer__price"><span data-proposed data-price="quick">$149</span></p>
+                  <p class="offer__time" data-proposed>Delivered in 5 business days</p>
+                </header>
+                <p class="offer__pitch">A recorded teardown. No data needed.</p>
+                <ul class="ticks">
+                  <li>15–20 minute video of me playing your game as a new player, on phone and PC</li>
+                  <li>The three biggest leaks I can see, and which to fix first</li>
+                  <li>A short written summary you can act on</li>
+                </ul>
+                <p class="offer__fit"><b>Best for</b> new or small games, or a fast second opinion.</p>
+                <a class="btn btn--ghost btn--block" href="#submit" data-start-service="Quick Read">Get a Quick Read</a>
+              </article>
+
+              <article class="offer offer--audit">
+                <span class="offer__flag">Most people start here</span>
+                <header>
+                  <p class="offer__k">Full Game Audit</p>
+                  <p class="offer__price"><span data-proposed data-price="audit">$950</span></p>
+                  <p class="offer__time" data-proposed>Delivered in 7–10 business days</p>
+                </header>
+                <p class="offer__pitch">Your full Leak Map, ranked fixes, and a call to walk through them.</p>
+                <ul class="ticks">
+                  <li>Analytics review across all six checkpoints</li>
+                  <li>New-player playthroughs on phone and PC, recorded</li>
+                  <li>A teardown of three games you compete with</li>
+                  <li>Prioritized fix list: impact, effort, and how to measure each fix</li>
+                  <li>60-minute walkthrough call, recorded</li>
+                </ul>
+                <p class="offer__fit"><b>Best for</b> live games with traffic that have stopped growing.</p>
+                <a class="btn btn--primary btn--block" href="#submit" data-start-service="Full Game Audit">Get a game audit
+                  <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
+              </article>
+            </div>
+          </div>
+
+          <div class="credit rv">
+            <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4v11m-4-4 4 4 4-4"/></svg>
+            <p><b data-proposed>Your audit fee is credited in full</b> toward a sprint booked within <span data-proposed>30 days</span>. Every finding in the report is already tagged with the sprint that fixes it.</p>
+          </div>
+
+          <!-- STEP 2 -->
+          <div class="step rv">
+            <div class="step__label">
+              <span class="step__n">Step 2</span>
+              <h3 class="step__t">Fix</h3>
+              <p class="step__s">One checkpoint at a time, built into your game.</p>
+            </div>
+            <div class="step__body">
+              <ol class="sprints">
+                <li class="sprint">
+                  <span class="sprint__code">01 Click</span>
+                  <span class="sprint__main"><b>Discovery &amp; Launch Sprint</b><span>Thumbnail and icon direction, copy, test and launch plan</span></span>
+                  <span class="sprint__time" data-proposed>~2 wks</span>
+                  <span class="sprint__price" data-proposed>from $2,500</span>
+                  <button type="button" class="sprint__go" data-goto-stage="click" aria-label="See the Click checkpoint"><svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></button>
+                </li>
+                <li class="sprint">
+                  <span class="sprint__code">02 Hook</span>
+                  <span class="sprint__main"><b>First Session Sprint</b><span>The first five minutes, redesigned, measured and built</span></span>
+                  <span class="sprint__time" data-proposed>2–3 wks</span>
+                  <span class="sprint__price" data-proposed>from $3,500</span>
+                  <button type="button" class="sprint__go" data-goto-stage="hook" aria-label="See the Hook checkpoint"><svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></button>
+                </li>
+                <li class="sprint">
+                  <span class="sprint__code">03 Loop</span>
+                  <span class="sprint__main"><b>Engagement Sprint</b><span>Core loop, pacing and progression rebalance</span></span>
+                  <span class="sprint__time" data-proposed>3–4 wks</span>
+                  <span class="sprint__price" data-proposed>from $4,500</span>
+                  <button type="button" class="sprint__go" data-goto-stage="loop" aria-label="See the Loop checkpoint"><svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></button>
+                </li>
+                <li class="sprint">
+                  <span class="sprint__code">04–05 D1·D7</span>
+                  <span class="sprint__main"><b>Retention Sprint</b><span>Return hooks, long-term goals and a live-ops calendar</span></span>
+                  <span class="sprint__time" data-proposed>2–4 wks</span>
+                  <span class="sprint__price" data-proposed>from $3,500</span>
+                  <button type="button" class="sprint__go" data-goto-stage="d1" aria-label="See the D1 checkpoint"><svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></button>
+                </li>
+                <li class="sprint">
+                  <span class="sprint__code">06 Spend</span>
+                  <span class="sprint__main"><b>Monetization Sprint</b><span>Offer lineup, price ladder and shop UX</span></span>
+                  <span class="sprint__time" data-proposed>2–3 wks</span>
+                  <span class="sprint__price" data-proposed>from $3,500</span>
+                  <button type="button" class="sprint__go" data-goto-stage="spend" aria-label="See the Spend checkpoint"><svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></button>
+                </li>
+              </ol>
+              <p class="sprints__note">Every sprint includes playtesting and QA of the changes, plus a readout once real players have been through them. Final price is fixed before work starts, based on the audit.</p>
+            </div>
+          </div>
+
+          <!-- STEP 3 -->
+          <div class="step rv">
+            <div class="step__label">
+              <span class="step__n">Step 3</span>
+              <h3 class="step__t">Build &amp; grow</h3>
+              <p class="step__s">For bigger work, and for games worth growing every month.</p>
+            </div>
+            <div class="step__body grow">
+              <article class="offer offer--build">
+                <header>
+                  <p class="offer__k">Custom development</p>
+                  <p class="offer__price offer__price--quote">Quoted per project</p>
+                </header>
+                <p class="offer__pitch">Whole games, big features, or the bug nobody can find.</p>
+                <ul class="ticks">
+                  <li>Done-for-you games and systems</li>
+                  <li>Scripting and feature implementation</li>
+                  <li>Bug fixes and performance</li>
+                  <li>Playtesting and QA</li>
+                </ul>
+                <p class="offer__fine"><span data-proposed>Larger builds typically start at $8,000.</span> Small jobs: <span data-proposed>a Fix Block of 10 hours for $950</span>.</p>
+                <a class="btn btn--ghost btn--block" href="#submit" data-start-service="Custom development">Request a quote</a>
+              </article>
+              <article class="offer offer--partner">
+                <header>
+                  <p class="offer__k">Growth Partner</p>
+                  <p class="offer__price"><span data-proposed><small class="from">from</small><span data-price="partner">$4,000</span></span><small>/month</small></p>
+                  <p class="offer__time" data-proposed>3-month minimum · by application</p>
+                </header>
+                <p class="offer__pitch">Ongoing. I treat your game like one of mine.</p>
+                <ul class="ticks">
+                  <li>Monthly analytics review and roadmap</li>
+                  <li>Dedicated build days every month</li>
+                  <li>Launch, update and live-event strategy</li>
+                  <li>Direct line on Discord</li>
+                </ul>
+                <a class="btn btn--ghost btn--block" href="#submit" data-start-service="Growth Partner">Apply</a>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <aside class="learn rv" aria-labelledby="learn-title">
+          <div class="learn__copy">
+            <p class="offer__k">Rather learn to do it yourself?</p>
+            <h3 id="learn-title">AI workflow coaching</h3>
+            <p>One-to-one sessions on the AI-assisted workflows I use to prototype and ship faster: scripting with AI, rapid prototyping, asset workflows and testing.</p>
+          </div>
+          <div class="learn__buy">
+            <p class="learn__price"><span data-proposed>$199</span> <small>per 60-min session</small></p>
+            <p class="learn__alt"><span data-proposed>4 sessions for $699</span></p>
+            <a class="btn btn--ghost" href="#submit" data-start-service="AI workflow coaching">Book coaching</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================== PROOF ============================== -->
+    <section class="proof section" id="about" aria-labelledby="proof-title">
+      <div class="wrap proof__grid">
+        <div class="proof__portrait rv">
+          <div class="portrait" data-needs="Photo or short video loop of you. A real face is the fastest trust signal for TikTok traffic.">
+            <span class="portrait__mono" aria-hidden="true">K</span>
+          </div>
+        </div>
+        <div class="proof__copy">
+          <p class="kicker rv"><b>04</b>Who's behind this</p>
+          <h2 class="h2 scan" id="proof-title">A developer with live games. Not a guru with a course.</h2>
+          <p class="rv">I'm Khaiel. I build, run and monetize my own Roblox games. On TikTok I break down what's working: dev workflows, AI tools, discovery, monetization, and how to prototype fast.</p>
+          <p class="rv">This studio is the hands-on version: the same thinking I use on my own games, applied to yours.</p>
+
+          <dl class="facts rv">
+            <div class="fact" data-needs="Revenue claim. Confirm currency, basis (DevEx cash out vs. Robux earned vs. gross), which months, which games, and provide screenshots. See STRATEGY.md §6.">
+              <dt>Revenue from my own games</dt>
+              <dd>Held until verified</dd>
+            </div>
+            <div class="fact" data-needs="Links to each of your games plus your role on each. Visit counts stay verifiable on Roblox.">
+              <dt>Games I run</dt>
+              <dd>Links needed</dd>
+            </div>
+            <div class="fact" data-needs="TikTok handle, follower count and the date you checked it. Also set tiktokUrl in config.js.">
+              <dt>On TikTok</dt>
+              <dd>@handle</dd>
+            </div>
+          </dl>
+          <a class="btn btn--ghost rv" href="#" data-tiktok hidden>Watch the breakdowns on TikTok</a>
+        </div>
+
+        <div class="cases rv" data-needs="Real case files only: game link, client permission, before/after screenshots with dates, and what you actually did. Until then this block stays hidden in live mode.">
+          <h3 class="cases__t">Case files</h3>
+          <div class="cases__row">
+            <div class="case"><span class="case__n">01</span><p>Game · problem · what changed · result, with dated screenshots</p></div>
+            <div class="case"><span class="case__n">02</span><p>Your own games count. Show a before/after from one of them.</p></div>
+            <div class="case"><span class="case__n">03</span><p>Client quotes only with written permission, word for word.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== PROCESS ============================== -->
+    <section class="process section" id="process" aria-labelledby="process-title">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="kicker rv"><b>05</b>How it works</p>
+          <h2 class="h2 scan" id="process-title">Five steps. No mystery.</h2>
+        </header>
+        <ol class="steps">
+          <li class="pstep rv" style="--d:0">
+            <span class="pstep__when">Day 0</span>
+            <h3>Submit your game</h3>
+            <p>A two-minute form: the link, the problem, and your numbers if you have them.</p>
+          </li>
+          <li class="pstep rv" style="--d:1">
+            <span class="pstep__when" data-proposed>Within 2 business days</span>
+            <h3>I take a look</h3>
+            <p>I play it and read what you sent, then reply with what I'd recommend. Sometimes that's “you don't need me yet.”</p>
+          </li>
+          <li class="pstep rv" style="--d:2">
+            <span class="pstep__when">Kickoff</span>
+            <h3>Lock it in</h3>
+            <p>Pay the fixed price or approve a quote. Share analytics screenshots or access. Never your password.</p>
+          </li>
+          <li class="pstep rv" style="--d:3">
+            <span class="pstep__when" data-proposed>5–10 business days</span>
+            <h3>Get your plan</h3>
+            <p>A Quick Read video, or the full audit report plus a recorded walkthrough call.</p>
+          </li>
+          <li class="pstep rv" style="--d:4">
+            <span class="pstep__when">Your call</span>
+            <h3>Fix it your way</h3>
+            <p>Do it yourself with the plan, or book a sprint with your audit fee credited.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================== FAQ ============================== -->
+    <section class="faq section" id="faq" aria-labelledby="faq-title">
+      <div class="wrap faq__grid">
+        <header class="section-head faq__head">
+          <p class="kicker rv"><b>06</b>Straight answers</p>
+          <h2 class="h2 scan" id="faq-title">Before you ask.</h2>
+          <p class="section-lede rv">Still unsure? Mention it in the form. I'll answer before you pay anything.</p>
+        </header>
+        <div class="qa-list">
+          <div class="qa rv">
+            <h3><button type="button" aria-expanded="false">How much does it cost?<i aria-hidden="true"></i></button></h3>
+            <div class="qa__a"><div><p>A Quick Read is <span data-proposed>$149</span> and a Full Game Audit is <span data-proposed>$950</span>. Sprints have a fixed price once scoped, usually <span data-proposed>$2,500–$6,000</span>. Custom builds and Growth Partner work are quoted. Prices are listed up front so you can decide before we ever talk.</p></div></div>
+          </div>
+          <div class="qa rv">
+            <h3><button type="button" aria-expanded="false">Can you guarantee my game will grow?<i aria-hidden="true"></i></button></h3>
+            <div class="qa__a"><div><p>No, and be careful with anyone who does. Recommendations depend on how players respond, and nobody controls that. What I guarantee is the work: the scope, the deliverables and the timeline we agree on. My job is to find the real problem and ship the strongest fix I can.</p></div></div>
+          </div>
+          <div class="qa rv">
+            <h3><button type="button" aria-expanded="false">What happens after the audit?<i aria-hidden="true"></i></button></h3>
+            <div class="qa__a"><div><p>You keep the full report, and it's yours to use however you like. Plenty of people fix the quick wins themselves. If you want me to build the fixes, each finding is already tagged with the sprint that covers it, and <span data-proposed>your audit fee is credited toward a sprint booked within 30 days</span>.</p></div></div>
+          </div>
+          <div class="qa rv">
+            <h3><button type="button" aria-expanded="false">How long does it take?<i aria-hidden="true"></i></button></h3>
+            <div class="qa__a"><div><p>Quick Read: <span data-proposed>5 business days</span>. Full Game Audit: <span data-proposed>7–10 business days</span> after you share data. Sprints: <span data-proposed>2–4 weeks</span>. Builds come with a timeline in the quote.</p></div></div>
+          </div>
+          <div class="qa rv">
+            <h3><button type="button" aria-expanded="false">What do you need from me?<i aria-hidden="true"></i></button></h3>
+            <div class="qa__a"><div><p>Your game link. For a Full Game Audit, screenshots or exports from your game's Creator Hub analytics, or analytics access. For sprints, collaborator access to a copy of your place. Never your account password.</p></div></div>
+          </div>
+          <div class="qa rv">
+            <h3><button type="button" aria-expanded="false">My game barely has players. Is it too early?<i aria-hidden="true"></i></button></h3>
+            <div class="qa__a"><div><p>Not for a Quick Read: I play it as a new player, so it doesn't need data. A Full Game Audit gets more useful once there's enough traffic to read the numbers. Roblox's own benchmark scorecards start at 100+ daily users. If you're not there yet, I'll tell you when you submit.</p></div></div>
+          </div>
+          <div class="qa rv">
+            <h3><button type="button" aria-expanded="false">Will you steal my idea or code?<i aria-hidden="true"></i></button></h3>
+            <div class="qa__a"><div><p>No. Your game, code and assets stay yours. <span data-proposed>I'll sign a simple NDA before seeing anything unreleased</span>, and sprint work happens in a copy of your place unless you say otherwise.</p></div></div>
+          </div>
+          <div class="qa rv">
+            <h3><button type="button" aria-expanded="false">I'm under 18. Can I still work with you?<i aria-hidden="true"></i></button></h3>
+            <div class="qa__a"><div><p>You can submit your game and get a reply. <span data-proposed>Paid work needs a parent or guardian to agree to the terms and handle payment.</span></p></div></div>
+          </div>
+          <div class="qa rv">
+            <h3><button type="button" aria-expanded="false">How do payments work?<i aria-hidden="true"></i></button></h3>
+            <div class="qa__a"><div><p><span data-proposed>Fixed-price work is paid up front. Sprints and builds are split into milestones, in USD.</span> <span data-needs="Payment provider (Stripe, PayPal, etc.) and your refund policy.">Payment provider and refund policy go here.</span></p></div></div>
+          </div>
+          <div class="qa rv">
+            <h3><button type="button" aria-expanded="false">What kinds of games do you take on?<i aria-hidden="true"></i></button></h3>
+            <div class="qa__a"><div><p>If it's on Roblox and within Roblox's rules, send it. If it's outside what I'm good at, I'll say so instead of taking your money.</p></div></div>
+          </div>
+          <div class="qa rv">
+            <h3><button type="button" aria-expanded="false">Are you affiliated with Roblox?<i aria-hidden="true"></i></button></h3>
+            <div class="qa__a"><div><p>No. This is an independent studio. Roblox metric names are used so you can find the same numbers in your own Creator Hub analytics.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== INTAKE ============================== -->
+    <section class="intake section" id="submit" aria-labelledby="intake-title">
+      <div class="intake__glow" aria-hidden="true"></div>
+      <div class="wrap intake__grid">
+        <header class="section-head intake__head">
+          <p class="kicker rv"><b>07</b>Submit your game</p>
+          <h2 class="h2 scan" id="intake-title">Send me the game.</h2>
+          <p class="section-lede rv">Two minutes. I read every submission and reply within <span data-proposed>2 business days</span> with what I'd recommend, even if that's “you don't need me yet.”</p>
+          <ul class="intake__promise rv">
+            <li>No payment to submit</li>
+            <li>Only the game link and your email are required</li>
+            <li>Numbers are optional. Rough is fine</li>
+          </ul>
+        </header>
+
+        <div class="intake__card console brackets">
+          <form class="form" id="intake-form" novalidate data-form>
+            <div class="form__top">
+              <ol class="form__dots" aria-hidden="true">
+                <li class="is-on">Game</li><li>Problem</li><li>Numbers</li><li>Scope</li><li>You</li>
+              </ol>
+              <p class="form__count" aria-live="polite">Step <b data-step-num>1</b> of 5</p>
+              <div class="form__bar" aria-hidden="true"><span data-bar></span></div>
+            </div>
+
+            <!-- STEP 1 -->
+            <fieldset class="fstep is-on" data-fstep="1">
+              <legend class="fstep__t">Which game?</legend>
+              <div class="field">
+                <label for="f-link">Roblox game link <span class="req">Required</span></label>
+                <input id="f-link" name="game_link" type="url" inputmode="url" autocomplete="off" placeholder="https://www.roblox.com/games/…" required>
+                <p class="field__hint" data-link-hint>Paste it from the address bar or the share button.</p>
+              </div>
+              <div class="field">
+                <span class="label" id="l-status">Where is it at?</span>
+                <div class="chips" role="radiogroup" aria-labelledby="l-status">
+                  <label class="chip"><input type="radio" name="game_status" value="Not launched yet"><span>Not launched yet</span></label>
+                  <label class="chip"><input type="radio" name="game_status" value="Launched recently"><span>Launched recently</span></label>
+                  <label class="chip"><input type="radio" name="game_status" value="Live for months"><span>Live for months</span></label>
+                  <label class="chip"><input type="radio" name="game_status" value="Was growing, now declining"><span>Was growing, now declining</span></label>
+                </div>
+              </div>
+              <div class="field">
+                <label for="f-genre">Genre <span class="opt">Optional</span></label>
+                <input id="f-genre" name="genre" type="text" autocomplete="off" placeholder="Tycoon, simulator, obby, horror…">
+              </div>
+            </fieldset>
+
+            <!-- STEP 2 -->
+            <fieldset class="fstep" data-fstep="2">
+              <legend class="fstep__t">Where does it hurt?</legend>
+              <div class="field">
+                <span class="label" id="l-stage">Pick the checkpoint you think is leaking</span>
+                <div class="chips chips--stage" role="radiogroup" aria-labelledby="l-stage">
+                  <label class="chip"><input type="radio" name="stage" value="click"><span><b>Click</b> Discovery</span></label>
+                  <label class="chip"><input type="radio" name="stage" value="hook"><span><b>Hook</b> First session</span></label>
+                  <label class="chip"><input type="radio" name="stage" value="loop"><span><b>Loop</b> Engagement</span></label>
+                  <label class="chip"><input type="radio" name="stage" value="d1"><span><b>D1</b> Day 1</span></label>
+                  <label class="chip"><input type="radio" name="stage" value="d7"><span><b>D7</b> Day 7</span></label>
+                  <label class="chip"><input type="radio" name="stage" value="spend"><span><b>Spend</b> Monetization</span></label>
+                  <label class="chip chip--wide"><input type="radio" name="stage" value="unsure"><span><b>Not sure</b> That's why I'm here</span></label>
+                </div>
+              </div>
+              <div class="carry" data-carry hidden>
+                <p class="carry__t">From the Leak Map</p>
+                <ul data-carry-list></ul>
+              </div>
+              <div class="field">
+                <label for="f-problem">What's going wrong, in your words? <span class="opt">Optional</span></label>
+                <textarea id="f-problem" name="problem" rows="4" placeholder="Players leave fast after the tutorial, D1 dropped after the last update…"></textarea>
+              </div>
+            </fieldset>
+
+            <!-- STEP 3 -->
+            <fieldset class="fstep" data-fstep="3">
+              <legend class="fstep__t">Got numbers? <span class="opt">All optional</span></legend>
+              <p class="fstep__hint">Creator Hub → your game → Analytics. Last 30 days is ideal. Rough is fine, and blank is fine.</p>
+              <div class="metrics">
+                <div class="field field--m"><label for="m-dau">Daily active users</label><input id="m-dau" name="m_dau" inputmode="numeric" autocomplete="off" placeholder="e.g. 350"></div>
+                <div class="field field--m"><label for="m-ptr">Play through rate</label><div class="suffix" data-suffix="%"><input id="m-ptr" name="m_play_through_rate" inputmode="decimal" autocomplete="off" placeholder="—"></div></div>
+                <div class="field field--m"><label for="m-session">Avg. session time</label><div class="suffix" data-suffix="min"><input id="m-session" name="m_avg_session_min" inputmode="decimal" autocomplete="off" placeholder="—"></div></div>
+                <div class="field field--m"><label for="m-d1">D1 retention</label><div class="suffix" data-suffix="%"><input id="m-d1" name="m_d1" inputmode="decimal" autocomplete="off" placeholder="—"></div></div>
+                <div class="field field--m"><label for="m-d7">D7 retention</label><div class="suffix" data-suffix="%"><input id="m-d7" name="m_d7" inputmode="decimal" autocomplete="off" placeholder="—"></div></div>
+                <div class="field field--m"><label for="m-payer">Payer conversion</label><div class="suffix" data-suffix="%"><input id="m-payer" name="m_payer_conversion" inputmode="decimal" autocomplete="off" placeholder="—"></div></div>
+                <div class="field field--m field--wide"><label for="m-robux">Robux earned, last 30 days</label><input id="m-robux" name="m_robux_30d" inputmode="numeric" autocomplete="off" placeholder="e.g. 120,000"></div>
+              </div>
+            </fieldset>
+
+            <!-- STEP 4 -->
+            <fieldset class="fstep" data-fstep="4">
+              <legend class="fstep__t">What are you after?</legend>
+              <div class="field">
+                <span class="label" id="l-service">I'm interested in</span>
+                <div class="chips" role="radiogroup" aria-labelledby="l-service">
+                  <label class="chip"><input type="radio" name="service" value="Quick Read"><span>Quick Read</span></label>
+                  <label class="chip"><input type="radio" name="service" value="Full Game Audit"><span>Full Game Audit</span></label>
+                  <label class="chip"><input type="radio" name="service" value="Fix Sprint"><span>A fix sprint</span></label>
+                  <label class="chip"><input type="radio" name="service" value="Custom development"><span>Custom development</span></label>
+                  <label class="chip"><input type="radio" name="service" value="Growth Partner"><span>Growth Partner</span></label>
+                  <label class="chip"><input type="radio" name="service" value="AI workflow coaching"><span>Coaching</span></label>
+                  <label class="chip"><input type="radio" name="service" value="Not sure"><span>Not sure, advise me</span></label>
+                </div>
+              </div>
+              <div class="field">
+                <span class="label" id="l-budget">Budget</span>
+                <div class="chips" role="radiogroup" aria-labelledby="l-budget">
+                  <label class="chip"><input type="radio" name="budget" value="Under $200"><span>Under $200</span></label>
+                  <label class="chip"><input type="radio" name="budget" value="$200–$1K"><span>$200–$1K</span></label>
+                  <label class="chip"><input type="radio" name="budget" value="$1K–$5K"><span>$1K–$5K</span></label>
+                  <label class="chip"><input type="radio" name="budget" value="$5K–$15K"><span>$5K–$15K</span></label>
+                  <label class="chip"><input type="radio" name="budget" value="$15K+"><span>$15K+</span></label>
+                </div>
+              </div>
+              <div class="field">
+                <span class="label" id="l-time">Timing</span>
+                <div class="chips" role="radiogroup" aria-labelledby="l-time">
+                  <label class="chip"><input type="radio" name="timing" value="ASAP"><span>ASAP</span></label>
+                  <label class="chip"><input type="radio" name="timing" value="This month"><span>This month</span></label>
+                  <label class="chip"><input type="radio" name="timing" value="Flexible"><span>Flexible</span></label>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- STEP 5 -->
+            <fieldset class="fstep" data-fstep="5">
+              <legend class="fstep__t">Where do I reply?</legend>
+              <div class="field-row">
+                <div class="field">
+                  <label for="f-name">Name or handle</label>
+                  <input id="f-name" name="name" type="text" autocomplete="nickname" placeholder="What should I call you?">
+                </div>
+                <div class="field">
+                  <label for="f-email">Email <span class="req">Required</span></label>
+                  <input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label for="f-discord">Discord <span class="opt">Optional</span></label>
+                  <input id="f-discord" name="discord" type="text" autocomplete="off" placeholder="username">
+                </div>
+                <div class="field">
+                  <label for="f-tiktok">Found me on TikTok? <span class="opt">Optional</span></label>
+                  <input id="f-tiktok" name="tiktok" type="text" autocomplete="off" placeholder="@yourhandle">
+                </div>
+              </div>
+              <div class="field">
+                <span class="label" id="l-age">Age <span class="req">Required</span></span>
+                <div class="chips" role="radiogroup" aria-labelledby="l-age">
+                  <label class="chip"><input type="radio" name="age" value="18+" required><span>I'm 18 or older</span></label>
+                  <label class="chip"><input type="radio" name="age" value="Under 18 (guardian will be involved)"><span>Under 18. A parent or guardian will handle paid work</span></label>
+                </div>
+              </div>
+              <p class="fstep__fine">Your details are only used to reply about your game.</p>
+            </fieldset>
+
+            <input type="hidden" name="symptoms" data-h-symptoms>
+            <input type="hidden" name="quiz_map" data-h-quiz>
+            <input type="hidden" name="source" data-h-source>
+
+            <p class="form__error" role="alert" data-form-error></p>
+
+            <div class="form__nav">
+              <button type="button" class="btn btn--quiet" data-prev hidden>Back</button>
+              <button type="button" class="btn btn--primary" data-next>Next
+                <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></button>
+              <button type="submit" class="btn btn--primary" data-submit hidden>Send my game
+                <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></button>
+            </div>
+          </form>
+
+          <div class="done" data-done hidden tabindex="-1">
+            <div class="done__mark" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="21"/><path d="M14 24.5 21 31l13-14"/></svg></div>
+            <h3 class="done__t" data-done-title>Got it. Your game is in the queue.</h3>
+            <p data-done-text>I'll play it and reply to <b data-done-email></b> within <span data-proposed>2 business days</span> with what I'd recommend.</p>
+            <ol class="done__next">
+              <li>Keep an eye on your inbox, and your spam folder.</li>
+              <li>If you have analytics screenshots, have them ready.</li>
+              <li>Nothing is charged until you approve a price.</li>
+            </ol>
+            <div class="done__fallback" data-fallback hidden>
+              <p>The form isn't connected yet, so nothing was sent. Email your submission instead:</p>
+              <div class="done__fallback-actions">
+                <a class="btn btn--primary" data-mailto href="#">Open email with my answers</a>
+                <button type="button" class="btn btn--ghost" data-copy>Copy my answers</button>
+              </div>
+            </div>
+          </div>
+          <noscript><p class="noscript">The form needs JavaScript. Please enable it, or message me on TikTok.</p></noscript>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__cta">
+        <p class="footer__big">Your players are telling you something.<br><span>Let's read it.</span></p>
+        <a class="btn btn--primary btn--lg" href="#submit">Submit your game
+          <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
+      </div>
+      <div class="footer__row">
+        <a class="logo logo--foot" href="#top" aria-label="Khaiel, back to top">
+          <svg class="logo__mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M17 24H10a3 3 0 0 1-3-3V10a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle class="logo__drop" cx="23.5" cy="23.5" r="3"/></svg>
+          <span class="logo__word">KHAIEL</span>
+        </a>
+        <nav class="footer__nav" aria-label="Footer">
+          <a href="#leak-map">Leak Map</a>
+          <a href="#sample">Sample audit</a>
+          <a href="#services">Services</a>
+          <a href="#process">Process</a>
+          <a href="#faq">FAQ</a>
+          <a href="#" data-tiktok hidden>TikTok</a>
+          <a href="#" data-discord hidden>Discord</a>
+          <a href="#" data-email hidden>Email</a>
+        </nav>
+      </div>
+      <p class="footer__legal">© <span data-year>2026</span> Khaiel. Independent studio, not affiliated with, endorsed by or sponsored by Roblox Corporation. Roblox is a trademark of Roblox Corporation. Example data on this site is illustrative and is not a benchmark or a promise of results.</p>
+    </div>
+  </footer>
+
+  <div class="dock" data-dock aria-hidden="true">
+    <a class="btn btn--primary btn--block" href="#submit" tabindex="-1">Submit your game
+      <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
+    <span class="dock__sub">Audits from <span data-proposed>$149</span> · No payment to submit</span>
+  </div>
+</body>
+</html>
