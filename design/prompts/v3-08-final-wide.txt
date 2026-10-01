@@ -1,0 +1,7 @@
+Task: generate ONE image with your built-in image generation tool. Do not write code, do not run shell commands, do not create or edit any files yourself. After the image is generated, reply with only the absolute file path where the image was saved.
+
+The attached image is the STYLE REFERENCE. Match its look exactly: top front-page Roblox game thumbnail quality, a polished 3D render, glossy plastic materials, classic Roblox studs on blocks, blocky Roblox-style avatars with R15 proportions and simple smiley faces, saturated but tasteful colors, cinematic lighting with soft bloom and depth of field.
+Image size: landscape 16:9 (or the closest wide landscape size), highest quality.
+
+The same obby world as the reference, now a success. The whole course is solid and complete, with every checkpoint pad glowing green, and a huge crowd of blocky Roblox-style avatars celebrating on the giant finish platform: jumping, cheering, emoting, with confetti and fireworks in a bright sunrise sky above the clouds. Nobody falls. Composition: the course and the crowd fill the lower 55 percent of the frame, centered. The top 45 percent is open, softer sky that darkens toward the top edge, reserved for a centered headline.
+STRICTLY EXCLUDE: any text, letters, numbers, logos (including the Roblox logo), user interface, watermarks, real brand characters.

@@ -1,0 +1,7 @@
+Task: generate ONE image with your built-in image generation tool. Do not write code, do not run shell commands, do not create or edit any files yourself. After the image is generated, reply with only the absolute file path where the image was saved.
+
+The attached image is the STYLE REFERENCE. Match its look exactly: top front-page Roblox game thumbnail quality, a polished 3D render, glossy plastic materials, classic Roblox studs on blocks, blocky Roblox-style avatars with R15 proportions and simple smiley faces, saturated but tasteful colors, cinematic lighting with soft bloom and depth of field.
+Image size: landscape 3:2, highest quality.
+
+A blocky Roblox-style avatar developer wearing headphones and a hoodie holds up a giant magnifying glass over a small floating obby level built on a classic gray studded baseplate. Seen through the lens, the hidden problem glows red: a missing block in the path where tiny avatars are slipping through and falling. The avatar's expression is curious and focused, as if it has just spotted the issue. Dark navy background with a soft colored rim light, and the subject centered with generous margin. Mood: diagnosis, finding the leak.
+STRICTLY EXCLUDE: any text, letters, numbers, logos (including the Roblox logo), user interface, watermarks, real brand characters.

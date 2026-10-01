@@ -1,0 +1,7 @@
+Task: generate ONE image with your built-in image generation tool. Do not write code, do not run shell commands, do not create or edit any files yourself. After the image is generated, reply with only the absolute file path where the image was saved.
+
+The attached image is the STYLE REFERENCE. Match its look exactly: top front-page Roblox game thumbnail quality, a polished 3D render, glossy plastic materials, classic Roblox studs on blocks, blocky Roblox-style avatars with R15 proportions and simple smiley faces, saturated but tasteful colors, cinematic lighting with soft bloom and depth of field.
+Image size: square 1:1, highest quality.
+
+A Roblox avatar headshot thumbnail, like the profile picture the Roblox app shows for a player. Head and shoulders of ONE blocky Roblox-style avatar, facing slightly to the side with a friendly, confident classic simple smile. Wearing black over-ear headphones, a dark green hoodie and a simple swept black hair accessory. Plain flat dark gray background (#2d2f31), soft studio lighting, centered composition.
+STRICTLY EXCLUDE: any text, letters, numbers, logos (including the Roblox logo), user interface, watermarks, real brand characters.

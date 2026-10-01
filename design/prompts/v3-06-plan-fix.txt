@@ -1,0 +1,7 @@
+Task: generate ONE image with your built-in image generation tool. Do not write code, do not run shell commands, do not create or edit any files yourself. After the image is generated, reply with only the absolute file path where the image was saved.
+
+The attached image is the STYLE REFERENCE. Match its look exactly: top front-page Roblox game thumbnail quality, a polished 3D render, glossy plastic materials, classic Roblox studs on blocks, blocky Roblox-style avatars with R15 proportions and simple smiley faces, saturated but tasteful colors, cinematic lighting with soft bloom and depth of field.
+Image size: landscape 3:2, highest quality.
+
+A blocky Roblox-style builder avatar in a yellow hard hat uses a glowing build tool to drop a bright new block into a gap in a colorful obby bridge floating in the sky. A line of avatars that was waiting at the gap now starts crossing happily, and one avatar is caught mid-step on the brand-new block. Small sparkles fly where the block snaps into place. Dark navy dusk background, with the subject centered and generous margin. Mood: repair, momentum, craftsmanship.
+STRICTLY EXCLUDE: any text, letters, numbers, logos (including the Roblox logo), user interface, watermarks, real brand characters.

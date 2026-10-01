@@ -1,0 +1,7 @@
+Task: generate ONE image with your built-in image generation tool. Do not write code, do not run shell commands, do not create or edit any files yourself. After the image is generated, reply with only the absolute file path where the image was saved.
+
+The attached image is the STYLE REFERENCE. Match its look exactly: top front-page Roblox game thumbnail quality, a polished 3D render, glossy plastic materials, classic Roblox studs on blocks, blocky Roblox-style avatars with R15 proportions and simple smiley faces, saturated but tasteful colors, cinematic lighting with soft bloom and depth of field.
+Image size: landscape 3:2, highest quality.
+
+A packed, thriving Roblox game hub at night, full of dozens of happy blocky avatars: playing, trading, jumping, emoting and lining up at portals. There are colorful neon-lit buildings with blank glowing signs (no writing on them), fireworks in the sky, and a giant glowing trophy statue in the center. The scene feels like a game that just hit the front page. Wide establishing shot, rich lighting, centered composition.
+STRICTLY EXCLUDE: any text, letters, numbers, logos (including the Roblox logo), user interface, watermarks, real brand characters.

@@ -1,0 +1,5 @@
+{
+  "_howTo": "List your games by place ID: the number in roblox.com/games/<placeId>/name. Name, icon, visits, playing-now, favorites and likes are pulled from Roblox automatically every 6 hours. peakCCU is yours to fill in (Creator Hub > Analytics), because Roblox doesn't publish it. Set robloxUserId to show your real avatar.",
+  "robloxUserId": null,
+  "games": []
+}

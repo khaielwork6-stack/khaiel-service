@@ -1,6 +1,6 @@
 /*
   Site interactions. No dependencies, no build step.
-  Review mode · config links · header & menu · reveals · hero life · leak finder ·
+  Review mode · config links · header & menu · reveals · server chat · my games · leak finder ·
   accordions · send form · mobile dock
 */
 (function () {
@@ -108,58 +108,165 @@
     els.forEach(function (el) { io.observe(el); });
   }
 
-  /* ------------------------------------------------ hero life
-     Embers keep falling from the checkpoints and the spawn pad and beacon breathe.
-     Coordinates are percentages of each render (wide on tablets/desktop, square on phones). */
-  var HERO_FX = {
-    wide: {
-      sparks: [[50.5, 62.5], [55.5, 56.9], [61.3, 53.1], [67, 48.4], [73.1, 44.1], [78.8, 40.2]],
-      glows: [[45.8, 65, 9], [89.5, 19.4, 8]]
-    },
-    square: {
-      sparks: [[36.3, 52.6], [45.5, 47.4], [54.2, 43.1], [62.2, 38.3], [70.2, 33.9], [77, 29.9]],
-      glows: [[18.7, 63, 16], [86.5, 7.8, 13]]
+  /* ------------------------------------------------ hero: simulated server chat
+     Players keep "leaving the game" in the hero's game window, and the player count ticks down.
+     Names are made up. The window is labelled as a simulation. */
+  var NAMES = ["Guest_4821", "blox_kid22", "noobmaster_2012", "xX_Dragon_Xx", "pizza_lover91", "sk8r_bloxx", "builder_bean",
+    "Lunar_Owlet", "TacoTuesday77", "cool_dude_ru", "MintyMango", "obby_queen", "PixelPanda08", "RobloxianRay", "zoomzoom_kart",
+    "Captain_Cube", "frosty_flakes", "NoobSlayer_99", "lil_tycoon", "SpeedyBacon", "starry_mia", "BlockBoss3000"];
+  var NAME_COLORS = ["#FD2943", "#01A2FF", "#02B857", "#A36FD4", "#DA8541", "#F5CD30", "#E8BAC8", "#D7C59A"];
+  function initChat() {
+    var log = $("[data-chat-log]"), countEl = $("[data-chat-count]");
+    if (!log || !countEl) return;
+    var players = 1284, last = "";
+    function say(kind) {
+      var name;
+      do { name = NAMES[Math.floor(Math.random() * NAMES.length)]; } while (name === last);
+      last = name;
+      var li = document.createElement("li");
+      li.className = kind === "join" ? "is-join" : "is-left";
+      var b = document.createElement("b");
+      b.textContent = name;
+      b.style.color = NAME_COLORS[Math.floor(Math.random() * NAME_COLORS.length)];
+      var em = document.createElement("em");
+      em.textContent = kind === "join" ? " joined the game." : " left the game.";
+      li.appendChild(b); li.appendChild(em);
+      log.appendChild(li);
+      while (log.children.length > 4) log.removeChild(log.firstChild);
+      players += kind === "join" ? 1 : -(1 + Math.floor(Math.random() * 3));
+      if (players < 990) players = 1284;
+      countEl.textContent = players.toLocaleString("en-US");
+      if (kind !== "join") {
+        var pill = countEl.parentElement;
+        pill.classList.add("is-drop");
+        setTimeout(function () { pill.classList.remove("is-drop"); }, 450);
+      }
     }
-  };
-  function initHeroArt() {
-    var art = $("[data-hero-art]");
-    if (!art || reduceMotion) return;
-    var phone = window.matchMedia("(max-width: 1199px)");   // the square render is used below 1200px
-    function build() {
-      $$(".spark, .glow-pulse", art).forEach(function (n) { n.remove(); });
-      var fx = phone.matches ? HERO_FX.square : HERO_FX.wide;
-      fx.glows.forEach(function (g, i) {
-        var el = document.createElement("span");
-        el.className = "glow-pulse";
-        el.style.cssText = "--x:" + g[0] + "%;--y:" + g[1] + "%;--s:" + g[2] + "%;animation-delay:" + (i * 1.3) + "s";
-        art.appendChild(el);
-      });
-      fx.sparks.forEach(function (s, i) {
-        for (var k = 0; k < 2; k++) {
-          var el = document.createElement("span");
-          el.className = "spark";
-          var fall = (phone.matches ? 60 : 80) + Math.round(Math.random() * 50);
-          el.style.cssText = "--x:" + s[0] + "%;--y:" + s[1] + "%;--d:" + (i * 0.45 + k * 1.7 + Math.random() * 0.4).toFixed(2) + "s;--fall:" + fall + "px;--dx:" + (4 + Math.round(Math.random() * 10)) + "px";
-          art.appendChild(el);
-        }
-      });
+    for (var i = 0; i < 4; i++) say(i === 2 ? "join" : "left");
+    if (reduceMotion) return;
+    var timer = 0, visible = true;
+    function tick() { say(Math.random() < 0.22 ? "join" : "left"); }
+    function run() { if (!timer && visible && !document.hidden) timer = setInterval(tick, 1400); }
+    function halt() { clearInterval(timer); timer = 0; }
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (en) { visible = en[0].isIntersecting; visible ? run() : halt(); }).observe(log);
     }
-    build();
-    phone.addEventListener("change", build);
+    document.addEventListener("visibilitychange", function () { document.hidden ? halt() : run(); });
+    run();
+  }
 
-    // gentle parallax on large screens with a mouse
-    var wide = window.matchMedia("(min-width: 1200px) and (pointer: fine)");
-    var raf = 0;
-    window.addEventListener("pointermove", function (e) {
-      if (!wide.matches || raf) return;
-      raf = requestAnimationFrame(function () {
-        var x = (e.clientX / window.innerWidth - 0.5) * -14;
-        var y = (e.clientY / window.innerHeight - 0.5) * -10;
-        art.style.setProperty("--px", x.toFixed(1) + "px");
-        art.style.setProperty("--py", y.toFixed(1) + "px");
-        raf = 0;
-      });
-    }, { passive: true });
+  /* ------------------------------------------------ my games: profile, stats and leaderboard
+     Data comes from assets/data/roblox.js, which the GitHub workflow refreshes from Roblox.
+     While it still holds the example games, the stats and leaderboard only show in review mode. */
+  function compact(n) {
+    if (n == null) return "—";
+    if (n >= 1e9) return (n / 1e9).toFixed(n >= 1e10 ? 0 : 1).replace(/\.0$/, "") + "B";
+    if (n >= 1e6) return (n / 1e6).toFixed(n >= 1e7 ? 0 : 1).replace(/\.0$/, "") + "M";
+    if (n >= 1e4) return (n / 1e3).toFixed(n >= 1e5 ? 0 : 1).replace(/\.0$/, "") + "K";
+    return Math.round(n).toLocaleString("en-US");
+  }
+  function ago(iso) {
+    if (!iso) return "";
+    var h = Math.round((Date.now() - new Date(iso).getTime()) / 36e5);
+    return h < 1 ? "updated just now" : h < 48 ? "updated " + h + "h ago" : "updated " + Math.round(h / 24) + " days ago";
+  }
+  function countUp(el, to, format) {
+    if (to == null) { el.textContent = "—"; return; }
+    if (reduceMotion) { el.textContent = format(to); return; }
+    var t0 = performance.now(), dur = 1600;
+    (function step(now) {
+      var p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 4);
+      el.textContent = format(to * e);
+      if (p < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+
+  function initGames() {
+    var section = $("[data-games]");
+    var data = window.ROBLOX_DATA || { example: true, games: [] };
+    var reviewOn = root.dataset.review === "on";
+    var real = !data.example && data.games && data.games.length;
+    var showData = real || reviewOn;
+
+    // avatar: your real Roblox headshot once robloxUserId is set; the placeholder only in review mode
+    var headshot = data.headshot && (real || reviewOn) ? data.headshot : null;
+    $$("[data-headshot]").forEach(function (img) {
+      if (!headshot) return;
+      img.src = headshot;
+      img.hidden = false;
+    });
+    if (!section) return;
+    if (!showData) { section.classList.add("is-intro-only"); return; }
+
+    var games = (data.games || []).slice().sort(function (a, b) { return (b.visits || 0) - (a.visits || 0); });
+    var total = games.reduce(function (s, g) { return s + (g.visits || 0); }, 0);
+    var playing = games.reduce(function (s, g) { return s + (g.playing || 0); }, 0);
+    var peaks = games.map(function (g) { return g.peakCCU; }).filter(function (v) { return v != null; });
+    var peak = peaks.length ? Math.max.apply(null, peaks) : null;
+    var maxVisits = games.length ? games[0].visits || 1 : 1;
+
+    var board = $("[data-board]"), rows = $("[data-board-rows]");
+    if (!real) {
+      board.classList.add("is-example");
+      $("[data-board-example]").hidden = false;
+      $("[data-board-foot]").textContent = "Example data. Your real games appear here with live numbers from Roblox.";
+      $("[data-stat-updated]").textContent = "example data";
+    } else {
+      $("[data-board-foot]").textContent = "Visits and live players come straight from Roblox, " + ago(data.updatedAt) + ".";
+      $("[data-stat-updated]").textContent = "live from Roblox";
+    }
+
+    rows.innerHTML = "";
+    games.forEach(function (g, i) {
+      var li = document.createElement("li");
+      li.className = "row";
+      li.style.setProperty("--i", i);
+      li.style.setProperty("--share", ((g.visits || 0) / maxVisits).toFixed(3));
+      var link = document.createElement(real && g.url ? "a" : "div");
+      link.className = "row__link";
+      if (link.tagName === "A") { link.href = g.url; link.target = "_blank"; link.rel = "noopener"; }
+      var meta = [];
+      if (g.playing != null) meta.push('<span><i class="live"></i>' + compact(g.playing) + " playing</span>");
+      if (g.likeRatio != null) meta.push('<span><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" fill="currentColor"><path d="M2 7h2.5v7H2zM6 14V7.2L9 2c1 0 1.7.8 1.5 1.8L10 6h3.4c.9 0 1.6.9 1.4 1.8l-1.2 5A1.5 1.5 0 0 1 12.1 14z"/></svg>' + g.likeRatio + "%</span>");
+      link.innerHTML =
+        '<span class="row__rank">' + (i + 1) + "</span>" +
+        '<img class="row__icon" alt="" loading="lazy" decoding="async">' +
+        '<span class="row__name"><b></b><small>' + meta.join("") + "</small></span>" +
+        '<span class="row__stats"><span>' + compact(g.visits) + "</span><span>" + compact(g.peakCCU) + "</span></span>";
+      $("img", link).src = g.icon;
+      $("b", link).textContent = g.name;
+      li.appendChild(link);
+      rows.appendChild(li);
+    });
+
+    // hovering a stat lights up the game it comes from
+    function hot(index) { $$(".row", rows).forEach(function (r, i) { r.classList.toggle("is-hot", i === index); }); }
+    function indexOfMax(key) {
+      var best = -1, v = -Infinity;
+      games.forEach(function (g, i) { if (g[key] != null && g[key] > v) { v = g[key]; best = i; } });
+      return best;
+    }
+    var owner = { visits: 0, peak: indexOfMax("peakCCU"), playing: indexOfMax("playing"), count: -1 };
+    $$("[data-stat-for]").forEach(function (el) {
+      var key = el.getAttribute("data-stat-for");
+      el.addEventListener("mouseenter", function () { hot(owner[key]); });
+      el.addEventListener("mouseleave", function () { hot(-1); });
+    });
+
+    var started = false;
+    function start() {
+      if (started) return;
+      started = true;
+      board.classList.add("is-in");
+      countUp($('[data-stat="visits"]'), total, compact);
+      countUp($('[data-stat="peak"]'), peak, function (n) { return Math.round(n).toLocaleString("en-US"); });
+      countUp($('[data-stat="playing"]'), playing, function (n) { return Math.round(n).toLocaleString("en-US"); });
+      countUp($('[data-stat="count"]'), games.length, function (n) { return String(Math.round(n)); });
+    }
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { start(); io.disconnect(); } }, { threshold: 0.25 });
+      io.observe(section);
+    } else start();
   }
 
   /* ------------------------------------------------ leak finder
@@ -440,7 +547,8 @@
   initReview();
   wireConfig();
   initHeader();
-  initHeroArt();
+  initChat();
+  initGames();
   initLeaks();
   initAccordions();
   initForm();

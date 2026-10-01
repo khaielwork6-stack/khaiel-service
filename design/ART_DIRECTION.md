@@ -1,55 +1,41 @@
-# Art direction: "Night Diorama"
+# Art direction: Roblox front page
 
-All site imagery was generated with **ChatGPT image generation, run through your Codex app** (`codex exec`). It uses the `imagegen` tool and counts toward your ChatGPT plan. The exact prompts are in [`prompts/`](prompts) and the full-resolution masters are in `masters/`. The masters are kept locally and git-ignored.
+The site has to feel like Roblox the moment it loads, because it's a Roblox service. Every image is drawn in **front-page Roblox game thumbnail style**:
+- glossy 3D renders;
+- classic studs on every block;
+- blocky R15-style avatars with simple smiley faces;
+- saturated but tasteful colour;
+- cinematic light.
 
-## The idea in one sentence
-Your players are tiny lime orbs of light walking a floating path through glowing checkpoints. The players who quit turn into ember sparks and fall into the dark.
+The interface around the images borrows from the Roblox app itself:
+- the dark-theme greys;
+- the green Play button;
+- the in-game window with its player count and chat;
+- a leaderboard styled like the in-game player list;
+- game tiles that show 👍 like ratio and 👤 players.
 
-That one picture tells the visitor the whole business before they read a word: *your game is leaking players at specific checkpoints, and they can be found and fixed.* The art also tells a story in order:
-1. **Hero:** the game is leaking.
-2. **Pricing:** diagnose it (the magnifier), fix it (the gap being repaired), grow it (the thriving island).
-3. **Closing section:** the same world repaired, with nothing leaking.
+All images were generated with **ChatGPT image generation, run through your Codex app** (`codex exec` with the `imagegen` tool). The prompts are in [`prompts/`](prompts). The full-resolution masters are in `masters/`, which is kept locally and git-ignored.
 
-## Style bible
-| | |
-|---|---|
-| **Medium** | Premium cinematic 3D render, a miniature diorama with a tilt-shift macro feel. |
-| **World** | Chunky toy-like bricks with rounded edges and small round studs, in matte graphite, slate blue and deep teal. Floating islands have jagged rock undersides. Not voxel, not pixel art, not Minecraft. |
-| **Players** | Tiny glowing lime orbs (`#C6FF3D`). They're never characters, which also keeps the art clear of Roblox avatar IP. |
-| **Quitting players** | Ember-orange sparks (`#FF6A3D`) falling with short trails. |
-| **Checkpoints** | Slim glowing lime rings standing on the walkway. |
-| **Light** | Night. The orbs, rings, spawn pad and beacon are the light sources, with a cool rim light, volumetric haze, bloom and shallow depth of field. |
-| **Palette** | Near-black `#07090C`, graphite, slate blue, deep teal, lime and ember. Nothing else: no purple, no pink. |
-| **Composition** | Edges always fade to `#07090C`, so every image melts into the page with no visible rectangle. Wide images leave the left ~40% empty for the headline. |
-| **Never** | Text, logos, UI, people, avatars, watermarks, stars or a horizon. |
+## The story the images tell, top to bottom
+| Where | Image | Story |
+|---|---|---|
+| Hero | `hero-wide` (desktop) / `hero-square` (phone, tablet) | Players run an obby. Several fall off and one breaks apart mid-"oof". Only two reach the finish. **Your game is leaking players.** |
+| My games | `avatar-placeholder`, example icons `ex-1…6` | Placeholders only (see below) |
+| Pricing: Game Audit | `plan-audit` | A dev's magnifier reveals the missing block that players fall through |
+| Pricing: Fix Sprint | `plan-fix` | A builder snaps the missing block into place while players cross |
+| Pricing: Build & Grow | `plan-grow` | A packed hub with a golden noob statue and fireworks: a game on the front page |
+| "Let's plug the leak" | `final-wide` | The same obby, fixed. Everyone made it to the finish |
 
-## Assets
-| File on site | Master | Prompt | Used for |
-|---|---|---|---|
-| `assets/img/hero-wide-1600.jpg`, `-1100` | `hero-wide-v2.png` | `02-hero-wide.txt` | Desktop hero (1200px and up) |
-| `assets/img/hero-square-900.jpg`, `-1254` | `hero-square.png` | `03-hero-square.txt` | Phone and tablet hero |
-| `assets/img/plan-audit-900.jpg` | `plan-audit.png` | `04-plan-audit.txt` | Game Audit card |
-| `assets/img/plan-fix-900.jpg` | `plan-fix.png` | `05-plan-fix.txt` | Fix Sprint card |
-| `assets/img/plan-grow-900.jpg` | `plan-grow.png` | `06-plan-grow.txt` | Build & Grow card |
-| `assets/img/final-wide-1600.jpg`, `-1100` | `final-wide.png` | `07-final-wide.txt` | "Let's plug the leak" band |
-| `assets/og.jpg` | composited from `hero-wide-v2.png` | n/a | Link preview (TikTok bio, Discord, iMessage) |
+`v3-01-hero-wide` was generated first and attached as the **style reference** to every other prompt. That's why the set is consistent.
 
-`hero-wide-v1.png` (`01-hero-wide-original.txt`) was the first render. It became the **style reference** attached to every other prompt, which is why the whole set is consistent.
+## Placeholders: never shown as yours
+- **`avatar-placeholder.jpg`** is a generic avatar. It only appears in review mode. Set `robloxUserId` in `data/roblox.config.json` and your real avatar headshot replaces it automatically.
+- **`icons/ex-1…6.jpg`** are icons for six *fictional* games used as example data. Your real games bring their own icons from Roblox.
 
-## Live details layered on the hero
-The hero render is static. `site.js` adds two kinds of animation on top of it, positioned in percentages of each render (`HERO_FX`):
-- Ember sparks dropping from each checkpoint.
-- Slow pulses on the spawn pad and the beacon.
-
-If you regenerate a hero image, update those coordinates.
+No other studio's games or assets are used anywhere. Showing someone else's game in your track record would read as a claim that you made it.
 
 ## Regenerating or adding an image
-From PowerShell, with a prompt file (`-i` attaches the style reference):
-
 ```
-Get-Content design\prompts\04-plan-audit.txt -Raw | & "$env:LOCALAPPDATA\OpenAI\Codex\bin\<version>\codex.exe" exec - -i design\masters\hero-wide-v1.png --skip-git-repo-check -s read-only
+Get-Content design\prompts\v3-05-plan-audit.txt -Raw | & "$env:LOCALAPPDATA\OpenAI\Codex\bin\<version>\codex.exe" exec - -i design\masters\v3-01-hero-wide.png --skip-git-repo-check -s read-only
 ```
-
-Codex replies with the path of the saved PNG, under `~/.codex/generated_images/`. Export it for the web as JPEG at quality 80–84. Dark renders compress very well, and every site image is under 110 KB.
-
-**Known quirk:** the model draws 7 checkpoint rings instead of 6 even when asked. Nobody counts rings, and the composition is more important than the count.
+Codex replies with the path of the PNG it saved, under `~/.codex/generated_images/`. Export it for the web as JPEG at quality 78–84.

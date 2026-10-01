@@ -28,15 +28,15 @@ Everything marked **PROPOSED** is a recommendation you haven't approved. On the 
 
 ## 3. The page, in order (each section answers one question)
 
-1. **Hero:** *What is this?* One promise, one button, three reassurances. The art shows the leak, with a two-item legend ("Players", "Players quitting").
-2. **Find your leak:** *Where is my problem?* The KPI dashboard, simplified into a funnel of six plain-language problems plus "I'm not sure". Each bar shows the players kept (lime) and the players lost (ember). Tapping a problem opens:
+1. **Hero:** *What is this?* One promise, a green Play-style button, three reassurances. The art is a Roblox game window: avatars fall off an obby while the server chat fills with "left the game" and the player count ticks down.
+2. **My games:** *Why trust you?* Your avatar, "Hey, I'm Khaiel", and four stats (total visits, peak CCU, playing right now, games shipped). Beside them is a leaderboard of your games, with visits and live players pulled from Roblox every 6 hours. It shows only in review mode until your real games are configured.
+3. **Find your leak:** *Where is my problem?* The KPI dashboard, simplified into a funnel of six plain-language problems plus "I'm not sure". Each bar shows the players kept (lime) and the players lost (ember). Tapping a problem opens:
    - the Creator Hub metric to check;
    - what it usually means;
    - what I'd do;
    - a **Fix this** button.
-3. **How it works:** *What happens if I send it?* Three steps, then a sample audit report.
-4. **Pricing:** *What does it cost?* Three illustrated plans.
-5. **Who you'll work with:** *Why trust you?* A founder card, with proof slots that stay hidden until the proof is real.
+4. **How it works:** *What happens if I send it?* Three steps, then a sample audit report.
+5. **Pricing:** *What does it cost?* Three plans illustrated in Roblox thumbnail style.
 6. **FAQ:** six questions.
 7. **Send me your game:** the repaired world, then a 3-step form.
 
@@ -72,9 +72,9 @@ Nothing on the site invents proof. Fill these in, or the slots stay hidden:
    - **Period.**
    - **Which games**, and your share if any are co-owned.
    - **Dated screenshots.**
-2. **Your games:** links, and your role on each.
+2. **Your games:** add them to `data/roblox.config.json` (place ID, your role, peak CCU) and set `robloxUserId`. Visits, live players and your avatar then come straight from Roblox.
 3. **TikTok:** handle, follower count and the date you checked.
-4. **A real photo of you.** Don't use a generated one.
+4. **Your Roblox user ID** so your real avatar shows. The generic avatar is a placeholder and only appears in review mode.
 5. **Case studies and testimonials:** real ones only, with permission.
 
 ## 6. Launch checklist

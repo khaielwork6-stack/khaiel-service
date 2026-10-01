@@ -1,0 +1,16 @@
+Task: generate ONE image with your built-in image generation tool. Do not write code, do not run shell commands, do not create or edit any files yourself. After the image is generated, reply with only the absolute file path where the image was saved.
+
+Image size: landscape 16:9 (or the closest wide landscape size), highest quality.
+
+Image prompt:
+Epic Roblox game key art. It should look exactly like a top front-page Roblox game thumbnail: a polished, high-end 3D render.
+
+SCENE: A floating obby course high in the sky at dusk. A winding path of chunky, glossy, colorful blocks (bright red, blue, yellow and green, with classic Roblox studs on top) crosses a deep blue void. There are jump pads, a spinning platform, a narrow beam, and a glowing bright-green checkpoint pad (a Roblox-style spawn pad). A crowd of about fifteen blocky Roblox-style avatars runs along the course. They have classic Roblox R15 proportions, simple smiley faces and varied outfits: a classic yellow-and-blue noob, kids in hoodies, a knight helmet, cat-ears headphones, a cap, a backpack.
+
+THE STORY: Several avatars are falling off the edges of the course into the void, flailing comically. A couple of them are breaking apart into separate blocky body parts, the classic Roblox reset 'oof' moment. On the far right the course ends at a big glowing finish platform where only two or three avatars celebrate.
+
+COMPOSITION: Wide 16:9 frame. The obby and the avatars occupy the right 60 percent of the frame, flowing from the middle toward the upper right. The left 40 percent is open dusk sky with soft clouds that darkens smoothly to deep navy-black (#101216) toward the far-left edge, kept calm and free of avatars, reserved for headline text.
+
+STYLE: Saturated but tasteful colors, glossy plastic materials, cinematic rim lighting, warm sunset light from the right, soft bloom, depth of field, crisp detail. Fun and energetic, but premium.
+
+STRICTLY EXCLUDE: any text, letters, numbers, logos (including the Roblox logo), user interface, watermarks, real brand characters.
