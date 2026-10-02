@@ -18,7 +18,13 @@ window.SITE_CONFIG = {
   // biggest ones (data/roblox.config.json); this number shows as "30+" across the page.
   gamesWorkedOn: 30,
 
-  // Where the intake form posts. Works with Formspree (https://formspree.io/f/xxxx),
+  // Discord webhook for the intake form: every submission arrives as a message in that channel.
+  // Discord → your server → Edit channel → Integrations → Webhooks → New Webhook → Copy Webhook URL.
+  // Use a private channel. Anyone can see this URL in the page source, so if it ever gets spammed,
+  // delete the webhook in Discord and paste a new one here.
+  discordWebhook: "https://discord.com/api/webhooks/1555393903291539526/P8X4wBwGsbuj3RqMUKnboLyN98iJ1wsMR2FMxnBDjXyAGlRfslSGCb4vhPTwEsYtNo31",
+
+  // Or, instead of Discord: where the intake form posts. Works with Formspree (https://formspree.io/f/xxxx),
   // Basin, Getform, or any endpoint that accepts a JSON POST.
   // Leave empty and the form falls back to a prefilled email to `contactEmail`.
   formEndpoint: "",

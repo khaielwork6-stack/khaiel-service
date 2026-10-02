@@ -1469,6 +1469,34 @@
     }).join("\n");
   }
 
+  // a Discord message with every answer, laid out as an embed. Pings are switched off, so nothing
+  // anyone types (like @everyone) can notify your server.
+  function discordMessage(data) {
+    var inline = ["budget", "email", "discord", "name"];
+    var fields = Object.keys(LABELS).filter(function (k) { return data[k] && k !== "source"; }).map(function (k) {
+      var v = k === "problem" ? data[k].split(", ").map(function (p) { return PROBLEM[p] || p; }).join(", ") : data[k];
+      return { name: LABELS[k], value: String(v).slice(0, 1000), inline: inline.indexOf(k) !== -1 };
+    });
+    return {
+      username: "Khaiel site",
+      allowed_mentions: { parse: [] },
+      embeds: [{
+        title: ("New project: " + (data.game_link || "starting from an idea")).slice(0, 250),
+        color: 0x00b06f,
+        fields: fields.slice(0, 25),
+        footer: { text: (data.source ? "Came from " + data.source : "Direct visit").slice(0, 200) },
+        timestamp: data.submitted_at
+      }]
+    };
+  }
+  function post(url, body) {
+    return fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(body)
+    }).then(function (res) { if (!res.ok) throw new Error(res.status); });
+  }
+
   function finish(data, fallback) {
     form.hidden = true;
     var done = $("[data-done]");
@@ -1520,16 +1548,15 @@
       if (!validate(3)) return;
       var data = collect();
       data.submitted_at = new Date().toISOString();
-      if (!CFG.formEndpoint) { finish(data, true); return; }
+      // Discord first, then a form service; with neither, the visitor gets a prefilled email
+      var sent = CFG.discordWebhook ? post(CFG.discordWebhook, discordMessage(data))
+        : CFG.formEndpoint ? post(CFG.formEndpoint, Object.assign({ _subject: "New project: " + (data.game_link || "starting from an idea") }, data))
+        : null;
+      if (!sent) { finish(data, true); return; }
       var btn = $("[data-submit]", form);
       btn.classList.add("is-loading");
       btn.firstChild.textContent = "Sending… ";
-      fetch(CFG.formEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(Object.assign({ _subject: "New project: " + (data.game_link || "starting from an idea") }, data))
-      }).then(function (res) {
-        if (!res.ok) throw new Error(res.status);
+      sent.then(function () {
         finish(data, false);
       }).catch(function () {
         btn.classList.remove("is-loading");
