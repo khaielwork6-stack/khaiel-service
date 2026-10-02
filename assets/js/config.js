@@ -10,7 +10,7 @@
   every proposed value first. You can preview either mode with ?review=1 or ?review=0.
 */
 window.SITE_CONFIG = {
-  reviewMode: true,
+  reviewMode: false,
 
   brand: "Khaiel",
 

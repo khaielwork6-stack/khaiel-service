@@ -116,7 +116,7 @@
               <h2 id="games-title">Hey, I'm Khaiel.</h2>
             </div>
           </div>
-          <p class="games__bio">I've worked on <span data-worked>30+</span> Roblox games. I scripted some, marketed others, and the biggest are on the board, live from Roblox. I also break down what's working on TikTok. Not a guru with a course: a developer whose games are live right now.</p>
+          <p class="games__bio">I've worked on <span data-worked>30+</span> Roblox games, scripting some and marketing others. Not a guru with a course: a developer whose games are live right now.</p>
           <div class="stats" data-stats>
             <div class="stat" data-stat-for="visits"><span class="stat__label">Total visits</span><b class="stat__num" data-stat="visits">0</b><span class="stat__sub">across games I've worked on</span></div>
             <div class="stat" data-stat-for="peak"><span class="stat__label" data-peak-label>Peak players</span><b class="stat__num" data-stat="peak">0</b><span class="stat__sub" data-peak-sub>online at once (CCU)</span></div>
@@ -137,19 +137,12 @@
           <p class="board__example" data-board-example hidden>Example data. Add your games in <code>data/roblox.config.json</code></p>
         </div>
       </div>
-      <div class="wrap tiles-wrap rv" data-tiles-wrap hidden>
-        <div class="tiles__head">
-          <h3>Play them yourself</h3>
-          <p>Every number above is live on Roblox. Tap a game to open it.</p>
-        </div>
-        <ul class="tiles" data-tiles></ul>
-      </div>
     </section>
 
     <!-- ============================== THE STORY ============================== -->
     <section class="creed" aria-label="How I learned what works" data-creed>
       <div class="wrap">
-        <p class="creed__text" data-creed-text>Years of <em>failed</em> Roblox games taught me exactly what the <em>algorithm</em> rewards. You get the answers <em>without the years</em>.</p>
+        <p class="creed__text" data-creed-text>I know what it's like to spend months on a game and launch to an <em>empty server</em>. That's why I care about what happens <em>after you hit Publish</em>.</p>
         <p class="creed__sign"><img class="creed__face" src="assets/img/khaiel.jpg" width="92" height="92" alt=""><span><b>Khaiel</b><small><span data-worked>30+</span> Roblox games worked on</small></span></p>
       </div>
     </section>
@@ -160,7 +153,7 @@
         <header class="head head--center rv">
           <p class="eyebrow">Live demo</p>
           <h2 id="lab-title">Bring a dying game <span class="shine">back to life</span>.</h2>
-          <p class="sub">This game is leaking players, and Roblox has stopped showing it. Every switch below is a fix I'd make. Flip them and watch the players come back.</p>
+          <p class="sub">Tap a fix. Watch the players come back.</p>
         </header>
 
         <div class="dash rv" role="region" aria-label="Interactive demo: a simulated Roblox game's analytics" data-dash>
@@ -181,6 +174,7 @@
                 <b data-ccu>0</b>
                 <span class="delta" data-ccu-delta></span>
                 <span class="ccu__vs">since the scan</span>
+                <span class="ccu__rev v-rbx" aria-hidden="true"><svg viewBox="0 0 16 16"><use href="#robux"/></svg><b data-kpi="rev2">0</b>/day</span>
                 <span class="ccu__fx" data-fx aria-hidden="true"></span>
               </div>
               <div class="ccu__chart" data-chart aria-hidden="true">
@@ -199,7 +193,7 @@
               <div class="ccu__kpis">
                 <div class="kpi"><span>Daily players</span><b data-kpi="dau">0</b></div>
                 <div class="kpi"><span>Robux / day</span><b class="v-rbx"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#robux"/></svg><span data-kpi="rev">0</span></b></div>
-                <div class="kpi"><span>Genre rank</span><b data-kpi="rank">—</b></div>
+                <div class="kpi"><span>Percentile</span><b data-kpi="rank">—</b></div>
               </div>
             </div>
 
@@ -224,7 +218,7 @@
           <div class="dash__grid" data-bms></div>
 
           <div class="dash__foot">
-            <p><b data-fixed>0 of 6</b> fixes on · A simulated game. Illustrative numbers, not a promise.</p>
+            <p><b data-fixed>0 of 6</b> fixed · Simulated game, illustrative numbers</p>
             <div class="dash__actions">
               <button type="button" class="btn btn--quiet" data-dash-reset>Reset</button>
               <a class="btn btn--primary" href="#send" data-dash-cta>Do this to my game<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
@@ -245,12 +239,13 @@
         <header class="head head--center rv">
           <p class="eyebrow">Services</p>
           <h2 id="services-title">Everything your game needs to <span class="shine">take off</span>.</h2>
-          <p class="sub">Pick one, mix a few, or hand me the whole thing. Every package comes with a <span data-proposed>free game audit</span>, so the work starts from what your game actually needs.</p>
+          <p class="sub">Pick one or hand me the whole thing. Every package starts with a <span data-proposed>free game audit</span>.</p>
         </header>
 
+        <div class="svc-tabs" role="tablist" aria-label="Services" data-svc-tabs hidden></div>
         <div class="svc-grid" data-svc-grid>
 
-          <article class="svc rv">
+          <article class="svc rv" data-tab="Full game">
             <div class="svc__vis vig v-mosaic" aria-hidden="true" data-vis="mosaic">
               <div class="v-mosaic__frame">
                 <div class="v-mosaic__tiles" data-mosaic></div>
@@ -261,11 +256,11 @@
             <div class="svc__body">
               <p class="svc__tag"><span>01</span>Build</p>
               <h3>Full Game Development</h3>
-              <p class="svc__pitch">Hand me the idea. I build the entire game, launch it, and set it up to grow.</p>
+              <p class="svc__pitch">That game you keep thinking about. Let's get it built.</p>
               <ul class="svc__list">
-                <li><b>The whole game, built for you:</b> framework, systems, maps, UI and every line of code</li>
-                <li><b>Made to earn and keep players from day one:</b> monetization, progression and the hooks the algorithm rewards</li>
-                <li><b>Pre-launch to launch day, handled:</b> marketing, thumbnails, trailer, launch event and first updates</li>
+                <li><b>The whole game, built for you</b><span>: framework, systems, maps, UI and every line of code</span></li>
+                <li><b>Made to earn and keep players from day one</b><span>: monetization, progression and the hooks the algorithm rewards</span></li>
+                <li><b>Pre-launch to launch day, handled</b><span>: marketing, thumbnails, trailer, launch event and first updates</span></li>
               </ul>
               <div class="svc__foot">
                 <span class="svc__price"><small>Starting from</small><span><span data-proposed>$1,500</span><em>/game</em></span></span>
@@ -274,7 +269,7 @@
             </div>
           </article>
 
-          <article class="svc rv">
+          <article class="svc rv" data-tab="Growth">
             <div class="svc__vis vig v-rank" aria-hidden="true" data-vis="rank">
               <div class="v-win">
                 <div class="v-win__bar"><span>Most played right now</span><em class="v-live"><i class="live"></i>Live</em></div>
@@ -286,9 +281,9 @@
               <h3>Growth &amp; the Algorithm</h3>
               <p class="svc__pitch">Make Roblox's algorithm work for you: more clicks, longer sessions, players who come back.</p>
               <ul class="svc__list">
-                <li><b>Every signal discovery ranks on:</b> click-through, play-through, playtime, D1 and D7</li>
-                <li><b>A first session that hooks:</b> new players turn into regulars, and regulars bring friends</li>
-                <li><b>Driven by your real numbers:</b> every change measured, so you see exactly what moved</li>
+                <li><b>Every signal discovery ranks on</b><span>: click-through, play-through, playtime, D1 and D7</span></li>
+                <li><b>A first session that hooks</b><span>: new players turn into regulars, and regulars bring friends</span></li>
+                <li><b>Driven by your real numbers</b><span>: every change measured, so you see exactly what moved</span></li>
               </ul>
               <div class="svc__foot">
                 <span class="svc__price"><small>Starting from</small><span><span data-proposed>$500</span><em>/sprint</em></span></span>
@@ -297,7 +292,7 @@
             </div>
           </article>
 
-          <article class="svc rv">
+          <article class="svc rv" data-tab="Thumbnails">
             <div class="svc__vis vig v-ab" aria-hidden="true" data-vis="ab">
               <div class="v-ab__pair" data-ab>
                 <div class="v-ab__card">
@@ -314,12 +309,12 @@
             </div>
             <div class="svc__body">
               <p class="svc__tag"><span>03</span>Creative</p>
-              <h3>Thumbnails, Icons &amp; Trailers</h3>
-              <p class="svc__pitch">Everything players see before they press Play, made to win the click.</p>
+              <h3>Your game gets one glance. Make it count.</h3>
+              <p class="svc__pitch">Thumbnails, icons, and trailers that show players exactly why they should want in.</p>
               <ul class="svc__list">
-                <li><b>Icons and thumbnails that get clicked:</b> designed, A/B tested and kept fresh</li>
-                <li><b>Trailers and TikTok clips</b> cut to stop the scroll and send players straight to your game</li>
-                <li><b>Ad creatives and sponsored campaigns</b> that turn Robux spent into players gained</li>
+                <li><b>Icons and thumbnails that get clicked</b><span>: designed, A/B tested and kept fresh</span></li>
+                <li><b>Trailers and TikTok clips</b><span> cut to stop the scroll and send players straight to your game</span></li>
+                <li><b>Ad creatives and sponsored campaigns</b><span> that turn Robux spent into players gained</span></li>
               </ul>
               <div class="svc__foot">
                 <span class="svc__price"><small>Starting from</small><span><span data-proposed>$49</span><em>/asset</em></span></span>
@@ -328,7 +323,7 @@
             </div>
           </article>
 
-          <article class="svc rv">
+          <article class="svc rv" data-tab="Monetization">
             <div class="svc__vis vig v-shop" aria-hidden="true" data-vis="shop">
               <div class="v-win v-store">
                 <div class="v-win__bar"><span class="v-store__title"><img alt="" width="18" height="18" data-store-icon><span data-store-name></span></span><em data-store-count></em></div>
@@ -346,9 +341,9 @@
               <h3>Monetization</h3>
               <p class="svc__pitch">Turn the players you already have into serious revenue, without making it pay-to-win.</p>
               <ul class="svc__list">
-                <li><b>A full store, priced on data:</b> gamepasses, dev products, bundles and a real price ladder</li>
-                <li><b>Offers at the perfect moment:</b> starter packs, limited drops and first-purchase deals</li>
-                <li><b>Revenue that repeats:</b> subscriptions, Premium Payouts and events players pay to join</li>
+                <li><b>A full store, priced on data</b><span>: gamepasses, dev products, bundles and a real price ladder</span></li>
+                <li><b>Offers at the perfect moment</b><span>: starter packs, limited drops and first-purchase deals</span></li>
+                <li><b>Revenue that repeats</b><span>: subscriptions, Premium Payouts and events players pay to join</span></li>
               </ul>
               <div class="svc__foot">
                 <span class="svc__price"><small>Starting from</small><span><span data-proposed>$300</span><em>/sprint</em></span></span>
@@ -357,7 +352,7 @@
             </div>
           </article>
 
-          <article class="svc rv">
+          <article class="svc rv" data-tab="Scripting">
             <div class="svc__vis vig v-code" aria-hidden="true" data-vis="code">
               <div class="v-studio">
                 <div class="v-studio__tabs"><span class="is-on"><i></i>BadgeHandler</span><span><i></i>PlayerData</span></div>
@@ -370,9 +365,9 @@
               <h3>Scripting &amp; Systems</h3>
               <p class="svc__pitch">Any system you can imagine, built clean, fast and ready for thousands of players.</p>
               <ul class="svc__list">
-                <li><b>Whatever your game needs:</b> pets, eggs, trading, rebirths, quests and rock-solid data saving</li>
-                <li><b>Smooth on every device:</b> lag, memory and crashes fixed and tested on real phones</li>
-                <li><b>Locked down:</b> server-side checks and anti-exploit that protect your economy</li>
+                <li><b>Whatever your game needs</b><span>: pets, eggs, trading, rebirths, quests and rock-solid data saving</span></li>
+                <li><b>Smooth on every device</b><span>: lag, memory and crashes fixed and tested on real phones</span></li>
+                <li><b>Locked down</b><span>: server-side checks and anti-exploit that protect your economy</span></li>
               </ul>
               <div class="svc__foot">
                 <span class="svc__price"><small>Starting from</small><span><span data-proposed>$75</span><em>/task</em></span></span>
@@ -381,7 +376,7 @@
             </div>
           </article>
 
-          <article class="svc svc--star rv">
+          <article class="svc svc--star rv" data-tab="Partner">
             <div class="svc__vis vig v-upd" aria-hidden="true" data-vis="updates">
               <div class="v-win">
                 <div class="v-win__bar"><span>Updated in the last 7 days</span><em class="v-live" data-upd-count></em></div>
@@ -392,11 +387,11 @@
             <div class="svc__body">
               <p class="svc__tag"><span>06</span>Monthly</p>
               <h3>Growth Partner</h3>
-              <p class="svc__pitch">A full growth team for your game, without hiring one. I run it with you, every week.</p>
+              <p class="svc__pitch">Give your players something to look forward to every week.</p>
               <ul class="svc__list">
-                <li><b>Something new every week:</b> updates, events, admin abuse, limited drops and seasons</li>
-                <li><b>Your marketing, run for you:</b> TikTok, ads, Discord and your community</li>
-                <li><b>Your numbers read every week,</b> and next week's plan ready before it starts</li>
+                <li><b>Something new every week</b><span>: updates, events, admin abuse, limited drops and seasons</span></li>
+                <li><b>Your marketing, run for you</b><span>: TikTok, ads, Discord and your community</span></li>
+                <li><b>Your numbers read every week</b><span>, and next week's plan ready before it starts</span></li>
               </ul>
               <div class="svc__foot">
                 <span class="svc__price"><small>Starting from</small><span><span data-proposed>$2,000</span><em>/month</em></span></span>
@@ -438,7 +433,8 @@
             <div class="audit-card__body">
               <p class="svc__tag"><span>+</span>Included</p>
               <h3>Game Audit</h3>
-              <p class="audit-card__pitch">I play your game as a brand-new player, read your numbers, and rank what to fix first.</p>
+              <p class="audit-card__hook">You've played your game a thousand times. I'll show you what a new player sees.</p>
+              <p class="audit-card__pitch">Where they get confused, what makes them leave, and what's worth fixing first.</p>
               <p class="audit-card__free"><b data-proposed>Free</b> with any package</p>
               <div class="audit-card__opts">
                 <span class="audit-opt"><small>Quick Read</small><b data-proposed>$79</b></span>
@@ -453,7 +449,7 @@
               <div class="dm-card__copy">
                 <p class="eyebrow">Not on the list?</p>
                 <h3>Don't see what you need? Message me anyway.</h3>
-                <p>A trailer, an ad campaign, a single bug, a whole new game. I've failed enough Roblox games to know what doesn't work, and grown enough to know what does. If it's Roblox, I can help.</p>
+                <p>A trailer, an ad campaign, one stubborn bug, a whole new game. If it's Roblox, I can help.</p>
                 <div class="dm-card__actions">
                   <a class="btn btn--primary" href="#send" data-pick-service="Something else">Tell me what you need
                     <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
@@ -478,7 +474,7 @@
       <div class="wrap">
         <header class="head head--center rv">
           <p class="eyebrow">How it works</p>
-          <h2 id="how-title">Three steps. No guesswork.</h2>
+          <h2 id="how-title">Send me what you have. I'll work out what comes next.</h2>
         </header>
 
         <ol class="steps">

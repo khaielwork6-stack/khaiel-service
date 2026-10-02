@@ -17,7 +17,7 @@ The interface borrows from the Roblox app itself:
 | Where | Visual | Source |
 |---|---|---|
 | Hero | Live showcase: rotates through the games, sorted by players right now, with the total playing count | Roblox thumbnails, icons and live stats |
-| My work | Stats, leaderboard, "Play them yourself" tiles | Roblox thumbnails, icons and stats |
+| My work | Stats and the leaderboard | Roblox icons and stats |
 | The story | A statement that lights up word by word as you scroll | Type only |
 | Live demo | A simulated game's Creator Hub-style analytics: six benchmark cards with percentile sliders and fix switches, a live CCU chart, Robux per day, and a scripted "Khaiel AI" analyst. Labelled "Simulated" | Drawn in code. "Your Game" is fictional; the benchmark tags are illustrative |
 | Services: Full Game Development | One of the games' real thumbnails drops in as studded Roblox bricks, then "Live on Roblox" with its real visits and studio | Roblox thumbnails and stats |

@@ -251,28 +251,6 @@
       rows.appendChild(li);
     });
 
-    // Discover-style tiles with each game's official thumbnail
-    var tiles = $("[data-tiles]"), withThumbs = games.filter(function (g) { return g.thumb; });
-    if (real && tiles && withThumbs.length) {
-      tiles.innerHTML = "";
-      withThumbs.forEach(function (g) {
-        var li = document.createElement("li");
-        li.className = "tile";
-        li.innerHTML =
-          '<a class="tile__link" target="_blank" rel="noopener">' +
-          '<span class="tile__img"><img alt="" loading="lazy" decoding="async" width="768" height="432"></span>' +
-          '<b class="tile__name"></b>' +
-          '<span class="tile__meta"><span>' + THUMB + (g.likeRatio != null ? g.likeRatio + "%" : "—") + "</span>" +
-          "<span>" + PERSON + compact(g.playing) + "</span></span></a>";
-        $("a", li).href = g.url;
-        $("a", li).setAttribute("aria-label", g.name + " on Roblox");
-        $("img", li).src = g.thumb;
-        $(".tile__name", li).textContent = g.name;
-        tiles.appendChild(li);
-      });
-      $("[data-tiles-wrap]").hidden = false;
-    }
-
     // hovering a stat lights up the game it comes from
     function hot(index) { $$(".row", rows).forEach(function (r, i) { r.classList.toggle("is-hot", i === index); }); }
     function indexOfMax(key) {
@@ -815,30 +793,30 @@
 
   // bad → good, and where each sits against the genre (50th and 90th percentile tags)
   var METRICS = [
-    { key: "ptr", name: "Play through rate", fmt: "pct", bad: 0.92, good: 4.08, p50: "1.35%", p90: "3.63%", pBad: 21, pGood: 93, dBad: 11.6,
+    { key: "ptr", name: "Play through rate", short: "Clicks", fmt: "pct", bad: 0.92, good: 4.08, p50: "1.35%", p90: "3.63%", pBad: 21, pGood: 93, dBad: 11.6,
       fix: "New icon & thumbnails", tag: "New thumbnails", mult: 1.8, growth: true, problem: "click", service: "Thumbnails & trailers",
-      why: "People see the icon and scroll right past it.",
-      on: "New icon and thumbnails. Play-through jumps to <b>4.08%</b>, top 7% of the genre. More people who see it now play it, so Roblox shows it to more people." },
-    { key: "play", name: "Average playtime", fmt: "min", bad: 6.8, good: 31.5, p50: "16.2 min", p90: "40.0 min", pBad: 19, pGood: 84, dBad: 15.9,
+      why: "People scroll right past the icon.",
+      on: "New icon and thumbnails: play-through hits <b>4.08%</b>, top 7%." },
+    { key: "play", name: "Average playtime", short: "Playtime", fmt: "min", bad: 6.8, good: 31.5, p50: "16.2 min", p90: "40.0 min", pBad: 19, pGood: 84, dBad: 15.9,
       fix: "First reward in 5 seconds", tag: "Faster first reward", mult: 1.7, growth: true, problem: "hook", service: "Growth & algorithm",
-      why: "New players wait too long for a reward, then run out of goals.",
-      on: "First reward in 5 seconds, and always a next goal. Playtime goes <b>6.8 → 31.5 min</b>, the signal discovery weighs most." },
-    { key: "d1", name: "Day 1 retention", fmt: "pct", bad: 5.21, good: 13.92, p50: "9.24%", p90: "14.13%", pBad: 16, pGood: 88, dBad: 13.7,
+      why: "New players wait too long for a reward.",
+      on: "First reward in 5 seconds: playtime <b>6.8 → 31.5 min</b>." },
+    { key: "d1", name: "Day 1 retention", short: "Day 1", fmt: "pct", bad: 5.21, good: 13.92, p50: "9.24%", p90: "14.13%", pBad: 16, pGood: 88, dBad: 13.7,
       fix: "Something waiting tomorrow", tag: "Daily streak", mult: 1.45, growth: true, problem: "d1", service: "Growth & algorithm",
-      why: "Nothing pulls players back the next day.",
-      on: "A daily streak and something left unfinished at log-off. <b>13.92%</b> now come back tomorrow." },
-    { key: "d7", name: "Day 7 retention", fmt: "pct", bad: 0.61, good: 3.08, p50: "1.47%", p90: "3.32%", pBad: 14, pGood: 87, dBad: 21.4,
+      why: "Nothing brings them back tomorrow.",
+      on: "A daily streak: <b>13.92%</b> come back tomorrow." },
+    { key: "d7", name: "Day 7 retention", short: "Day 7", fmt: "pct", bad: 0.61, good: 3.08, p50: "1.47%", p90: "3.32%", pBad: 14, pGood: 87, dBad: 21.4,
       fix: "Weekly updates & events", tag: "Weekly updates", mult: 1.35, growth: true, problem: "d7", service: "Growth partner",
-      why: "Nothing new happens all week, so they drift off.",
-      on: "Weekly updates and weekend events. Day 7 climbs to <b>3.08%</b>: players stick around all week." },
-    { key: "pay", name: "Payer conversion rate", fmt: "pct", bad: 0.14, good: 1.12, p50: "0.36%", p90: "1.61%", pBad: 17, pGood: 83, dBad: 8.2,
+      why: "Nothing new happens all week.",
+      on: "Weekly updates and events: Day 7 hits <b>3.08%</b>." },
+    { key: "pay", name: "Payer conversion rate", short: "Buyers", fmt: "pct", bad: 0.14, good: 1.12, p50: "0.36%", p90: "1.61%", pBad: 17, pGood: 83, dBad: 8.2,
       fix: "Starter pack at the right moment", tag: "Starter pack", mult: 1, problem: "spend", service: "Monetization",
-      why: "There's no offer at the moment players are most excited.",
-      on: "A starter pack right after the first big win. <b>8×</b> more players buy something." },
-    { key: "arppu", name: "Avg. revenue per paying user", fmt: "rbx", bad: 74.5, good: 288, p50: "129.6", p90: "431.8", pBad: 22, pGood: 76, dBad: 6.4,
+      why: "There's no offer when they're most excited.",
+      on: "A starter pack after the first win: <b>8×</b> more buyers." },
+    { key: "arppu", name: "Avg. revenue per paying user", short: "Avg. spend", fmt: "rbx", bad: 74.5, good: 288, p50: "129.6", p90: "431.8", pBad: 22, pGood: 76, dBad: 6.4,
       fix: "A real price ladder", tag: "Price ladder", mult: 1, problem: "spend", service: "Monetization",
-      why: "Payers have nothing bigger to buy.",
-      on: "A real price ladder, from 25 to 2,500 Robux. Payers now spend <b>3.9×</b> more." }
+      why: "Buyers have nothing bigger to buy.",
+      on: "A real price ladder: buyers spend <b>3.9×</b> more." }
   ];
   var BASE = 420, DAU_PER_CCU = 18, BOOST = [1, 1, 1.08, 1.18, 1.35];
 
@@ -861,7 +839,7 @@
     var chart = $("[data-chart]", dash), line = $("[data-line]", dash), area = $("[data-area]", dash), dot = $("[data-dot]", dash);
     var marksEl = $("[data-marks]", dash), yLabels = $$("[data-y] span", dash), fx = $("[data-fx]", dash);
     var ccuEl = $("[data-ccu]", dash), ccuDelta = $("[data-ccu-delta]", dash), rec = $("[data-rec]", dash), recText = $("[data-rec-text]", dash);
-    var kDau = $('[data-kpi="dau"]', dash), kRev = $('[data-kpi="rev"]', dash), kRank = $('[data-kpi="rank"]', dash);
+    var kDau = $('[data-kpi="dau"]', dash), kRev = $('[data-kpi="rev"]', dash), kRev2 = $('[data-kpi="rev2"]', dash), kRank = $('[data-kpi="rank"]', dash);
     var score = $("[data-score]", dash), arc = $("[data-arc]", dash), scoreN = $("[data-score-n]", dash), status = $("[data-ai-status]", dash);
     var hud = $("[data-hud]"), hudCcu = $("[data-hud-ccu]"), hudDelta = $("[data-hud-delta]"), hudRev = $("[data-hud-rev]");
     var allChip = $(".ai__all", dash), fixedCount = $("[data-fixed]", dash);
@@ -872,12 +850,13 @@
       var el = document.createElement("article");
       el.className = "bm";
       el.innerHTML =
-        '<div class="bm__head"><h3 class="bm__name"></h3><span class="bm__flag">Scanning</span></div>' +
+        '<div class="bm__head"><h3 class="bm__name"></h3><span class="bm__short" aria-hidden="true"></span><span class="bm__flag">Scanning</span></div>' +
         '<div class="bm__val"><b>—</b><span class="delta"></span></div>' +
         '<div class="bm__track" aria-hidden="true"><span class="bm__seg"><i></i></span><span class="bm__seg"><i></i></span><span class="bm__seg"><i></i></span><span class="bm__pct"></span><span class="bm__knob"></span></div>' +
         '<div class="bm__marks" aria-hidden="true"><span class="bm__mark bm__mark--50">50th<b></b></span><span class="bm__mark bm__mark--90">90th<b></b></span></div>' +
         '<label class="bm__fix"><input type="checkbox" role="switch"><span class="sw" aria-hidden="true"></span><span class="bm__fixtext"><small>Khaiel\'s fix</small><b></b></span></label>';
       $(".bm__name", el).textContent = m.name;
+      $(".bm__short", el).textContent = m.short;
       var tags = $$(".bm__mark b", el), pre = m.fmt === "rbx" ? RBX : "";
       tags[0].innerHTML = pre + m.p50;
       tags[1].innerHTML = pre + m.p90;
@@ -1001,6 +980,7 @@
       put("dau", kDau, compact(sim.cur * DAU_PER_CCU));
       var rev = compact(revenue(sim.cur, byKey.pay.v, byKey.arppu.v));
       put("rev", kRev, rev);
+      put("rev2", kRev2, rev);
       put("hudRev", hudRev, rev);
       var health = cards.reduce(function (s, c) { return s + c.p; }, 0) / cards.length, h = Math.round(health);
       put("score", scoreN, String(h));
@@ -1008,7 +988,7 @@
       score.classList.toggle("is-mid", h >= 40 && h < 70);
       score.classList.toggle("is-good", h >= 70);
       dash.classList.toggle("is-good", h >= 60);
-      put("rank", kRank, !scanned ? "—" : h < 50 ? "Bottom " + Math.max(1, h) + "%" : "Top " + Math.max(1, 100 - h) + "%");
+      put("rank", kRank, scanned ? ordinal(Math.max(1, h)) : "—");
     }
 
     var raf = 0, last = 0;
@@ -1101,9 +1081,9 @@
         celebrated = true;
         burst();
         var bestCcu = Math.round(BASE * md.mult / 10) * 10;
-        say("That's every leak plugged. About <b>" + bestCcu.toLocaleString("en-US") + " players</b> online, Robux per day from <b>" +
-          compact(revenue(BASE * 0.84, METRICS[4].bad, METRICS[5].bad)) + " to " + compact(revenue(BASE * md.mult, METRICS[4].good, METRICS[5].good)) +
-          "</b>, and Roblox is recommending it on Home. This is the work I do on real games." +
+        say("Every leak plugged: <b>" + bestCcu.toLocaleString("en-US") + " players</b>, Robux/day <b>" +
+          compact(revenue(BASE * 0.84, METRICS[4].bad, METRICS[5].bad)) + " → " + compact(revenue(BASE * md.mult, METRICS[4].good, METRICS[5].good)) +
+          "</b>, and it's on Home. That's what I do to real games." +
           '<br><a class="ai__go" href="#send" data-dash-cta>Do this to my game ' + RIGHT + "</a>");
       }
       if (n < 6) celebrated = false;
@@ -1126,7 +1106,7 @@
         popup((rNow >= rWas ? "+R$ " : "−R$ ") + compact(Math.abs(rNow - rWas)) + "/day", rNow >= rWas);
       }
       mark(on ? m.tag : "Removed: " + m.tag, !on);
-      say(on ? m.on : "Fix removed. <b>" + m.name + "</b> falls back, and the players go with it.");
+      say(on ? m.on : "Fix removed: <b>" + m.short.toLowerCase() + "</b> drops and players leave.");
       syncState();
     }
 
@@ -1161,7 +1141,7 @@
       li.classList.add("is-typing");
       var i = 0, j = 0;
       (function step() {
-        var budget = queue.length ? 9 : 2;
+        var budget = queue.length ? 9 : 3;
         while (budget-- > 0 && i < nodes.length) {
           j++;
           nodes[i].n.textContent = nodes[i].full.slice(0, j);
@@ -1184,7 +1164,7 @@
     function fixAll() {
       var todo = cards.filter(function (c) { return !fixed[c.m.key]; });
       batch = true;
-      say("On it. Applying " + (todo.length === 6 ? "all six fixes" : todo.length === 1 ? "the last fix" : "the " + todo.length + " fixes left") + "…");
+      say("On it. Fixing " + (todo.length === 6 ? "all six" : todo.length === 1 ? "the last one" : "the " + todo.length + " left") + "…");
       setTimeout(function () { mark(todo.length === 6 ? "Every fix" : "The rest of the fixes"); }, reduceMotion ? 0 : 700);
       todo.forEach(function (c, i) {
         setTimeout(function () {
@@ -1198,24 +1178,24 @@
       cards.forEach(function (c) { if (fixed[c.m.key]) toggle(c, false); });
       batch = false;
       mark("Reset", true);
-      say("Back to a leaking game. Try the fixes one at a time and see which one moves the players most.");
+      say("Back to leaking. Try one fix at a time.");
     }
     var ASK = {
       leak: function () {
         var order = ["play", "ptr", "d1", "d7", "pay", "arppu"], k = order.filter(function (x) { return !fixed[x]; })[0];
-        if (!k) { say("No leaks left. Every card is above the 75th percentile for its genre."); return; }
+        if (!k) { say("No leaks left. Every metric is in the top 25%."); return; }
         var m = byKey[k].m;
         ping([k]);
-        say("Your biggest leak is <b>" + m.name.toLowerCase() + "</b>: " + fmt(m, m.bad).replace(RBX, "R$ ") + ", the <b>" + ordinal(m.pBad) + " percentile</b>. " + m.why + " Flip <b>" + m.fix + "</b> first.");
+        say("Biggest leak: <b>" + m.short.toLowerCase() + "</b>, " + ordinal(m.pBad) + " percentile. " + m.why + " Fix it first.");
       },
       home: function () {
         ping(["ptr", "play", "d1", "d7"]);
-        say("Roblox recommends games people <b>click</b>, <b>play for a long time</b> and <b>come back to</b>. Fix play-through, playtime, Day 1 and Day 7, and the badge on the chart flips to <b>Recommended on Home</b>.");
+        say("Roblox pushes games people <b>click</b>, <b>play long</b> and <b>come back to</b>. Fix those four.");
       },
       buy: function () {
         ping(["pay", "arppu"]);
-        if (fixed.pay && fixed.arppu) { say("Fixed: <b>1.12%</b> of players buy now, and payers spend <b>R$ 288</b>. That's what a real store does."); return; }
-        say("Only <b>0.14%</b> of players ever buy, and payers spend <b>R$ 74.5</b>. No starter offer, no price ladder. Flip the two money fixes and watch Robux per day.");
+        if (fixed.pay && fixed.arppu) { say("Fixed: <b>1.12%</b> buy now, spending <b>R$ 288</b> each."); return; }
+        say("Only <b>0.14%</b> buy, spending <b>R$ 74.5</b>. Flip the two money fixes.");
       },
       all: fixAll,
       reset: reset
@@ -1248,8 +1228,8 @@
       }
       function report() {
         status.textContent = "6 leaks found";
-        say("Scan done. I found <b>6 leaks</b>. This game is in the <b>bottom " + health + "%</b> of its genre, so Roblox has almost stopped showing it.");
-        say("Every red card is a leak, and every switch is the fix I'd make. Flip one and watch the players.");
+        say("Found <b>6 leaks</b>. Bottom " + health + "% of its genre, so Roblox stopped showing it.");
+        say("Tap a red one to fix it. Or hit <b>Fix everything</b>.");
         syncState();
       }
       if (reduceMotion) { reveal(); report(); return; }
@@ -1302,6 +1282,47 @@
       else if (s === 13) vis.classList.add("is-out");
       else if (s === 14) { stop(); clear(); s = 0; }
     });
+  }
+
+  /* ------------------------------------------------ services on phones: swipe or tap a tab
+     The cards sit side by side and swipe; the tab bar above names each one and follows along.
+     It hides when the row isn't scrollable (tablets and up show the grid). */
+  function initSvcTabs() {
+    var bar = $("[data-svc-tabs]"), track = $("[data-svc-grid]");
+    if (!bar || !track) return;
+    var items = $$(".svc", track), tabs = [];
+    items.forEach(function (item, i) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("role", "tab");
+      b.textContent = item.getAttribute("data-tab");
+      b.addEventListener("click", function () { go(i); });
+      bar.appendChild(b);
+      tabs.push(b);
+    });
+    function at(i) { return items[i].offsetLeft - items[0].offsetLeft; }
+    function current() {
+      if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 4) return items.length - 1;
+      var best = 0;
+      items.forEach(function (it, i) { if (Math.abs(at(i) - track.scrollLeft) < Math.abs(at(best) - track.scrollLeft)) best = i; });
+      return best;
+    }
+    function go(i) { track.scrollTo({ left: at(i), behavior: reduceMotion ? "auto" : "smooth" }); }
+    var shown = -1, raf = 0;
+    function sync() {
+      raf = 0;
+      var i = current();
+      if (i === shown) return;
+      shown = i;
+      tabs.forEach(function (t, k) { t.classList.toggle("is-on", k === i); t.setAttribute("aria-selected", String(k === i)); });
+      // keep the active tab in view
+      var t = tabs[i], left = t.offsetLeft - (bar.clientWidth - t.offsetWidth) / 2;
+      bar.scrollTo({ left: Math.max(0, left), behavior: reduceMotion ? "auto" : "smooth" });
+    }
+    track.addEventListener("scroll", function () { if (!raf) raf = requestAnimationFrame(sync); }, { passive: true });
+    function fit() { bar.hidden = track.scrollWidth <= track.clientWidth + 4; shown = -1; sync(); }
+    window.addEventListener("resize", fit);
+    fit();
   }
 
   /* ------------------------------------------------ FAQ accordions */
@@ -1559,6 +1580,7 @@
   initServices();
   initDash();
   initAudit();
+  initSvcTabs();
   initAccordions();
   initForm();
   initDock();
