@@ -21,14 +21,16 @@ The games you've worked on drive most of the visuals: the live showcase in the h
    ```
 2. Commit and push. The **Update Roblox stats** GitHub workflow runs and rewrites `assets/data/roblox.js`. It then reruns every 6 hours. It pulls:
    - each game's name, icon, thumbnails, visits, players right now, favorites, like ratio and last-updated date;
-   - each game's for-sale game passes (name, price, icon) and its most-earned badges, which drive the Services illustrations;
-   - your avatar headshot.
+   - each game's for-sale game passes (name, price, icon) and its most-earned badges, which drive the Services illustrations.
 
    You can also run it locally: `powershell -File scripts/update-roblox.ps1`.
 
 **Peak CCU** isn't published by Roblox. Copy it from Creator Hub → Analytics into `peakCCU`.
 
 The board shows your biggest games. Your total count ("30+ games worked on") lives in `assets/js/config.js` as `gamesWorkedOn`.
+
+## Live demo
+The "Bring a dying game back to life" dashboard is a simulation, labelled as one. Its six metrics (bad and fixed values, percentiles, the fix names and what the AI analyst says about each) live in `METRICS` in `assets/js/site.js`; `BASE` is the starting CCU. "Do this to my game" ticks the matching problems and services in the form.
 
 ## Review mode
 While `reviewMode: true` is set in `assets/js/config.js`, a small pill sits in the corner. Press **Show** to highlight every proposed price and policy (`data-proposed`). Set `reviewMode: false` before sending traffic. You can preview either mode with `?review=1` or `?review=0`.
@@ -44,11 +46,12 @@ Paste a Formspree URL (or any JSON POST endpoint) into `formEndpoint`, and set `
 index.html                      All content and copy. Prices live here.
 assets/css/site.css             Roblox-themed visual system, mobile-first
 assets/js/config.js             Review mode, form endpoint, links
-assets/js/site.js               Live showcase, server chat, leaderboard, wall, leak finder, form, dock
+assets/js/site.js               Live showcase, leaderboard, live demo dashboard, service visuals, wall, form, dock
 assets/data/roblox.js           Game stats and thumbnail URLs (generated)
 data/roblox.config.json         Your games and Roblox user ID
 scripts/update-roblox.ps1       Fetches live stats from Roblox's public APIs
 .github/workflows/roblox-stats.yml   Runs the script every 6 hours
+assets/img/khaiel.jpg           Your photo, used for every avatar on the page
 assets/og.jpg                   Link preview card (real game thumbnails)
 ```
 

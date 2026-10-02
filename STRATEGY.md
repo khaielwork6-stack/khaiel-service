@@ -31,7 +31,8 @@ Everything marked **PROPOSED** is a recommendation you haven't approved. On the 
 1. **Hero:** *What is this?* One promise, a green Play-style button, three reassurances. Beside it, a live showcase: how many people are playing the games I've worked on right now, rotating through each game's real thumbnail.
 2. **My work:** *Why trust you?* "Hey, I'm Khaiel", and four stats (total visits, peak players or favorites, playing right now, 30+ games worked on). Beside them is a leaderboard of the biggest games, each credited to its studio, with visits and live players pulled from Roblox every 6 hours.
 3. **The story:** *Why do you know what works?* One statement that lights up word by word as you scroll: years of failed games taught me what the algorithm rewards, and keeping up with it is my job.
-4. **Services:** *What can you do for me?* Six services, each illustrated with real Roblox data from the games I've worked on (refreshed every 6 hours):
+4. **Live demo:** *Show me you know what you're doing.* A simulated game's analytics, laid out like Creator Hub's benchmarks: six cards (play-through, playtime, D1, D7, payer conversion, revenue per payer), each red with a percentile slider and a switch for the fix I'd make. Flip a switch and the card turns green, the live CCU chart climbs, Robux per day and the genre rank move, and a scripted "Khaiel AI" analyst explains what happened. "Fix everything" plugs every leak at once. **Do this to my game** carries the fixes you flipped into the form. Labelled "Simulated" throughout.
+5. **Services:** *What can you do for me?* Six services, each illustrated with real Roblox data from the games I've worked on (refreshed every 6 hours):
    - **Full Game Development:** a real thumbnail drops in as studded bricks, then "Live on Roblox" with its visits.
    - **Growth & the Algorithm:** the games sort themselves by who's playing right now.
    - **Thumbnails, Icons & Trailers:** two real thumbnails of the same game, side by side.
@@ -39,8 +40,7 @@ Everything marked **PROPOSED** is a recommendation you haven't approved. On the 
    - **Scripting & Systems:** a badge script in Roblox Studio, then a real badge and how many players have it.
    - **Growth Partner:** which games were updated in the last 7 days, and on which day.
 
-   Then a scrolling "…and a lot more" wall of other services, the audit card ("Free with any package") and a "Don't see what you need? Message me anyway" card with a Discord-style inbox.
-5. **Find your leak:** *Not sure what you need?* Six bars, one per moment players leave. Tap one for a short card: the Creator Hub metric to check, three fixes, and a **Fix this** button with the service that covers it. "Not sure?" opens the free audit.
+   Then a scrolling "…and a lot more" wall of other services, the audit card (a Creator Hub-style scan that finds the leaks, then shows them fixed; "Free with any package") and a "Don't see what you need? Message me anyway" card with a Discord-style inbox.
 6. **How it works:** *What happens if I send it?* Send it → a plan built for your game (the audit) → I build it, ship it and grow it.
 7. **FAQ:** eight questions, including "What if what I need isn't listed?" and "I don't have a game yet".
 8. **Send me your game:** a scrolling wall of the games' thumbnails, then the 3-step form beside a "DM me on Discord" card for people who'd rather skip the form. Step 1 takes a link or "No game yet" and any mix of services; step 2 any mix of problems; step 3 an email or a Discord username.
@@ -49,22 +49,21 @@ Everything marked **PROPOSED** is a recommendation you haven't approved. On the 
 
 | Service | What it is | Price | Timing |
 |---|---|---|---|
-| **Full Game Development** | Idea to launch: core loop, scripting, building, UI, monetization, launch plan | quoted per project | by scope |
-| **Growth & the Algorithm** | Click-through, play-through, first-session funnel, session length, D1/D7 | sprint from **$2,500** | 2–4 weeks |
-| **Thumbnails, Icons & Trailers** | A/B-testable icons and thumbnails, trailers, TikTok clips, ad creatives | quoted per asset or pack | — |
-| **Monetization** | Gamepass and dev product ladder, starter packs, subscriptions, limited-time deals | quoted per sprint | — |
-| **Scripting & Systems** | Data, trading, pets, rebirths, quests; lag and crash fixes; anti-exploit | quoted per task or project | — |
-| **Growth Partner** | Weekly updates, events and admin-abuse events, analytics review, next week's plan | from **$4,000/mo** | monthly |
-| **Game Audit** | Quick Read (recorded teardown, top 3 fixes) or Full Audit (all six moments, analytics, 60-min call) | **free with any package**; alone **$149** / **$950** | 5 / 7–10 business days |
-| **AI workflow coaching** | 1:1 sessions | **$199** / session | — |
+| **Full Game Development** | Idea to launch: core loop, scripting, building, UI, monetization, launch plan | from **$1,500** per game | by scope |
+| **Growth & the Algorithm** | Click-through, play-through, first-session funnel, session length, D1/D7 | sprint from **$500** | 2–4 weeks |
+| **Thumbnails, Icons & Trailers** | A/B-testable icons and thumbnails, trailers, TikTok clips, ad creatives | from **$49** per asset | — |
+| **Monetization** | Gamepass and dev product ladder, starter packs, subscriptions, limited-time deals | sprint from **$300** | — |
+| **Scripting & Systems** | Data, trading, pets, rebirths, quests; lag and crash fixes; anti-exploit | from **$75** per task | — |
+| **Growth Partner** | Weekly updates, events and admin-abuse events, analytics review, next week's plan | from **$2,000/month** | monthly |
+| **Game Audit** | Quick Read (recorded teardown, top 3 fixes) or Full Audit (all six moments, analytics, 60-min call) | **free with any package**; alone **$79** / **$129** (shown as 35% off $200) | 5 / 7–10 business days |
+| **AI workflow coaching** | 1:1 sessions | from **$99** / session | — |
 
 **Audit credit:** a client who paid for an audit on its own and books a package within **30 days** gets the audit fee off the price.
 
 **Pricing logic:**
-- Effective rate of about $95–$120 per senior hour.
+- Every service shows a "Starting from" price, set low so small budgets say yes; the real quote comes after the free audit.
 - Every package starts with the free audit, so every quote comes from evidence, not guesses.
-- The $149 Quick Read lets small TikTok budgets say yes without eating your week, so cap it per week.
-- Before launch, decide "from" prices for Full Game, Creative, Monetization and Scripting, or keep them as "Quoted".
+- The $79 Quick Read lets small TikTok budgets say yes without eating your week, so cap it per week.
 
 **Decide before launch:**
 - Refund policy (suggestion: full refund before work starts).
@@ -83,7 +82,7 @@ Nothing on the site invents proof. Fill these in, or the slots stay hidden:
    - **Dated screenshots.**
 2. **Your games:** your seven biggest are live on the site. Still needed for each: **peak CCU** (Creator Hub → Analytics) and, optionally, **your role** (e.g. "Lead scripter"). Add them in `data/roblox.config.json`. Your total ("30+") is `gamesWorkedOn` in `assets/js/config.js`.
 3. **TikTok:** handle, follower count and the date you checked.
-4. **Your Roblox user ID** so your real avatar shows. Until then, a "K" monogram.
+4. ~~Your avatar~~ Done: your photo (`assets/img/khaiel.jpg`) is the avatar everywhere.
 5. **Case studies and testimonials:** real ones only, with permission.
 
 ## 6. Launch checklist

@@ -35,6 +35,7 @@
   <a class="skip" href="#main">Skip to content</a>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <symbol id="robux" viewBox="0 0 16 16"><path d="M8 1.3 13.8 4.65v6.7L8 14.7 2.2 11.35v-6.7z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><rect x="5.6" y="5.6" width="4.8" height="4.8" rx=".8" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="spark" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5c.6 4.6 2.9 7.3 7.5 8-4.6.7-6.9 3.4-7.5 8-.6-4.6-2.9-7.3-7.5-8 4.6-.7 6.9-3.4 7.5-8zM19 15.5c.25 1.9 1.2 3 3 3.25-1.8.25-2.75 1.35-3 3.25-.25-1.9-1.2-3-3-3.25 1.8-.25 2.75-1.35 3-3.25z"/></symbol>
     <symbol id="discord" viewBox="0 0 24 24"><path fill="currentColor" d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.028C.533 9.046-.32 13.58.099 18.058a.082.082 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .078-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.099.246.198.373.292a.077.077 0 0 1-.007.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.331c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></symbol>
   </svg>
 
@@ -46,8 +47,8 @@
       </a>
       <nav class="nav" aria-label="Primary">
         <a href="#games">My work</a>
+        <a href="#leak">Live demo</a>
         <a href="#services">Services</a>
-        <a href="#leak">Find your leak</a>
         <a href="#faq">FAQ</a>
       </nav>
       <a class="btn btn--primary btn--sm header__cta" href="#send">Send me your game</a>
@@ -59,8 +60,8 @@
   <div class="menu" id="menu" hidden data-menu>
     <nav aria-label="Menu">
       <a href="#games">My work</a>
+      <a href="#leak">Live demo</a>
       <a href="#services">Services</a>
-      <a href="#leak">Find your leak</a>
       <a href="#how">How it works</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -74,7 +75,7 @@
       <div class="wrap hero__grid">
         <div class="hero__copy">
           <a class="creator hero-in" style="--i:0" href="#games">
-            <span class="creator__avatar"><img data-headshot hidden width="80" height="80" alt=""><span class="creator__mono" aria-hidden="true">K</span></span>
+            <span class="creator__avatar"><img src="assets/img/khaiel.jpg" width="80" height="80" alt=""></span>
             <span class="creator__text"><b>Khaiel</b><span><i class="presence"></i>Taking new games</span></span>
           </a>
           <h1 class="hero__title hero-in" style="--i:1" id="hero-title">Your game isn't dead. <span>It's leaking players.</span></h1>
@@ -109,7 +110,7 @@
       <div class="wrap games__grid">
         <div class="games__intro rv">
           <div class="profile">
-            <span class="profile__avatar"><img data-headshot hidden width="160" height="160" alt="Khaiel's Roblox avatar"><span class="creator__mono" aria-hidden="true">K</span><i class="presence presence--lg"></i></span>
+            <span class="profile__avatar"><img src="assets/img/khaiel.jpg" width="160" height="160" alt="Khaiel"><i class="presence presence--lg"></i></span>
             <div>
               <p class="eyebrow">Who you'll work with</p>
               <h2 id="games-title">Hey, I'm Khaiel.</h2>
@@ -148,8 +149,93 @@
     <!-- ============================== THE STORY ============================== -->
     <section class="creed" aria-label="How I learned what works" data-creed>
       <div class="wrap">
-        <p class="creed__text" data-creed-text>I've spent years building Roblox games, and a lot of them <em>failed</em>. Every one taught me something: what the <em>algorithm</em> rewards, what makes players <em>come back</em>, and what makes them <em>buy</em>. It changes constantly. Keeping up with it is <em>my job</em>, so it doesn't have to be yours.</p>
-        <p class="creed__sign"><span class="creed__mono" aria-hidden="true">K</span><span><b>Khaiel</b><small><span data-worked>30+</span> Roblox games worked on</small></span></p>
+        <p class="creed__text" data-creed-text>Years of <em>failed</em> Roblox games taught me exactly what the <em>algorithm</em> rewards. You get the answers <em>without the years</em>.</p>
+        <p class="creed__sign"><img class="creed__face" src="assets/img/khaiel.jpg" width="92" height="92" alt=""><span><b>Khaiel</b><small><span data-worked>30+</span> Roblox games worked on</small></span></p>
+      </div>
+    </section>
+
+    <!-- ============================== LIVE DEMO: bring a dying game back ============================== -->
+    <section class="section lab" id="leak" aria-labelledby="lab-title">
+      <div class="wrap">
+        <header class="head head--center rv">
+          <p class="eyebrow">Live demo</p>
+          <h2 id="lab-title">Bring a dying game <span class="shine">back to life</span>.</h2>
+          <p class="sub">This game is leaking players, and Roblox has stopped showing it. Every switch below is a fix I'd make. Flip them and watch the players come back.</p>
+        </header>
+
+        <div class="dash rv" role="region" aria-label="Interactive demo: a simulated Roblox game's analytics" data-dash>
+          <div class="dash__bar">
+            <span class="dash__game"><span class="dash__icon" aria-hidden="true"><i></i></span><span><b>Your Game</b><small>Analytics</small></span></span>
+            <span class="dash__tabs" aria-hidden="true"><span class="is-on">Overview</span><span>Engagement</span><span>Monetization</span></span>
+            <span class="dash__sim">Simulated</span>
+            <span class="dash__range" aria-hidden="true">7 day average<svg class="i" viewBox="0 0 20 20"><path d="m6 8 4 4 4-4"/></svg></span>
+          </div>
+
+          <div class="dash__top">
+            <div class="ccu" data-ccu-panel>
+              <div class="ccu__head">
+                <span class="ccu__label"><i class="live"></i>Concurrent users</span>
+                <span class="ccu__rec" data-rec><i></i><span data-rec-text>Rarely recommended</span></span>
+              </div>
+              <div class="ccu__big">
+                <b data-ccu>0</b>
+                <span class="delta" data-ccu-delta></span>
+                <span class="ccu__vs">since the scan</span>
+                <span class="ccu__fx" data-fx aria-hidden="true"></span>
+              </div>
+              <div class="ccu__chart" data-chart aria-hidden="true">
+                <div class="ccu__plot">
+                  <svg viewBox="0 0 600 180" preserveAspectRatio="none">
+                    <defs><linearGradient id="ccu-fill" x1="0" y1="0" x2="0" y2="1"><stop class="ccu__stop" offset="0"/><stop class="ccu__stop ccu__stop--end" offset="1"/></linearGradient></defs>
+                    <path class="ccu__area" fill="url(#ccu-fill)" data-area/>
+                    <path class="ccu__line" vector-effect="non-scaling-stroke" data-line/>
+                  </svg>
+                  <div class="ccu__marks" data-marks></div>
+                  <span class="ccu__dot" data-dot></span>
+                  <p class="ccu__banner" data-banner><b data-banner-rank>Top 15% of its genre</b><span>Recommended on Home</span></p>
+                </div>
+                <div class="ccu__y" data-y><span></span><span></span><span>0</span></div>
+              </div>
+              <div class="ccu__kpis">
+                <div class="kpi"><span>Daily players</span><b data-kpi="dau">0</b></div>
+                <div class="kpi"><span>Robux / day</span><b class="v-rbx"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#robux"/></svg><span data-kpi="rev">0</span></b></div>
+                <div class="kpi"><span>Genre rank</span><b data-kpi="rank">—</b></div>
+              </div>
+            </div>
+
+            <div class="ai" data-ai>
+              <div class="ai__head">
+                <span class="ai__av"><img src="assets/img/khaiel.jpg" alt="" width="80" height="80"><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#spark"/></svg></i></span>
+                <span class="ai__who"><b>Khaiel AI</b><small data-ai-status>Ready to scan</small></span>
+                <span class="ai__score" data-score><svg viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="22"/><circle class="ai__arc" cx="26" cy="26" r="22" data-arc/></svg><b data-score-n>0</b><small>Health</small></span>
+              </div>
+              <ol class="ai__feed" aria-live="polite" data-ai-feed></ol>
+              <div class="ai__chips">
+                <div class="ai__asks">
+                  <button type="button" data-ask="leak" data-q="What's my biggest leak?">Biggest leak?</button>
+                  <button type="button" data-ask="home" data-q="How do I get on Home?">How to get on Home?</button>
+                  <button type="button" data-ask="buy" data-q="Why does nobody buy?">Why no sales?</button>
+                </div>
+                <button type="button" class="ai__all" data-ask="all"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#spark"/></svg><span>Fix everything</span></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="dash__grid" data-bms></div>
+
+          <div class="dash__foot">
+            <p><b data-fixed>0 of 6</b> fixes on · A simulated game. Illustrative numbers, not a promise.</p>
+            <div class="dash__actions">
+              <button type="button" class="btn btn--quiet" data-dash-reset>Reset</button>
+              <a class="btn btn--primary" href="#send" data-dash-cta>Do this to my game<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hud" aria-hidden="true" data-hud>
+        <span><i class="live"></i>CCU <b data-hud-ccu>0</b></span>
+        <span class="delta" data-hud-delta></span>
+        <span class="v-rbx"><svg viewBox="0 0 16 16"><use href="#robux"/></svg><b data-hud-rev>0</b>/day</span>
       </div>
     </section>
 
@@ -175,14 +261,14 @@
             <div class="svc__body">
               <p class="svc__tag"><span>01</span>Build</p>
               <h3>Full Game Development</h3>
-              <p class="svc__pitch">Bring your idea to life, from the first block to launch day.</p>
+              <p class="svc__pitch">Hand me the idea. I build the entire game, launch it, and set it up to grow.</p>
               <ul class="svc__list">
-                <li>A core loop designed around how Roblox discovery works today</li>
-                <li>Scripting, building, UI and monetization from day one</li>
-                <li>Launch lined up: thumbnails, first update and first event ready</li>
+                <li><b>The whole game, built for you:</b> framework, systems, maps, UI and every line of code</li>
+                <li><b>Made to earn and keep players from day one:</b> monetization, progression and the hooks the algorithm rewards</li>
+                <li><b>Pre-launch to launch day, handled:</b> marketing, thumbnails, trailer, launch event and first updates</li>
               </ul>
               <div class="svc__foot">
-                <span class="svc__price"><small>Project</small>Quoted</span>
+                <span class="svc__price"><small>Starting from</small><span><span data-proposed>$1,500</span><em>/game</em></span></span>
                 <a class="svc__cta" href="#send" data-pick-service="Full game">Build my game<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
               </div>
             </div>
@@ -198,14 +284,14 @@
             <div class="svc__body">
               <p class="svc__tag"><span>02</span>Grow</p>
               <h3>Growth &amp; the Algorithm</h3>
-              <p class="svc__pitch">Get Roblox recommending your game, not burying it.</p>
+              <p class="svc__pitch">Make Roblox's algorithm work for you: more clicks, longer sessions, players who come back.</p>
               <ul class="svc__list">
-                <li>Click-through and play-through tuned on your icon, thumbnails and title</li>
-                <li>A first-session funnel that turns new players into regulars</li>
-                <li>Session length, D1 and D7: the engagement signals discovery rewards</li>
+                <li><b>Every signal discovery ranks on:</b> click-through, play-through, playtime, D1 and D7</li>
+                <li><b>A first session that hooks:</b> new players turn into regulars, and regulars bring friends</li>
+                <li><b>Driven by your real numbers:</b> every change measured, so you see exactly what moved</li>
               </ul>
               <div class="svc__foot">
-                <span class="svc__price"><small>Sprint, from</small><span data-proposed>$2,500</span></span>
+                <span class="svc__price"><small>Starting from</small><span><span data-proposed>$500</span><em>/sprint</em></span></span>
                 <a class="svc__cta" href="#send" data-pick-service="Growth &amp; algorithm">Grow my game<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
               </div>
             </div>
@@ -229,14 +315,14 @@
             <div class="svc__body">
               <p class="svc__tag"><span>03</span>Creative</p>
               <h3>Thumbnails, Icons &amp; Trailers</h3>
-              <p class="svc__pitch">Win the click before anyone even plays.</p>
+              <p class="svc__pitch">Everything players see before they press Play, made to win the click.</p>
               <ul class="svc__list">
-                <li>Icons and thumbnails made to be A/B tested, not guessed</li>
-                <li>Trailers and TikTok-ready clips cut from your gameplay</li>
-                <li>Ad creatives for sponsored campaigns that actually convert</li>
+                <li><b>Icons and thumbnails that get clicked:</b> designed, A/B tested and kept fresh</li>
+                <li><b>Trailers and TikTok clips</b> cut to stop the scroll and send players straight to your game</li>
+                <li><b>Ad creatives and sponsored campaigns</b> that turn Robux spent into players gained</li>
               </ul>
               <div class="svc__foot">
-                <span class="svc__price"><small>Per asset or pack</small>Quoted</span>
+                <span class="svc__price"><small>Starting from</small><span><span data-proposed>$49</span><em>/asset</em></span></span>
                 <a class="svc__cta" href="#send" data-pick-service="Thumbnails &amp; trailers">Win the click<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
               </div>
             </div>
@@ -258,14 +344,14 @@
             <div class="svc__body">
               <p class="svc__tag"><span>04</span>Earn</p>
               <h3>Monetization</h3>
-              <p class="svc__pitch">Earn more from the players you already have.</p>
+              <p class="svc__pitch">Turn the players you already have into serious revenue, without making it pay-to-win.</p>
               <ul class="svc__list">
-                <li>A gamepass and dev product ladder, priced on data</li>
-                <li>Starter packs and first-purchase offers at the right moment</li>
-                <li>Subscriptions, Premium Payouts and limited-time deals</li>
+                <li><b>A full store, priced on data:</b> gamepasses, dev products, bundles and a real price ladder</li>
+                <li><b>Offers at the perfect moment:</b> starter packs, limited drops and first-purchase deals</li>
+                <li><b>Revenue that repeats:</b> subscriptions, Premium Payouts and events players pay to join</li>
               </ul>
               <div class="svc__foot">
-                <span class="svc__price"><small>Sprint</small>Quoted</span>
+                <span class="svc__price"><small>Starting from</small><span><span data-proposed>$300</span><em>/sprint</em></span></span>
                 <a class="svc__cta" href="#send" data-pick-service="Monetization">Earn more<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
               </div>
             </div>
@@ -282,14 +368,14 @@
             <div class="svc__body">
               <p class="svc__tag"><span>05</span>Code</p>
               <h3>Scripting &amp; Systems</h3>
-              <p class="svc__pitch">The hard parts, built clean and built to scale.</p>
+              <p class="svc__pitch">Any system you can imagine, built clean, fast and ready for thousands of players.</p>
               <ul class="svc__list">
-                <li>Data saving, trading, pets, rebirths, quests and more</li>
-                <li>Lag, memory and crash fixes, tested on real phones</li>
-                <li>Anti-exploit and server-side checks that hold up</li>
+                <li><b>Whatever your game needs:</b> pets, eggs, trading, rebirths, quests and rock-solid data saving</li>
+                <li><b>Smooth on every device:</b> lag, memory and crashes fixed and tested on real phones</li>
+                <li><b>Locked down:</b> server-side checks and anti-exploit that protect your economy</li>
               </ul>
               <div class="svc__foot">
-                <span class="svc__price"><small>Per task or project</small>Quoted</span>
+                <span class="svc__price"><small>Starting from</small><span><span data-proposed>$75</span><em>/task</em></span></span>
                 <a class="svc__cta" href="#send" data-pick-service="Scripting &amp; systems">Get it built<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
               </div>
             </div>
@@ -306,14 +392,14 @@
             <div class="svc__body">
               <p class="svc__tag"><span>06</span>Monthly</p>
               <h3>Growth Partner</h3>
-              <p class="svc__pitch">I run your growth with you, every single week.</p>
+              <p class="svc__pitch">A full growth team for your game, without hiring one. I run it with you, every week.</p>
               <ul class="svc__list">
-                <li>Weekly updates, countdowns and a content calendar</li>
-                <li>Admin-abuse events, limited-time drops and seasonal updates</li>
-                <li>Your analytics reviewed, and next week planned, every week</li>
+                <li><b>Something new every week:</b> updates, events, admin abuse, limited drops and seasons</li>
+                <li><b>Your marketing, run for you:</b> TikTok, ads, Discord and your community</li>
+                <li><b>Your numbers read every week,</b> and next week's plan ready before it starts</li>
               </ul>
               <div class="svc__foot">
-                <span class="svc__price"><small>Monthly, from</small><span data-proposed>$4,000/mo</span></span>
+                <span class="svc__price"><small>Starting from</small><span><span data-proposed>$2,000</span><em>/month</em></span></span>
                 <a class="svc__cta" href="#send" data-pick-service="Growth partner">Partner up<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
               </div>
             </div>
@@ -334,12 +420,19 @@
 
         <div class="svc-extra">
           <article class="audit-card rv">
-            <div class="audit-card__vis vig" aria-hidden="true">
-              <div class="mini-report">
-                <span class="mini-report__type">Game audit</span>
-                <div class="mini-report__score"><i class="is-ok">Clicks</i><i class="is-leak">First min</i><i class="is-watch">Fun</i><i class="is-leak">Day 1</i></div>
-                <div class="mini-report__row"><b>1</b><span>First reward is a 40-second walk</span><em>High impact</em></div>
-                <div class="mini-report__row"><b>2</b><span>Nothing left unfinished at log-off</span><em>High impact</em></div>
+            <div class="audit-card__vis vig v-audit" aria-hidden="true" data-vis="audit">
+              <div class="v-win v-hub">
+                <div class="v-win__bar"><span class="v-hub__title"><i></i><span data-hub-status>Auditing your game</span></span><em data-hub-count>0 / 3</em></div>
+                <div class="v-hub__chart">
+                  <span class="v-hub__ccu">CCU <b data-hub-ccu>412</b></span>
+                  <svg viewBox="0 0 200 40" preserveAspectRatio="none"><path class="v-hub__before" pathLength="1" d="M0 9C14 8 22 13 34 12S56 18 70 17 94 23 108 22 132 28 146 27 172 33 200 34"/><path class="v-hub__after" pathLength="1" d="M0 34C16 34 24 30 38 31S60 25 74 26 98 18 112 19 136 11 150 12 176 5 200 4"/></svg>
+                </div>
+                <ul class="v-hub__rows">
+                  <li class="is-leak" style="--p:21;--p2:84"><span>Play-through</span><i class="v-hub__bar"></i><em data-a="Leak" data-b="Fixed"></em></li>
+                  <li class="is-ok" style="--p:68;--p2:74"><span>Playtime</span><i class="v-hub__bar"></i><em data-a="Good" data-b="Good"></em></li>
+                  <li class="is-leak" style="--p:16;--p2:88"><span>Day 1</span><i class="v-hub__bar"></i><em data-a="Leak" data-b="Fixed"></em></li>
+                </ul>
+                <p class="v-hub__plan"><span>Ranking the fixes…</span><span><b>2 leaks</b> found · fix plan ready</span><span>Plan applied · <b>4.5× the players</b></span></p>
               </div>
             </div>
             <div class="audit-card__body">
@@ -348,8 +441,8 @@
               <p class="audit-card__pitch">I play your game as a brand-new player, read your numbers, and rank what to fix first.</p>
               <p class="audit-card__free"><b data-proposed>Free</b> with any package</p>
               <div class="audit-card__opts">
-                <span>Quick Read <b data-proposed>$149</b></span>
-                <span>Full Audit <b data-proposed>$950</b></span>
+                <span class="audit-opt"><small>Quick Read</small><b data-proposed>$79</b></span>
+                <span class="audit-opt is-deal"><small>Full Audit</small><span><s>$200</s> <b data-proposed>$129</b></span><em>35% off</em></span>
               </div>
               <a class="btn btn--ghost btn--block" href="#send" data-pick-service="Game audit">Just the audit</a>
             </div>
@@ -376,120 +469,7 @@
           </article>
         </div>
 
-        <p class="pricing__note rv">Rather learn it yourself? <a href="#send" data-pick-service="Coaching">1:1 AI workflow coaching</a>, <span data-proposed>$199</span> per session.</p>
-      </div>
-    </section>
-
-    <!-- ============================== FIND YOUR LEAK ============================== -->
-    <section class="section leak-section" id="leak" aria-labelledby="leak-title">
-      <div class="wrap">
-        <header class="head head--center rv">
-          <p class="eyebrow">Find your leak</p>
-          <h2 id="leak-title">Where's your game leaking?</h2>
-          <p class="sub">Tap the moment that sounds like yours.</p>
-        </header>
-
-        <div class="funnel rv" data-funnel>
-          <div class="funnel__chart">
-            <div class="funnel__bars" role="tablist" aria-label="Where players leave">
-              <button class="fbar" type="button" role="tab" id="fb-click" aria-controls="fp-click" aria-selected="true" data-leak="click" style="--h:100%;--prev:100%">
-                <span class="fbar__col"><span class="fbar__lost"><i></i><i></i></span><span class="fbar__kept"></span></span><span class="fbar__label">Clicks</span>
-              </button>
-              <button class="fbar" type="button" role="tab" id="fb-hook" aria-controls="fp-hook" aria-selected="false" tabindex="-1" data-leak="hook" style="--h:78%;--prev:100%">
-                <span class="fbar__col"><span class="fbar__lost"><i></i><i></i></span><span class="fbar__kept"></span></span><span class="fbar__label">1st minute</span>
-              </button>
-              <button class="fbar" type="button" role="tab" id="fb-loop" aria-controls="fp-loop" aria-selected="false" tabindex="-1" data-leak="loop" style="--h:60%;--prev:78%">
-                <span class="fbar__col"><span class="fbar__lost"><i></i><i></i></span><span class="fbar__kept"></span></span><span class="fbar__label">Fun</span>
-              </button>
-              <button class="fbar" type="button" role="tab" id="fb-d1" aria-controls="fp-d1" aria-selected="false" tabindex="-1" data-leak="d1" style="--h:42%;--prev:60%">
-                <span class="fbar__col"><span class="fbar__lost"><i></i><i></i></span><span class="fbar__kept"></span></span><span class="fbar__label">Day 1</span>
-              </button>
-              <button class="fbar" type="button" role="tab" id="fb-d7" aria-controls="fp-d7" aria-selected="false" tabindex="-1" data-leak="d7" style="--h:28%;--prev:42%">
-                <span class="fbar__col"><span class="fbar__lost"><i></i><i></i></span><span class="fbar__kept"></span></span><span class="fbar__label">Day 7</span>
-              </button>
-              <button class="fbar" type="button" role="tab" id="fb-spend" aria-controls="fp-spend" aria-selected="false" tabindex="-1" data-leak="spend" style="--h:16%;--prev:28%">
-                <span class="fbar__col"><span class="fbar__lost"><i></i><i></i></span><span class="fbar__kept"></span></span><span class="fbar__label">Buying</span>
-              </button>
-            </div>
-            <div class="funnel__foot">
-              <span>Players still with you, at each moment</span>
-              <button class="funnel__unsure" type="button" data-leak-unsure aria-controls="fp-unsure">Not sure? <b>Get the free audit</b></button>
-            </div>
-          </div>
-
-          <div class="funnel__panels">
-            <article class="lc" id="fp-click" role="tabpanel" aria-labelledby="fb-click" data-panel="click">
-              <p class="lc__stage"><span>1</span>Getting discovered</p>
-              <h3>People see it, but don't click.</h3>
-              <p class="lc__check">Check <b>Play through rate</b> in Creator Hub</p>
-              <ul class="lc__fixes"><li>Icon &amp; thumbnail redesign</li><li>One-promise title</li><li>Thumbnail A/B test</li></ul>
-              <div class="lc__foot">
-                <a class="btn btn--primary" href="#send" data-pick-problem="click" data-pick-service="Thumbnails &amp; trailers">Fix this<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
-                <span>Thumbnails, Icons &amp; Trailers</span>
-              </div>
-            </article>
-            <article class="lc" id="fp-hook" role="tabpanel" aria-labelledby="fb-hook" data-panel="hook" hidden>
-              <p class="lc__stage"><span>2</span>First session</p>
-              <h3>New players quit in the first minute.</h3>
-              <p class="lc__check">Check <b>First play bounce rate</b> in Creator Hub</p>
-              <ul class="lc__fixes"><li>First reward in seconds</li><li>No walks, no text walls</li><li>Every onboarding step tracked</li></ul>
-              <div class="lc__foot">
-                <a class="btn btn--primary" href="#send" data-pick-problem="hook" data-pick-service="Growth &amp; algorithm">Fix this<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
-                <span>Growth &amp; the Algorithm</span>
-              </div>
-            </article>
-            <article class="lc" id="fp-loop" role="tabpanel" aria-labelledby="fb-loop" data-panel="loop" hidden>
-              <p class="lc__stage"><span>3</span>Engagement</p>
-              <h3>They run out of reasons to stay.</h3>
-              <p class="lc__check">Check <b>Average session time</b> in Creator Hub</p>
-              <ul class="lc__fixes"><li>Always a next goal</li><li>Rebalanced rewards</li><li>Play-with-friends hooks</li></ul>
-              <div class="lc__foot">
-                <a class="btn btn--primary" href="#send" data-pick-problem="loop" data-pick-service="Growth &amp; algorithm">Fix this<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
-                <span>Growth &amp; the Algorithm</span>
-              </div>
-            </article>
-            <article class="lc" id="fp-d1" role="tabpanel" aria-labelledby="fb-d1" data-panel="d1" hidden>
-              <p class="lc__stage"><span>4</span>Day 1 retention</p>
-              <h3>They play once and never come back.</h3>
-              <p class="lc__check">Check <b>D1 retention</b> in Creator Hub</p>
-              <ul class="lc__fixes"><li>Something waiting tomorrow</li><li>A better first-session ending</li><li>Streaks that fit your game</li></ul>
-              <div class="lc__foot">
-                <a class="btn btn--primary" href="#send" data-pick-problem="d1" data-pick-service="Growth &amp; algorithm">Fix this<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
-                <span>Growth &amp; the Algorithm</span>
-              </div>
-            </article>
-            <article class="lc" id="fp-d7" role="tabpanel" aria-labelledby="fb-d7" data-panel="d7" hidden>
-              <p class="lc__stage"><span>5</span>Day 7 retention</p>
-              <h3>They drift away within a week.</h3>
-              <p class="lc__check">Check <b>D7 retention</b> in Creator Hub</p>
-              <ul class="lc__fixes"><li>Collections &amp; rebirths</li><li>Weekly updates</li><li>An events calendar</li></ul>
-              <div class="lc__foot">
-                <a class="btn btn--primary" href="#send" data-pick-problem="d7" data-pick-service="Growth partner">Fix this<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
-                <span>Growth Partner</span>
-              </div>
-            </article>
-            <article class="lc" id="fp-spend" role="tabpanel" aria-labelledby="fb-spend" data-panel="spend" hidden>
-              <p class="lc__stage"><span>6</span>Monetization</p>
-              <h3>They play, but nobody buys.</h3>
-              <p class="lc__check">Check <b>Payer conversion rate</b> in Creator Hub</p>
-              <ul class="lc__fixes"><li>A real price ladder</li><li>Starter pack at the right moment</li><li>A shop that sells</li></ul>
-              <div class="lc__foot">
-                <a class="btn btn--primary" href="#send" data-pick-problem="spend" data-pick-service="Monetization">Fix this<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
-                <span>Monetization</span>
-              </div>
-            </article>
-            <article class="lc lc--audit" id="fp-unsure" role="region" aria-label="Not sure where it's leaking" data-panel="unsure" hidden>
-              <p class="lc__stage"><span>?</span>Not sure</p>
-              <h3>That's what the free audit is for.</h3>
-              <p class="lc__check">I check all six moments for you</p>
-              <ul class="lc__fixes"><li>Played as a new player</li><li>Your analytics read</li><li>Fixes ranked by impact</li></ul>
-              <div class="lc__foot">
-                <a class="btn btn--primary" href="#send" data-pick-problem="unsure" data-pick-service="Game audit">Start with an audit<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
-                <span><span data-proposed>Free</span> with any package</span>
-              </div>
-            </article>
-          </div>
-        </div>
+        <p class="pricing__note rv">Rather learn it yourself? <a href="#send" data-pick-service="Coaching">1:1 AI workflow coaching</a>, from <span data-proposed>$99</span> per session.</p>
       </div>
     </section>
 
@@ -532,7 +512,7 @@
         <div class="qa-list rv">
           <div class="qa">
             <h3><button type="button" aria-expanded="false">How much does it cost?<i aria-hidden="true"></i></button></h3>
-            <div class="qa__a"><div><p>Every package is quoted after a <span data-proposed>free audit</span>, so you pay for what your game actually needs, agreed up front. Growth sprints start at <span data-proposed>$2,500</span> and a monthly Growth Partner at <span data-proposed>$4,000/mo</span>. Full games, creative and scripting are quoted per project. Just want the audit? <span data-proposed>$149</span> for a Quick Read, <span data-proposed>$950</span> for a Full Audit.</p></div></div>
+            <div class="qa__a"><div><p>Every package starts with a <span data-proposed>free audit</span>, so you pay for what your game actually needs, agreed up front. Growth sprints start at <span data-proposed>$500</span>, a monthly Growth Partner at <span data-proposed>$2,000/month</span>, full games at <span data-proposed>$1,500</span>, monetization at <span data-proposed>$300</span>, scripting at <span data-proposed>$75</span> a task and thumbnails at <span data-proposed>$49</span>. Just want the audit? <span data-proposed>$79</span> for a Quick Read, <span data-proposed>$129</span> for a Full Audit (normally $200).</p></div></div>
           </div>
           <div class="qa">
             <h3><button type="button" aria-expanded="false">Can you guarantee my game will grow?<i aria-hidden="true"></i></button></h3>
@@ -567,7 +547,7 @@
     </section>
 
     <!-- ============================== SEND ============================== -->
-    <section class="send" id="send" aria-labelledby="send-title">
+    <section class="send" aria-labelledby="send-title">
       <div class="wall" aria-hidden="true" data-wall>
         <div class="wall__tilt">
           <div class="wall__row" data-wall-row></div>
@@ -575,7 +555,7 @@
         </div>
       </div>
       <div class="wrap">
-        <header class="send__head rv">
+        <header class="send__head rv" id="send">
           <p class="eyebrow">Send me your game</p>
           <h2 id="send-title">Let's make it take off.</h2>
           <p class="sub">Two minutes. I'll reply within <span data-proposed>2 business days</span> with what I'd do first, even if the answer is “you don't need me yet.”</p>
@@ -714,7 +694,7 @@
             <span class="dc__glare" aria-hidden="true"></span>
             <span class="dc__banner" aria-hidden="true"><i></i><i></i><i></i><svg viewBox="0 0 24 24"><use href="#discord"/></svg></span>
             <span class="dc__head">
-              <span class="dc__avatar" aria-hidden="true"><img data-headshot hidden alt="" width="80" height="80"><span>K</span><i></i></span>
+              <span class="dc__avatar" aria-hidden="true"><img src="assets/img/khaiel.jpg" alt="" width="80" height="80"><i></i></span>
               <span class="dc__badge"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#discord"/></svg>Discord</span>
             </span>
             <span class="dc__who"><b>Khaiel</b><small data-discord-user hidden></small></span>
@@ -751,8 +731,8 @@
       </div>
       <nav class="footer__nav" aria-label="Footer">
         <a href="#games">My work</a>
+        <a href="#leak">Live demo</a>
         <a href="#services">Services</a>
-        <a href="#leak">Find your leak</a>
         <a href="#how">How it works</a>
         <a href="#faq">FAQ</a>
         <a href="#" data-tiktok hidden>TikTok</a>
