@@ -1338,27 +1338,50 @@
   }
 
   /* ------------------------------------------------ send form */
+  // One question per screen: 1 what you need · 2 your game (or idea) · 3 details · 4 where to reply
   var form = $("[data-form]");
   var steps = $$("[data-fstep]");
+  var LAST = steps.length;
   var step = 1;
-  var DRAFT = "khaiel-form-v4";
+  var DRAFT = "khaiel-form-v5";
+
+  // the card glides to the new step's height instead of jumping
+  function glide(change) {
+    var body = $("[data-form-body]", form);
+    if (reduceMotion || !body) { change(); return; }
+    var from = body.offsetHeight;
+    change();
+    var to = body.offsetHeight;
+    if (from === to) return;
+    body.style.height = from + "px";
+    void body.offsetHeight;
+    body.style.height = to + "px";
+    clearTimeout(glide.t);
+    glide.t = setTimeout(function () { body.style.height = ""; }, 480);
+  }
 
   function setStep(n, focus) {
-    step = n;
-    steps.forEach(function (f) { f.classList.toggle("is-on", +f.getAttribute("data-fstep") === n); });
-    $$(".form__steps li").forEach(function (li, i) {
-      li.classList.toggle("is-on", i === n - 1);
-      li.classList.toggle("is-done", i < n - 1);
+    var back = n < step;
+    glide(function () {
+      step = n;
+      form.classList.toggle("is-back", back);
+      steps.forEach(function (f) { f.classList.toggle("is-on", +f.getAttribute("data-fstep") === n); });
+      $$(".form__steps li").forEach(function (li, i) {
+        li.classList.toggle("is-on", i === n - 1);
+        li.classList.toggle("is-done", i < n - 1);
+      });
+      $("[data-step-count]", form).textContent = "Step " + n + " of " + LAST;
+      $("[data-prev]", form).hidden = n === 1;
+      $("[data-next]", form).hidden = n === LAST;
+      $("[data-submit]", form).hidden = n !== LAST;
+      setError("");
     });
-    $("[data-prev]", form).hidden = n === 1;
-    $("[data-next]", form).hidden = n === 3;
-    $("[data-submit]", form).hidden = n !== 3;
-    setError("");
     if (focus) {
-      var first = $('[data-fstep="' + n + '"] input:not([type=radio]), [data-fstep="' + n + '"] .chip input', form);
+      // keep the question in view; only focus a text box on desktop, so phones don't pop the keyboard
       var top = form.getBoundingClientRect().top;
-      if (top < 0 || top > window.innerHeight * 0.4) scrollToEl(form, "start");
-      if (first && desktop.matches) first.focus({ preventScroll: true });
+      if (top < 0 || top > window.innerHeight * 0.35) scrollToEl(form, "start");
+      var first = $('[data-fstep="' + n + '"] input[type=url], [data-fstep="' + n + '"] input[type=text]', form);
+      if (first && desktop.matches && first.offsetParent) first.focus({ preventScroll: true });
     }
   }
 
@@ -1373,12 +1396,18 @@
     if (v && !/^https?:\/\//i.test(v)) v = "https://" + v;
     return v;
   }
+  // Roblox's Share button copies "Check out this experience! https://www.roblox.com/…", so keep just the link
+  function extractLink(v) {
+    var m = String(v || "").match(/(?:https?:\/\/)?(?:[a-z0-9-]+\.)*(?:roblox\.com|ro\.blox\.com)\/\S*/i);
+    return m ? m[0].replace(/[).,!]+$/, "") : String(v || "").trim();
+  }
   function noGame() { var c = $("[data-no-game]"); return !!(c && c.checked); }
+  function syncMode() { form.classList.toggle("is-idea", noGame()); }
   function checkLink() {
     var input = $("#f-link"), hint = $("[data-link-hint]"), v = normLink(input.value);
     hint.classList.remove("is-ok", "is-warn");
     if (!input.value.trim()) {
-      hint.textContent = noGame() ? "No problem. Tell me about the idea below." : "Copy it from the address bar or the Share button.";
+      hint.textContent = "From the address bar, or Share → Copy link.";
       return false;
     }
     if (!/^https?:\/\/([a-z0-9-]+\.)*(roblox\.com|ro\.blox\.com)(\/|$)/i.test(v)) {
@@ -1392,16 +1421,13 @@
   }
 
   function validate(n) {
-    if (n === 1) {
+    if (n === 2 && !noGame()) {
       var link = $("#f-link");
-      if (!link.value.trim()) {
-        if (!noGame()) { setError("Paste your game's Roblox link, or tick “No game yet”.", link); return false; }
-      } else {
-        if (!checkLink()) { setError("That should be a roblox.com game link.", link); return false; }
-        link.value = normLink(link.value);
-      }
+      if (!link.value.trim()) { setError("Paste your game's link, or pick “Just an idea”.", link); return false; }
+      if (!checkLink()) { setError("That should be a roblox.com game link.", link); return false; }
+      link.value = normLink(link.value);
     }
-    if (n === 3) {
+    if (n === LAST) {
       // an email or a Discord username, either is enough to reply
       var email = $("#f-email"), discord = $("#f-discord"), e = email.value.trim();
       if (!e && !discord.value.trim()) { setError("Add an email or your Discord so I can reply.", email); return false; }
@@ -1418,6 +1444,7 @@
       var r = form.querySelector('input[name="' + k + '"][value="' + o[k] + '"]');
       if (r) r.checked = true;
     });
+    countPicks();
     saveDraft();
   }
 
@@ -1427,7 +1454,14 @@
       v = String(v).trim();
       if (v) data[k] = data[k] ? data[k] + ", " + v : v;
     });
+    // only send what belongs to the path they picked
+    if (noGame()) { delete data.game_link; delete data.problem; ["m_dau", "m_session_min", "m_d1", "m_d7", "m_payer"].forEach(function (k) { delete data[k]; }); }
+    else delete data.idea;
     return data;
+  }
+  function countPicks() {
+    var n = $$('input[name="service"]:checked', form).length;
+    $("[data-pick-count]", form).textContent = n ? n + " picked" : "";
   }
   var saveT;
   function saveDraft() { clearTimeout(saveT); saveT = setTimeout(function () { store(DRAFT, collect()); }, 300); }
@@ -1442,6 +1476,8 @@
         else el.value = d[k];
       });
     });
+    syncMode();
+    countPicks();
     checkLink();
   }
 
@@ -1458,7 +1494,7 @@
   }
 
   var LABELS = {
-    game_link: "Game", no_game: "No game yet", service: "Needs", notes: "Notes", problem: "Holding it back", budget: "Budget",
+    game_link: "Game", no_game: "No game yet", idea: "Idea", service: "Needs", problem: "Holding it back", budget: "Budget", notes: "Notes",
     m_dau: "Daily players", m_session_min: "Avg session (min)", m_d1: "D1 %", m_d7: "D7 %", m_payer: "Payer conversion %",
     email: "Email", discord: "Discord", name: "Name", source: "Source"
   };
@@ -1528,24 +1564,51 @@
 
     $("[data-next]", form).addEventListener("click", function () { if (validate(step)) setStep(step + 1, true); });
     $("[data-prev]", form).addEventListener("click", function () { setStep(step - 1, true); });
+    // the keyboard's Go/Next key moves on; on the last step it sends
     form.addEventListener("keydown", function (e) {
-      if (e.key === "Enter" && e.target.tagName === "INPUT" && step < 3) {
+      if (e.key !== "Enter" || e.target.tagName !== "INPUT" || e.target.type === "checkbox" || e.target.type === "radio") return;
+      if (step < LAST) {
         e.preventDefault();
         if (validate(step)) setStep(step + 1, true);
       }
     });
     form.addEventListener("input", function (e) {
-      if (e.target.id === "f-link" || e.target.hasAttribute("data-no-game")) checkLink();
-      e.target.classList.remove("is-invalid");
+      var t = e.target;
+      if (t.id === "f-link") {
+        var clean = extractLink(t.value);
+        if (clean !== t.value.trim() && /\s/.test(t.value.trim())) t.value = clean;
+        checkLink();
+      }
+      t.classList.remove("is-invalid");
       saveDraft();
     });
-    form.addEventListener("change", saveDraft);
+    form.addEventListener("change", function (e) {
+      if (e.target.name === "no_game") { glide(syncMode); setError(""); }
+      if (e.target.name === "service") countPicks();
+      saveDraft();
+    });
+
+    // a Paste button beside the link box, where the browser allows reading the clipboard
+    var paste = $("[data-paste]", form), linkInput = $("#f-link");
+    if (paste && navigator.clipboard && navigator.clipboard.readText) {
+      paste.hidden = false;
+      paste.addEventListener("click", function () {
+        navigator.clipboard.readText().then(function (text) {
+          if (!text) return;
+          linkInput.value = normLink(extractLink(text));
+          linkInput.classList.remove("is-invalid");
+          checkLink();
+          setError("");
+          saveDraft();
+        }).catch(function () { linkInput.focus(); });
+      });
+    }
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      if (step < 3) { if (validate(step)) setStep(step + 1, true); return; }
-      if (!validate(1)) { setStep(1, true); validate(1); return; }
-      if (!validate(3)) return;
+      if (step < LAST) { if (validate(step)) setStep(step + 1, true); return; }
+      if (!validate(2)) { setStep(2, true); validate(2); return; }
+      if (!validate(LAST)) return;
       var data = collect();
       data.submitted_at = new Date().toISOString();
       // Discord first, then a form service; with neither, the visitor gets a prefilled email
@@ -1553,14 +1616,14 @@
         : CFG.formEndpoint ? post(CFG.formEndpoint, Object.assign({ _subject: "New project: " + (data.game_link || "starting from an idea") }, data))
         : null;
       if (!sent) { finish(data, true); return; }
-      var btn = $("[data-submit]", form);
+      var btn = $("[data-submit]", form), label = $("span", btn);
       btn.classList.add("is-loading");
-      btn.firstChild.textContent = "Sending… ";
+      label.textContent = "Sending…";
       sent.then(function () {
         finish(data, false);
       }).catch(function () {
         btn.classList.remove("is-loading");
-        btn.firstChild.textContent = "Send my game ";
+        label.textContent = "Send it";
         setError("That didn't send. Check your connection and try again. Your answers are saved.");
       });
     });
@@ -1593,8 +1656,8 @@
       update();
     }, { rootMargin: "-25% 0px -25% 0px" });
     [$("[data-dash]"), $("[data-svc-grid]"), $(".svc-extra")].forEach(function (el) { if (el) io.observe(el); });
-    // and from the moment the form comes into view
-    new IntersectionObserver(function (en) { atEnd = latest(en).isIntersecting || latest(en).boundingClientRect.top < 0; update(); }).observe($("#send"));
+    // and from the moment the send section (the form and the Discord card) comes into view
+    new IntersectionObserver(function (en) { atEnd = latest(en).isIntersecting || latest(en).boundingClientRect.top < 0; update(); }).observe($("section.send") || $("#send"));
   }
 
   initReview();

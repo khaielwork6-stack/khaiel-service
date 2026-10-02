@@ -560,106 +560,133 @@
         <div class="send__grid">
         <div class="send__card rv">
           <form class="form" id="form" novalidate data-form>
-            <ol class="form__steps" aria-hidden="true">
-              <li class="is-on"><span>1</span>Game</li>
-              <li><span>2</span>Details</li>
-              <li><span>3</span>Contact</li>
-            </ol>
+            <div class="form__top">
+              <ol class="form__steps" aria-hidden="true">
+                <li class="is-on"><i></i><span>Needs</span></li>
+                <li><i></i><span>Game</span></li>
+                <li><i></i><span>Details</span></li>
+                <li><i></i><span>Contact</span></li>
+              </ol>
+              <p class="form__count" aria-live="polite" data-step-count>Step 1 of 4</p>
+            </div>
 
-            <fieldset class="fstep is-on" data-fstep="1">
-              <legend class="sr-only">Step 1 of 3: your game</legend>
-              <div class="field">
-                <label for="f-link">Your Roblox game link</label>
-                <input id="f-link" name="game_link" type="url" inputmode="url" autocomplete="off" placeholder="roblox.com/games/…" required>
-                <p class="field__hint" data-link-hint>Copy it from the address bar or the Share button.</p>
-                <label class="tick"><input type="checkbox" name="no_game" value="Starting from an idea" data-no-game><span>No game yet. I'm starting from an idea.</span></label>
-              </div>
-              <div class="field">
-                <span class="label" id="l-service">What do you need? <span class="opt">Pick any</span></span>
-                <div class="chips" role="group" aria-labelledby="l-service">
-                  <label class="chip"><input type="checkbox" name="service" value="Full game"><span>Full game</span></label>
-                  <label class="chip"><input type="checkbox" name="service" value="Growth &amp; algorithm"><span>Growth &amp; algorithm</span></label>
-                  <label class="chip"><input type="checkbox" name="service" value="Thumbnails &amp; trailers"><span>Thumbnails &amp; trailers</span></label>
-                  <label class="chip"><input type="checkbox" name="service" value="Monetization"><span>Monetization</span></label>
-                  <label class="chip"><input type="checkbox" name="service" value="Scripting &amp; systems"><span>Scripting &amp; systems</span></label>
-                  <label class="chip"><input type="checkbox" name="service" value="Growth partner"><span>Growth partner</span></label>
-                  <label class="chip"><input type="checkbox" name="service" value="Game audit"><span>Just an audit</span></label>
-                  <label class="chip"><input type="checkbox" name="service" value="Coaching"><span>Coaching</span></label>
-                  <label class="chip"><input type="checkbox" name="service" value="Something else"><span>Something else</span></label>
+            <div class="form__body" data-form-body>
+              <fieldset class="fstep is-on" data-fstep="1">
+                <legend class="fstep__q">What can I help with?</legend>
+                <p class="fstep__sub">Pick as many as you like. <b data-pick-count></b></p>
+                <div class="picks">
+                  <label class="pick"><input type="checkbox" name="service" value="Full game"><span><i><svg viewBox="0 0 24 24"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></svg></i>Full game</span></label>
+                  <label class="pick"><input type="checkbox" name="service" value="Growth &amp; algorithm"><span><i><svg viewBox="0 0 24 24"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></i>Growth &amp; algorithm</span></label>
+                  <label class="pick"><input type="checkbox" name="service" value="Thumbnails &amp; trailers"><span><i><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9.5v5l4.5-2.5z"/></svg></i>Thumbnails &amp; trailers</span></label>
+                  <label class="pick"><input type="checkbox" name="service" value="Monetization"><span><i><svg viewBox="0 0 16 16"><use href="#robux"/></svg></i>Monetization</span></label>
+                  <label class="pick"><input type="checkbox" name="service" value="Scripting &amp; systems"><span><i><svg viewBox="0 0 24 24"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"/></svg></i>Scripting &amp; systems</span></label>
+                  <label class="pick"><input type="checkbox" name="service" value="Growth partner"><span><i><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></i>Growth partner</span></label>
+                  <label class="pick"><input type="checkbox" name="service" value="Game audit"><span><i><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg></i>Just an audit</span></label>
+                  <label class="pick"><input type="checkbox" name="service" value="Coaching"><span><i><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg></i>Coaching</span></label>
+                  <label class="pick pick--wide"><input type="checkbox" name="service" value="Something else"><span><i><svg viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></svg></i>Something else</span></label>
                 </div>
-              </div>
-              <div class="field">
-                <label for="f-notes">Tell me more <span class="opt">Optional</span></label>
-                <textarea id="f-notes" name="notes" rows="3" placeholder="e.g. Need a trailer for next week's update. Or: players leave right after the tutorial."></textarea>
-              </div>
-            </fieldset>
+              </fieldset>
 
-            <fieldset class="fstep" data-fstep="2">
-              <legend class="sr-only">Step 2 of 3: details (optional)</legend>
-              <p class="fstep__intro">All optional. It just helps me reply with something useful.</p>
-              <div class="field">
-                <span class="label" id="l-problem">What's holding it back? <span class="opt">Pick any</span></span>
-                <div class="chips" role="group" aria-labelledby="l-problem">
-                  <label class="chip"><input type="checkbox" name="problem" value="click"><span>Nobody clicks it</span></label>
-                  <label class="chip"><input type="checkbox" name="problem" value="hook"><span>Players quit in the first minute</span></label>
-                  <label class="chip"><input type="checkbox" name="problem" value="loop"><span>They get bored fast</span></label>
-                  <label class="chip"><input type="checkbox" name="problem" value="d1"><span>They don't come back</span></label>
-                  <label class="chip"><input type="checkbox" name="problem" value="d7"><span>They're gone within a week</span></label>
-                  <label class="chip"><input type="checkbox" name="problem" value="spend"><span>Nobody buys</span></label>
-                  <label class="chip"><input type="checkbox" name="problem" value="new"><span>It's not out yet</span></label>
-                  <label class="chip"><input type="checkbox" name="problem" value="unsure"><span>I'm not sure</span></label>
+              <fieldset class="fstep" data-fstep="2">
+                <legend class="fstep__q">Tell me about your game</legend>
+                <div class="seg" role="radiogroup" aria-label="Do you have a game yet?">
+                  <label><input type="radio" name="no_game" value="" checked><span>I have a game</span></label>
+                  <label><input type="radio" name="no_game" value="Starting from an idea" data-no-game><span>Just an idea</span></label>
                 </div>
-              </div>
-              <div class="field">
-                <span class="label" id="l-budget">Budget</span>
-                <div class="chips" role="radiogroup" aria-labelledby="l-budget">
-                  <label class="chip"><input type="radio" name="budget" value="Under $200"><span>Under $200</span></label>
-                  <label class="chip"><input type="radio" name="budget" value="$200–$1K"><span>$200–$1K</span></label>
-                  <label class="chip"><input type="radio" name="budget" value="$1K–$5K"><span>$1K–$5K</span></label>
-                  <label class="chip"><input type="radio" name="budget" value="$5K–$15K"><span>$5K–$15K</span></label>
-                  <label class="chip"><input type="radio" name="budget" value="$15K+"><span>$15K+</span></label>
+                <div class="field" data-when="game">
+                  <label for="f-link">Roblox game link</label>
+                  <div class="linkbox">
+                    <input id="f-link" name="game_link" type="url" inputmode="url" autocomplete="off" autocapitalize="none" spellcheck="false" enterkeyhint="next" placeholder="roblox.com/games/…">
+                    <button class="linkbox__paste" type="button" data-paste hidden>Paste</button>
+                  </div>
+                  <p class="field__hint" data-link-hint>From the address bar, or Share → Copy link.</p>
                 </div>
-              </div>
-              <details class="numbers">
-                <summary>Add your numbers <span class="opt">Optional</span></summary>
-                <p class="numbers__hint">Creator Hub → your game → Analytics. Rough is fine.</p>
-                <div class="numbers__grid">
-                  <div class="field"><label for="m-dau">Daily players</label><input id="m-dau" name="m_dau" inputmode="numeric" autocomplete="off" placeholder="e.g. 300"></div>
-                  <div class="field"><label for="m-session">Avg. session (min)</label><input id="m-session" name="m_session_min" inputmode="decimal" autocomplete="off" placeholder="e.g. 8"></div>
-                  <div class="field"><label for="m-d1">D1 retention %</label><input id="m-d1" name="m_d1" inputmode="decimal" autocomplete="off" placeholder="e.g. 6"></div>
-                  <div class="field"><label for="m-d7">D7 retention %</label><input id="m-d7" name="m_d7" inputmode="decimal" autocomplete="off" placeholder="e.g. 1.5"></div>
-                  <div class="field field--wide"><label for="m-payer">Payer conversion %</label><input id="m-payer" name="m_payer" inputmode="decimal" autocomplete="off" placeholder="e.g. 0.8"></div>
+                <div class="field" data-when="idea">
+                  <label for="f-idea">Your idea <span class="opt">Optional</span></label>
+                  <textarea id="f-idea" name="idea" rows="3" placeholder="e.g. A pet simulator where you hatch eggs to unlock new worlds."></textarea>
                 </div>
-              </details>
-            </fieldset>
+              </fieldset>
 
-            <fieldset class="fstep" data-fstep="3">
-              <legend class="sr-only">Step 3 of 3: where should I reply?</legend>
-              <p class="fstep__intro">Where should I reply? An email or your Discord is enough.</p>
-              <div class="field-row">
+              <fieldset class="fstep" data-fstep="3">
+                <legend class="fstep__q">A few details</legend>
+                <p class="fstep__sub">All optional. It helps me reply with something useful.</p>
+                <div class="field" data-when="game">
+                  <span class="label" id="l-problem">What's holding it back?</span>
+                  <div class="chips chips--grid" role="group" aria-labelledby="l-problem">
+                    <label class="chip"><input type="checkbox" name="problem" value="click"><span>Nobody clicks</span></label>
+                    <label class="chip"><input type="checkbox" name="problem" value="hook"><span>Quit in minute 1</span></label>
+                    <label class="chip"><input type="checkbox" name="problem" value="loop"><span>Bored fast</span></label>
+                    <label class="chip"><input type="checkbox" name="problem" value="d1"><span>Don't come back</span></label>
+                    <label class="chip"><input type="checkbox" name="problem" value="d7"><span>Gone in a week</span></label>
+                    <label class="chip"><input type="checkbox" name="problem" value="spend"><span>Nobody buys</span></label>
+                    <label class="chip"><input type="checkbox" name="problem" value="new"><span>Not out yet</span></label>
+                    <label class="chip"><input type="checkbox" name="problem" value="unsure"><span>Not sure</span></label>
+                  </div>
+                </div>
+                <div class="field">
+                  <span class="label" id="l-budget">Budget</span>
+                  <div class="chips chips--grid chips--budget" role="radiogroup" aria-labelledby="l-budget">
+                    <label class="chip"><input type="radio" name="budget" value="Under $200"><span>$0–200</span></label>
+                    <label class="chip"><input type="radio" name="budget" value="$200–$1K"><span>$200–1K</span></label>
+                    <label class="chip"><input type="radio" name="budget" value="$1K–$5K"><span>$1K–5K</span></label>
+                    <label class="chip"><input type="radio" name="budget" value="$5K–$15K"><span>$5K–15K</span></label>
+                    <label class="chip"><input type="radio" name="budget" value="$15K+"><span>$15K+</span></label>
+                  </div>
+                </div>
+                <details class="extras" data-when="game">
+                  <summary>Add your numbers</summary>
+                  <div>
+                    <p class="numbers__hint">Creator Hub → your game → Analytics. Rough is fine.</p>
+                    <div class="numbers__grid">
+                      <div class="field"><label for="m-dau">Daily players</label><input id="m-dau" name="m_dau" inputmode="numeric" autocomplete="off" placeholder="e.g. 300"></div>
+                      <div class="field"><label for="m-session">Avg. session (min)</label><input id="m-session" name="m_session_min" inputmode="decimal" autocomplete="off" placeholder="e.g. 8"></div>
+                      <div class="field"><label for="m-d1">D1 retention %</label><input id="m-d1" name="m_d1" inputmode="decimal" autocomplete="off" placeholder="e.g. 6"></div>
+                      <div class="field"><label for="m-d7">D7 retention %</label><input id="m-d7" name="m_d7" inputmode="decimal" autocomplete="off" placeholder="e.g. 1.5"></div>
+                      <div class="field field--wide"><label for="m-payer">Payer conversion %</label><input id="m-payer" name="m_payer" inputmode="decimal" autocomplete="off" placeholder="e.g. 0.8"></div>
+                    </div>
+                  </div>
+                </details>
+              </fieldset>
+
+              <fieldset class="fstep" data-fstep="4">
+                <legend class="fstep__q">Where should I reply?</legend>
+                <p class="fstep__sub">Discord or email, whichever you check more.</p>
+                <div class="field">
+                  <label for="f-discord">Discord username</label>
+                  <div class="iconput">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#discord"/></svg>
+                    <input id="f-discord" name="discord" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="next" placeholder="yourname">
+                  </div>
+                </div>
                 <div class="field">
                   <label for="f-email">Email</label>
-                  <input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com">
+                  <input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" enterkeyhint="send" placeholder="you@example.com">
                 </div>
-                <div class="field">
-                  <label for="f-discord">Discord</label>
-                  <input id="f-discord" name="discord" type="text" autocomplete="off" placeholder="username">
-                </div>
-              </div>
-              <div class="field">
-                <label for="f-name">Name <span class="opt">Optional</span></label>
-                <input id="f-name" name="name" type="text" autocomplete="nickname" placeholder="What should I call you?">
-              </div>
-            </fieldset>
+                <details class="extras">
+                  <summary>Add your name or a note</summary>
+                  <div>
+                    <div class="field">
+                      <label for="f-name">Name</label>
+                      <input id="f-name" name="name" type="text" autocomplete="nickname" enterkeyhint="next" placeholder="What should I call you?">
+                    </div>
+                    <div class="field">
+                      <label for="f-notes">Anything else?</label>
+                      <textarea id="f-notes" name="notes" rows="3" placeholder="e.g. Need a trailer for next week's update."></textarea>
+                    </div>
+                  </div>
+                </details>
+              </fieldset>
+            </div>
 
             <input type="hidden" name="source" data-h-source>
             <p class="form__error" role="alert" data-form-error></p>
 
             <div class="form__nav">
-              <button type="button" class="btn btn--quiet" data-prev hidden>Back</button>
-              <button type="button" class="btn btn--primary" data-next>Continue
+              <button type="button" class="btn btn--ghost form__back" data-prev hidden aria-label="Back">
+                <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M16 10H5m4-4-4 4 4 4"/></svg></button>
+              <button type="button" class="btn btn--primary" data-next><span>Continue</span>
                 <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></button>
-              <button type="submit" class="btn btn--primary" data-submit hidden>Send my game
+              <button type="submit" class="btn btn--primary" data-submit hidden><span>Send it</span>
                 <svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></button>
             </div>
           </form>

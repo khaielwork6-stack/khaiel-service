@@ -14,7 +14,7 @@ Everything marked **PROPOSED** is a recommendation you haven't approved. On the 
 | The dashboard was a mini-app: 2 modes, 6 tabs, 4 sub-panels each, 6 charts | **One tap-and-read list.** Tap the problem that sounds like yours to see what it means, what I'd do, and the button |
 | Prices, sprints and timelines repeated in 4 places | Each fact lives in one place |
 | HUD clutter: mono labels, numbered kickers, bracket frames, stud grid, grain | One typeface, generous space, and the real games doing the visual work |
-| A 5-step form | A 3-step form. Only the link and email are required |
+| A 5-step form | Four short steps, one question per screen. Only a link (or "just an idea") and a Discord or email are required |
 
 ## 2. Positioning
 
@@ -43,7 +43,7 @@ Everything marked **PROPOSED** is a recommendation you haven't approved. On the 
    Then a scrolling "…and a lot more" wall of other services, the audit card (a Creator Hub-style scan that finds the leaks, then shows them fixed; "Free with any package") and a "Don't see what you need? Message me anyway" card with a Discord-style inbox.
 6. **How it works:** *What happens if I send it?* Send it → a plan built for your game (the audit) → I build it, ship it and grow it.
 7. **FAQ:** eight questions, including "What if what I need isn't listed?" and "I don't have a game yet".
-8. **Send me your game:** a scrolling wall of the games' thumbnails, then the 3-step form beside a "DM me on Discord" card for people who'd rather skip the form. Step 1 takes a link or "No game yet" and any mix of services; step 2 any mix of problems; step 3 an email or a Discord username.
+8. **Send me your game:** a scrolling wall of the games' thumbnails, then the form beside a "DM me on Discord" card for people who'd rather skip it. One question per screen, built for phones: (1) what you need, as tiles; (2) your game link, with a Paste button, or "Just an idea"; (3) optional problems and budget; (4) Discord or email.
 
 ## 4. Offers and pricing (all PROPOSED)
 
