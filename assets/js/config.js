@@ -23,6 +23,13 @@ window.SITE_CONFIG = {
   // Only fill this in to send the form somewhere else instead (Formspree, Basin, any JSON POST endpoint).
   formEndpoint: "",
 
+  // Your payment link for the $49 audit (a Stripe Payment Link, Gumroad, PayPal, anything).
+  // Once it's set, every "Get my audit" button goes straight to checkout.
+  // Leave it empty and those buttons open the form with "Audit" already picked.
+  // Tip: set the payment page to send people back to https://www.khaieldev.com/?paid=audit
+  // and the site thanks them and tells them what happens next.
+  auditCheckoutUrl: "",
+
   // Shown in the email fallback and the footer. Leave empty to hide.
   contactEmail: "",
 

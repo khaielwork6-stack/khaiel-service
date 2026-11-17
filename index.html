@@ -16,15 +16,15 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Khaiel","url":"https://www.khaieldev.com/","image":"https://www.khaieldev.com/assets/og.jpg","description":"Roblox game development and growth: full games, growth, thumbnails and trailers, monetization and scripting.","sameAs":["https://www.tiktok.com/@khaieldev"],"areaServed":"Worldwide"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Khaiel","url":"https://www.khaieldev.com/","image":"https://www.khaieldev.com/assets/og.jpg","description":"Roblox game development and growth: full games, growth, thumbnails and trailers, monetization and scripting.","sameAs":["https://www.tiktok.com/@khaieldev"],"areaServed":"Worldwide","makesOffer":{"@type":"Offer","name":"Roblox game audit","description":"I go through your whole game and send you the fixes that will make it more money. 3 fixes or your money back.","price":"49","priceCurrency":"USD","url":"https://www.khaieldev.com/#audit"}}</script>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Montserrat:wght@600..900&display=swap">
-  <link rel="stylesheet" href="assets/css/site.css?v=202611162325">
-  <script src="assets/js/config.js?v=202611162325"></script>
+  <link rel="stylesheet" href="assets/css/site.css?v=202611170250">
+  <script src="assets/js/config.js?v=202611170250"></script>
   <script>
     (function () {
       var d = document.documentElement, c = window.SITE_CONFIG || {}, q = new URLSearchParams(location.search).get("review");
@@ -32,8 +32,8 @@
       d.dataset.review = q === "1" ? "on" : q === "0" ? "off" : (c.reviewMode ? "on" : "off");
     })();
   </script>
-  <script defer src="assets/data/roblox.js?v=202611162325"></script>
-  <script defer src="assets/js/site.js?v=202611162325"></script>
+  <script defer src="assets/data/roblox.js?v=202611170250"></script>
+  <script defer src="assets/js/site.js?v=202611170250"></script>
   <!-- Vercel Web Analytics: visits, referrers, countries. Turn it on in Vercel → Analytics. -->
   <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
   <script defer src="/_vercel/insights/script.js"></script>
@@ -53,8 +53,9 @@
         <span>KHAIEL</span>
       </a>
       <nav class="nav" aria-label="Primary">
-        <a href="#results">Results</a>
         <a href="#games">My work</a>
+        <a href="#results">Results</a>
+        <a href="#audit" class="nav__audit">Audit <small>$49</small></a>
         <a href="#services">Services</a>
         <a href="#faq">FAQ</a>
       </nav>
@@ -66,8 +67,9 @@
   </header>
   <div class="menu" id="menu" hidden data-menu>
     <nav aria-label="Menu">
-      <a href="#results">Results</a>
       <a href="#games">My work</a>
+      <a href="#results">Results</a>
+        <a href="#audit" class="nav__audit">Audit <small>$49</small></a>
       <a href="#services">Services</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -91,6 +93,7 @@
             <a class="btn btn--primary btn--lg" href="#send" data-cta="hero">
               <svg class="i i--play" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 3.8v12.4c0 .8.9 1.3 1.6.9l10-6.2c.6-.4.6-1.3 0-1.7l-10-6.2C6.9 2.5 6 3 6 3.8z"/></svg>
               Let's build your game</a>
+            <a class="link-arrow hero__audit" href="#audit">Or get a <b>$49 audit</b><svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
           </div>
           <ul class="assure hero-in" style="--i:4">
             <li><span data-proposed>Free audit</span> with any package</li>
@@ -107,53 +110,6 @@
           <div class="live__stage" data-live-stage></div>
           <ol class="live__strip" data-live-strip></ol>
         </aside>
-      </div>
-    </section>
-
-    <!-- ============================== RESULTS ============================== -->
-    <section class="section results" id="results" aria-labelledby="results-title">
-      <div class="wrap">
-        <header class="head head--center rv">
-          <p class="eyebrow">Results</p>
-          <h2 id="results-title">Games that actually <span class="shine">make money</span>.</h2>
-        </header>
-
-        <div class="res-grid">
-          <article class="res res--hub rv">
-            <div class="hub" aria-label="Creator Hub analytics: 377 concurrent users, 43.4K daily active users up 310%, 8% D1 retention up 17%, 34.3K Robux daily revenue up 289%, 10 minute average playtime up 51%">
-              <p class="hub__label">Concurrent users</p>
-              <p class="hub__big" data-count-to="377">377</p>
-              <dl class="hub__rows">
-                <div><dt>Daily active users</dt><dd>43.4K<span class="up">310%</span></dd></div>
-                <div><dt>D1 retention</dt><dd>8%<span class="up">17%</span></dd></div>
-                <div><dt>Daily revenue</dt><dd><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#robux"/></svg>34.3K<span class="up">289%</span></dd></div>
-                <div><dt>Avg. playtime</dt><dd>10 min<span class="up">51%</span></dd></div>
-              </dl>
-            </div>
-            <div class="res__body">
-              <h3>377 players online. R$34.3K a day.</h3>
-              <p>Low CCU doesn't mean low money. I built this game's monetization, and revenue went up 289%.</p>
-              <p class="res__src">From the game's Creator Hub</p>
-            </div>
-          </article>
-
-          <article class="res res--stat rv">
-            <p class="res__huge"><span>$5K</span><small>a month</small></p>
-            <div class="res__body">
-              <h3>200 CCU, $5K a month.</h3>
-              <p>One of my own games. You don't need a front-page hit to make real money.</p>
-            </div>
-          </article>
-
-          <article class="res res--live rv" data-res-live hidden>
-            <a class="res__thumb" target="_blank" rel="noopener" data-res-link><img alt="" width="576" height="324" loading="lazy" data-res-img><span class="res__tag" data-res-role></span></a>
-            <div class="res__body">
-              <h3 data-res-name></h3>
-              <p class="res__stats"><span><b data-res-visits></b> visits</span><span><i class="live"></i><b data-res-playing></b> playing now</span><span data-res-likes></span></p>
-              <p class="res__src">Live from Roblox</p>
-            </div>
-          </article>
-        </div>
       </div>
     </section>
 
@@ -187,6 +143,83 @@
           <ol class="board__rows" data-board-rows></ol>
           <p class="board__foot" data-board-foot>Games I've worked on. Visits and live players come straight from Roblox.</p>
           <p class="board__example" data-board-example hidden>Example data. Add your games in <code>data/roblox.config.json</code></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== RESULTS ============================== -->
+    <!-- One point: small games can make serious money. Each row reads "this many players → this much money". -->
+    <section class="section results" id="results" aria-labelledby="results-title">
+      <div class="wrap">
+        <header class="head head--center rv">
+          <p class="eyebrow">Results</p>
+          <h2 id="results-title">Small games. <span class="shine">Big money.</span></h2>
+          <p class="sub">Both of these games have under 400 players online. Here's what they make.</p>
+        </header>
+
+        <div class="cases">
+          <!-- a client's game, numbers from its Creator Hub -->
+          <article class="case rv" data-case aria-label="I built the monetization: 377 players online, 34.3K Robux a day, revenue up 289%">
+            <div class="case__top">
+              <p class="case__tag">I built the monetization</p>
+              <p class="case__src">From the game's Creator Hub</p>
+            </div>
+            <div class="case__row">
+              <div class="case__in">
+                <span class="crowd" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+                <p class="case__big"><b data-count="377">377</b></p>
+                <p class="case__lbl">players online</p>
+              </div>
+              <div class="flow" aria-hidden="true"><i class="flow__line"></i><span class="flow__go"><i></i><i></i><i></i><i></i></span></div>
+              <div class="case__out">
+                <p class="case__big case__money"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#robux"/></svg><b data-count="34300" data-delay="400">34.3K</b></p>
+                <p class="case__lbl">Robux a day <span class="case__up">+289%</span></p>
+              </div>
+            </div>
+          </article>
+
+          <!-- one of his own games -->
+          <article class="case case--own rv" data-case aria-label="My own game: 200 players online, $5,000 a month">
+            <div class="case__top">
+              <p class="case__tag">My own game</p>
+            </div>
+            <div class="case__row">
+              <div class="case__in">
+                <span class="crowd" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                <p class="case__big"><b data-count="200">200</b></p>
+                <p class="case__lbl">players online</p>
+              </div>
+              <div class="flow" aria-hidden="true"><i class="flow__line"></i><span class="flow__go"><i></i><i></i><i></i><i></i></span></div>
+              <div class="case__out">
+                <p class="case__big case__money"><b data-count="5000" data-prefix="$" data-delay="400">$5,000</b></p>
+                <p class="case__lbl">a month</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== AUDIT ============================== -->
+    <!-- The $49 audit. The button goes to auditCheckoutUrl in config.js once it's set, otherwise to the form. -->
+    <section class="section audit" id="audit" aria-labelledby="audit-title">
+      <div class="wrap">
+        <div class="offer rv" data-offer>
+          <div class="offer__seal" aria-hidden="true">
+            <svg viewBox="0 0 140 140"><defs><path id="seal-ring" d="M70 70m-55 0a55 55 0 1 1 110 0a55 55 0 1 1-110 0"/></defs><text><textPath href="#seal-ring" textLength="345">OR YOUR MONEY BACK &#8226; OR YOUR MONEY BACK &#8226; </textPath></text></svg>
+            <span><b>3</b>fixes</span>
+          </div>
+          <div class="offer__copy">
+            <p class="eyebrow offer__eyebrow">Game audit</p>
+            <h2 id="audit-title">Find out what your game is <span>missing</span>.</h2>
+            <p class="offer__line">I go through your whole game and send you the fixes that'll make it more money. Back in <span class="nw">24&ndash;48 hours</span>.</p>
+            <ul class="offer__list"><li>Monetization</li><li>Retention</li><li>Thumbnails</li><li>The algorithm</li></ul>
+          </div>
+          <div class="offer__buy">
+            <p class="offer__price"><b>$49</b><span>one time</span></p>
+            <a class="btn btn--primary btn--lg btn--block" href="#send" data-pick-service="Game audit" data-buy-audit>Get my audit<svg class="i" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4"/></svg></a>
+            <p class="offer__fine">3 fixes or your money back<br>Free with any package</p>
+          </div>
         </div>
       </div>
     </section>
@@ -323,8 +356,7 @@
           </article>
         </div>
         <div class="svc-strip rv">
-          <p><b>Just want an audit? <span data-proposed>$49</span>.</b> If I don't find 3 fixes worth doing, you get your money back. Free with any package. <a href="#send" data-pick-service="Game audit">Get one</a></p>
-          <p><b>Can't pay upfront?</b> For the right game, I'll build it for a cut of the revenue. <a href="https://discord.com/users/875776204387520552" target="_blank" rel="noopener" data-discord>DM me the idea</a></p>
+          <p><b>Not sure what you need?</b> Start with the <a href="#audit">$49 game audit</a>. If I don't find 3 fixes worth doing, you get your money back.</p>
         </div>
       </div>
     </section>
@@ -347,7 +379,7 @@
           </div>
           <div class="qa">
             <h3><button type="button" aria-expanded="false">I don't have a game yet. Can you still help?<i aria-hidden="true"></i></button></h3>
-            <div class="qa__a"><div><p>Yeah, that's a lot of what I do. Send me the idea instead of a link. For the right idea I'll even build it for a cut of the revenue.</p></div></div>
+            <div class="qa__a"><div><p>Yeah, that's a lot of what I do. Send me the idea instead of a link.</p></div></div>
           </div>
           <div class="qa">
             <h3><button type="button" aria-expanded="false">Is my game safe with you?<i aria-hidden="true"></i></button></h3>
@@ -568,8 +600,9 @@
         <p>Roblox development and growth.</p>
       </div>
       <nav class="footer__nav" aria-label="Footer">
-        <a href="#results">Results</a>
         <a href="#games">My work</a>
+        <a href="#results">Results</a>
+        <a href="#audit" class="nav__audit">Audit <small>$49</small></a>
         <a href="#services">Services</a>
         <a href="#faq">FAQ</a>
         <a href="#" data-tiktok hidden>TikTok</a>

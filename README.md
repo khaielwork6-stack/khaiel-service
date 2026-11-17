@@ -43,6 +43,15 @@ Until it's set, the form shows "copy your answers and DM me on Discord" instead,
 ## Form analytics
 The form reports "Form step 2", "Form step 3", "Form step 4" and "Form sent" to Vercel Analytics, so you can see where people drop off. Custom events only show on Vercel's Pro plan.
 
+## Sell the $49 audit
+The audit has its own card right under Results (the hero link and the "Audit $49" nav item scroll to it). Its **Get my audit** button opens the form with "Audit" ticked until you add a payment link. To take payment straight away:
+1. Make a payment link for $49. Stripe: Payment Links, New, one-time product "Roblox game audit". Gumroad or PayPal work too.
+2. Optional, Stripe: add custom fields "Roblox game link" and "Discord username" so you get them with the payment.
+3. Optional: set the page people land on after paying to `https://www.khaieldev.com/?paid=audit`. The site then says thanks and asks them to send their game.
+4. Paste the link into `auditCheckoutUrl` in `assets/js/config.js` and push.
+
+The site reports "Audit click" and "Audit paid" to Vercel Analytics (Pro plan).
+
 ## Discord
 `discordUrl` in `assets/js/config.js` powers the "DM me on Discord" card next to the form and the Discord buttons. Set `discordUsername` (without the @) to show your handle on the card and add a "Copy username" button.
 

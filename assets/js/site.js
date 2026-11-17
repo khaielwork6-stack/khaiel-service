@@ -378,23 +378,66 @@
     }
   }
 
-  /* ------------------------------------------------ results: the third card is a game you built, live from Roblox
-     It shows the first game in data/roblox.config.json that has a role, e.g. "Scripted it". */
-  function initResults() {
-    var card = $("[data-res-live]");
-    if (!card) return;
-    var g = realGames().filter(function (x) { return x.role; })[0];
-    if (!g) return;
-    $("[data-res-link]", card).href = g.url;
-    $("[data-res-img]", card).src = g.thumb;
-    $("[data-res-role]", card).textContent = g.role;
-    $("[data-res-name]", card).textContent = g.name;
-    $("[data-res-visits]", card).textContent = compact(g.visits);
-    $("[data-res-playing]", card).textContent = compact(g.playing);
-    $("[data-res-likes]", card).innerHTML = g.likeRatio != null ? THUMB + g.likeRatio + "% liked" : "";
-    card.hidden = false;
+  /* ------------------------------------------------ results: "this many players → this much money"
+     Each number counts up the first time its row is on screen; the flow between them
+     only moves while the row is visible (.is-live). */
+  function initCases() {
+    var cases = $$("[data-case]");
+    function fmt(el) {
+      var pre = el.getAttribute("data-prefix") || "";
+      return function (n) { return pre + (pre === "$" ? Math.round(n).toLocaleString("en-US") : compact(n)); };
+    }
+    cases.forEach(function (card) {
+      var nums = $$("[data-count]", card);
+      if (reduceMotion || !("IntersectionObserver" in window)) {
+        card.classList.add("is-on");
+        nums.forEach(function (el) { el.textContent = fmt(el)(+el.getAttribute("data-count")); });
+      } else {
+        nums.forEach(function (el) { el.textContent = fmt(el)(0); });
+        var io = new IntersectionObserver(function (en) {
+          if (!latest(en).isIntersecting) return;
+          io.disconnect();
+          card.classList.add("is-on");
+          nums.forEach(function (el) {
+            setTimeout(function () { countUp(el, +el.getAttribute("data-count"), fmt(el)); }, +el.getAttribute("data-delay") || 0);
+          });
+        }, { threshold: 0.3 });
+        io.observe(card);
+      }
+      whenVisible(card);
+    });
+    if (window.matchMedia("(hover: hover)").matches && !reduceMotion) cases.concat($$("[data-offer]")).forEach(function (c) { tilt(c, 0); });
   }
 
+  /* ------------------------------------------------ the $49 audit
+     With a payment link in config.js the buttons go straight to checkout;
+     without one they open the form with "Audit" already ticked. */
+  function initAudit() {
+    var url = String(CFG.auditCheckoutUrl || "").trim();
+    $$("[data-buy-audit]").forEach(function (a) {
+      if (/^https:\/\//.test(url)) {
+        a.href = url;
+        a.removeAttribute("data-pick-service");
+        a.rel = "noopener";
+      }
+      a.addEventListener("click", function () { track("Audit click"); });
+    });
+
+    // back from checkout (?paid=audit): say thanks and ask for the game
+    if (new URLSearchParams(location.search).get("paid") !== "audit") return;
+    var note = document.createElement("div");
+    note.className = "paid";
+    note.setAttribute("role", "status");
+    note.innerHTML = '<span class="paid__mark" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="m5 10.5 3.2 3L15 6.5"/></svg></span>' +
+      '<p><b>Payment received. Thank you!</b> Send me your game so I can start. Your audit\'s back within 24&ndash;48 hours.</p>' +
+      '<a class="btn btn--primary btn--sm" href="#send">Send my game</a>' +
+      '<button class="paid__x" type="button" aria-label="Close">&times;</button>';
+    document.body.appendChild(note);
+    $(".paid__x", note).addEventListener("click", function () { note.remove(); });
+    $("a", note).addEventListener("click", function () { prefill({ service: "Game audit" }); note.remove(); });
+    track("Audit paid");
+    history.replaceState(null, "", location.pathname + location.hash);
+  }
   /* ------------------------------------------------ closing: moving wall of the real thumbnails */
   function initWall() {
     var wall = $("[data-wall]");
@@ -1081,9 +1124,18 @@
       $("a", dock).tabIndex = on ? 0 : -1;
     }
     new IntersectionObserver(function (en) { heroSeen = latest(en).isIntersecting; update(); }).observe($(".hero__actions"));
-    // hide it wherever the page already shows its own buttons: the services, the form
-    var grid = $("[data-svc-grid]");
-    if (grid) new IntersectionObserver(function (en) { covered = latest(en).isIntersecting; update(); }, { rootMargin: "-25% 0px -25% 0px" }).observe(grid);
+    // hide it wherever the page already shows its own buttons: the audit, the services, the form
+    var own = {};
+    function watch(el, margin, key) {
+      if (!el) return;
+      new IntersectionObserver(function (en) {
+        own[key] = latest(en).isIntersecting;
+        covered = !!(own.res || own.svc);
+        update();
+      }, { rootMargin: margin }).observe(el);
+    }
+    watch($("[data-offer]"), "0px", "res");
+    watch($("[data-svc-grid]"), "-25% 0px -25% 0px", "svc");
     // and from the moment the send section (the form and the Discord card) comes into view
     new IntersectionObserver(function (en) { atEnd = latest(en).isIntersecting || latest(en).boundingClientRect.top < 0; update(); }).observe($("section.send") || $("#send"));
   }
@@ -1093,7 +1145,8 @@
   initHeader();
   initGames();
   initLive();
-  initResults();
+  initCases();
+  initAudit();
   initWall();
   initServices();
   initSvcTabs();
