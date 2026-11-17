@@ -39,8 +39,9 @@ $ids = ($entries | ForEach-Object { $_.universeId }) -join ","
 
 $games = (Get-Json "https://games.roblox.com/v1/games?universeIds=$ids").data
 $votes = (Get-Json "https://games.roblox.com/v1/games/votes?universeIds=$ids").data
-$icons = (Get-Json "https://thumbnails.roblox.com/v1/games/icons?universeIds=$ids&size=256x256&format=Png&isCircular=false&returnPolicy=PlaceHolder").data
-$thumbs = (Get-Json "https://thumbnails.roblox.com/v1/games/multiget/thumbnails?universeIds=$ids&countPerUniverse=6&defaults=true&size=768x432&format=Png&isCircular=false").data
+# WebP at the size the page shows: about 13 times smaller than the full-size PNGs
+$icons = (Get-Json "https://thumbnails.roblox.com/v1/games/icons?universeIds=$ids&size=150x150&format=Webp&isCircular=false&returnPolicy=PlaceHolder").data
+$thumbs = (Get-Json "https://thumbnails.roblox.com/v1/games/multiget/thumbnails?universeIds=$ids&countPerUniverse=6&defaults=true&size=576x324&format=Webp&isCircular=false").data
 
 # The services section shows each game's real store and badges. These are optional extras:
 # if Roblox changes one of these endpoints, the stats above still update.
@@ -61,7 +62,7 @@ function Get-Passes($universeId) {
   $art = @{}
   if ($pick.Count) {
     $passIds = ($pick | ForEach-Object { $_.id }) -join ","
-    $t = Get-Optional "https://thumbnails.roblox.com/v1/game-passes?gamePassIds=$passIds&size=150x150&format=Png&isCircular=false"
+    $t = Get-Optional "https://thumbnails.roblox.com/v1/game-passes?gamePassIds=$passIds&size=150x150&format=Webp&isCircular=false"
     if ($t) { $t.data | Where-Object { $_.state -eq "Completed" } | ForEach-Object { $art[[string]$_.targetId] = $_.imageUrl } }
   }
   $list = foreach ($p in $pick) {
@@ -78,7 +79,7 @@ function Get-Badges($universeId) {
   if (-not $top.Count) { return @() }
   $badgeIds = ($top | ForEach-Object { $_.id }) -join ","
   $art = @{}
-  $t = Get-Optional "https://thumbnails.roblox.com/v1/badges/icons?badgeIds=$badgeIds&size=150x150&format=Png&isCircular=false"
+  $t = Get-Optional "https://thumbnails.roblox.com/v1/badges/icons?badgeIds=$badgeIds&size=150x150&format=Webp&isCircular=false"
   if ($t) { $t.data | Where-Object { $_.state -eq "Completed" } | ForEach-Object { $art[[string]$_.targetId] = $_.imageUrl } }
   return @(foreach ($b in $top) {
     if (-not $art[[string]$b.id]) { continue }
@@ -117,7 +118,7 @@ $list = @($list | Sort-Object { $_.visits } -Descending)
 
 $headshot = $null
 if ($config.robloxUserId) {
-  $h = Get-Json "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=$($config.robloxUserId)&size=420x420&format=Png&isCircular=false"
+  $h = Get-Json "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=$($config.robloxUserId)&size=420x420&format=Webp&isCircular=false"
   $headshot = $h.data[0].imageUrl
 }
 

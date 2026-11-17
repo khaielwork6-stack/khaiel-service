@@ -29,14 +29,19 @@ The games you've worked on drive most of the visuals: the live showcase in the h
 
 The board shows your biggest games. Your total count ("30+ games worked on") lives in `assets/js/config.js` as `gamesWorkedOn`.
 
-## Live demo
-The "Bring a dying game back to life" dashboard is a simulation, labelled as one. Its six metrics (bad and fixed values, percentiles, the fix names and what the AI analyst says about each) live in `METRICS` in `assets/js/site.js`; `BASE` is the starting CCU. "Do this to my game" ticks the matching problems and services in the form.
-
 ## Review mode
 While `reviewMode: true` is set in `assets/js/config.js`, a small pill sits in the corner. Press **Show** to highlight every proposed price and policy (`data-proposed`). Set `reviewMode: false` before sending traffic. You can preview either mode with `?review=1` or `?review=0`.
 
 ## Connect the form
-Paste a Formspree URL (or any JSON POST endpoint) into `formEndpoint`, and set `contactEmail`. Until then, submitting opens a prefilled email, so no lead is lost.
+The form posts to `api/lead.js`, a Vercel function that sends each submission to your Discord channel. The webhook URL stays on the server:
+
+1. In Discord: your server → Edit channel → Integrations → Webhooks → New Webhook → Copy Webhook URL.
+2. In Vercel: your project → Settings → Environment Variables → add `DISCORD_WEBHOOK` with that URL → redeploy.
+
+Until it's set, the form shows "copy your answers and DM me on Discord" instead, so no lead is lost. It also has a hidden spam trap and a per-visitor limit of 5 sends in 10 minutes. To send the form somewhere else instead (Formspree or any JSON POST endpoint), put that URL in `formEndpoint`.
+
+## Form analytics
+The form reports "Form step 2", "Form step 3", "Form step 4" and "Form sent" to Vercel Analytics, so you can see where people drop off. Custom events only show on Vercel's Pro plan.
 
 ## Discord
 `discordUrl` in `assets/js/config.js` powers the "DM me on Discord" card next to the form and the Discord buttons. Set `discordUsername` (without the @) to show your handle on the card and add a "Copy username" button.

@@ -1,7 +1,7 @@
 /*
   Site interactions. No dependencies, no build step.
   Review mode · config links · header & menu · reveals · my games · live showcase ·
-  the story · services · live demo · audit · accordions · send form · mobile dock
+  services · accordions · send form · mobile dock
 */
 (function () {
   "use strict";
@@ -368,6 +368,12 @@
     show(0);
     restart();
     countUp($("[data-live-total]"), playing, function (n) { return Math.round(n).toLocaleString("en-US"); });
+    // phones: the same count sits under the headline, so it's on the first screen
+    var mini = $("[data-live-mini]");
+    if (mini && playing) {
+      mini.hidden = false;
+      countUp($("[data-live-mini-n]", mini), playing, function (n) { return Math.round(n).toLocaleString("en-US"); });
+    }
   }
 
   /* ------------------------------------------------ closing: moving wall of the real thumbnails */
@@ -390,46 +396,6 @@
         row.appendChild(img);
       });
     });
-  }
-
-  /* ------------------------------------------------ the story: words light up as you scroll */
-  function initCreed() {
-    var sec = $("[data-creed]"), text = $("[data-creed-text]");
-    if (!sec || !text) return;
-    var words = [];
-    (function wrap(node) {
-      Array.prototype.slice.call(node.childNodes).forEach(function (n) {
-        if (n.nodeType === 1) { wrap(n); return; }
-        if (n.nodeType !== 3) return;
-        var frag = document.createDocumentFragment();
-        n.textContent.split(/(\s+)/).forEach(function (part) {
-          if (!part) return;
-          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
-          var w = document.createElement("span");
-          w.className = "w";
-          w.textContent = part;
-          frag.appendChild(w);
-          words.push(w);
-        });
-        node.replaceChild(frag, n);
-      });
-    })(text);
-    if (reduceMotion || !("IntersectionObserver" in window)) { words.forEach(function (w) { w.classList.add("is-lit"); }); return; }
-
-    var lit = -1, raf = 0;
-    function update() {
-      raf = 0;
-      // starts when the text's top reaches 85% down the screen, done when its bottom passes 45%
-      var r = text.getBoundingClientRect(), vh = window.innerHeight;
-      var p = Math.max(0, Math.min(1, (vh * 0.85 - r.top) / (vh * 0.4 + r.height)));
-      var n = Math.round(p * words.length);
-      if (n === lit) return;
-      lit = n;
-      words.forEach(function (w, i) { w.classList.toggle("is-lit", i < n); });
-    }
-    function onScroll() { if (!raf) raf = requestAnimationFrame(update); }
-    whenVisible(sec, function () { window.addEventListener("scroll", onScroll, { passive: true }); update(); },
-      function () { window.removeEventListener("scroll", onScroll); });
   }
 
   /* ------------------------------------------------ services: one live illustration per service
@@ -703,47 +669,6 @@
     });
   }
 
-  // "Message me anyway": a Discord inbox with the kind of requests Roblox devs actually send
-  var DMS = [
-    ["zoomzoom.kart", "yo can u cut a trailer for my update this friday?"],
-    ["pixelpanda08", "ccu went from 800 to 200 after the update 😭 can u look"],
-    ["captain.cube", "need a pet + egg hatching system, how much?"],
-    ["minty.mango", "how do i get my game on the home page"],
-    ["speedybacon", "can you make my icon actually pop lol"],
-    ["lunar.owlet", "wanna run an admin abuse event saturday, can u help"],
-    ["blockboss3000", "game lags on mobile, need it fixed asap"],
-    ["lil.tycoon", "what should my gamepasses cost?"],
-    ["starry.mia", "got a game idea, can you build it from scratch?"],
-    ["frosty.flakes", "need someone to run our tiktok fr"]
-  ];
-  var DISCORD_COLORS = ["#5865F2", "#757E8A", "#3BA55C", "#FAA61A", "#ED4245", "#EB459F"];
-  function initAsks() {
-    var list = $("[data-asks]"), count = $("[data-asks-count]");
-    if (!list) return;
-    var i = 0;
-    function clock(minsAgo) {
-      return "Today at " + new Date(Date.now() - minsAgo * 6e4).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
-    }
-    function push(minsAgo) {
-      var dm = DMS[i % DMS.length];
-      var li = document.createElement("li");
-      li.innerHTML = '<span class="dcw__av"><svg viewBox="0 0 24 24"><use href="#discord"/></svg></span>' +
-        '<span class="dcw__msg"><span class="dcw__line"><b></b><time></time></span><span class="dcw__txt"></span></span>';
-      $(".dcw__av", li).style.background = DISCORD_COLORS[i % DISCORD_COLORS.length];
-      $("b", li).textContent = dm[0];
-      $("time", li).textContent = clock(minsAgo);
-      $(".dcw__txt", li).textContent = dm[1];
-      list.insertBefore(li, list.firstChild);
-      while (list.children.length > 4) list.removeChild(list.lastChild);
-      i++;
-      if (count) count.textContent = Math.min(i, 9) + (i > 9 ? "+" : "");
-    }
-    push(9); push(4); push(1);
-    $$("li", list).forEach(function (li) { li.style.animation = "none"; });
-    if (reduceMotion) return;
-    ticker(list, 3000, function () { push(0); });
-  }
-
   // tilt and glare on the cards you can touch
   function tilt(card, max) {
     card.addEventListener("pointermove", function (e) {
@@ -765,7 +690,6 @@
       var make = MAKE[vis.getAttribute("data-vis")];
       if (make && games.length) make(vis, games);
     });
-    initAsks();
 
     // "…and a lot more": two copies of each row so the scroll loops seamlessly
     $$("[data-more-row]").forEach(function (row) {
@@ -780,508 +704,6 @@
     if (!window.matchMedia("(hover: hover)").matches || reduceMotion) return;
     $$(".svc, .audit-card").forEach(function (card) { tilt(card, 0); });
     $$("[data-discord-card]").forEach(function (card) { tilt(card, 10); });
-  }
-
-  /* ------------------------------------------------ live demo: bring a dying game back to life
-     A simulated game, laid out like Creator Hub's benchmarks. Each switch is a fix I'd make, and the
-     CCU chart, Robux per day and the AI analyst react to it. Nothing here is a real game, and the
-     analyst is scripted: it reads the demo's own numbers. */
-  var UP = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 10V2.6M2.8 5.6 6 2.4l3.2 3.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  var DOWN = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2v7.4M2.8 6.4 6 9.6l3.2-3.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  var RIGHT = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 6h7M6.5 3 9.5 6l-3 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  var RBX = '<svg viewBox="0 0 16 16" aria-hidden="true"><use href="#robux"/></svg>';
-
-  // bad → good, and where each sits against the genre (50th and 90th percentile tags)
-  var METRICS = [
-    { key: "ptr", name: "Play through rate", short: "Clicks", fmt: "pct", bad: 0.92, good: 4.08, p50: "1.35%", p90: "3.63%", pBad: 21, pGood: 93, dBad: 11.6,
-      fix: "New icon & thumbnails", tag: "New thumbnails", mult: 1.8, growth: true, problem: "click", service: "Thumbnails & trailers",
-      why: "People scroll right past the icon.",
-      on: "New icon and thumbnails: play-through hits <b>4.08%</b>, top 7%." },
-    { key: "play", name: "Average playtime", short: "Playtime", fmt: "min", bad: 6.8, good: 31.5, p50: "16.2 min", p90: "40.0 min", pBad: 19, pGood: 84, dBad: 15.9,
-      fix: "First reward in 5 seconds", tag: "Faster first reward", mult: 1.7, growth: true, problem: "hook", service: "Growth & algorithm",
-      why: "New players wait too long for a reward.",
-      on: "First reward in 5 seconds: playtime <b>6.8 → 31.5 min</b>." },
-    { key: "d1", name: "Day 1 retention", short: "Day 1", fmt: "pct", bad: 5.21, good: 13.92, p50: "9.24%", p90: "14.13%", pBad: 16, pGood: 88, dBad: 13.7,
-      fix: "Something waiting tomorrow", tag: "Daily streak", mult: 1.45, growth: true, problem: "d1", service: "Growth & algorithm",
-      why: "Nothing brings them back tomorrow.",
-      on: "A daily streak: <b>13.92%</b> come back tomorrow." },
-    { key: "d7", name: "Day 7 retention", short: "Day 7", fmt: "pct", bad: 0.61, good: 3.08, p50: "1.47%", p90: "3.32%", pBad: 14, pGood: 87, dBad: 21.4,
-      fix: "Weekly updates & events", tag: "Weekly updates", mult: 1.35, growth: true, problem: "d7", service: "Growth partner",
-      why: "Nothing new happens all week.",
-      on: "Weekly updates and events: Day 7 hits <b>3.08%</b>." },
-    { key: "pay", name: "Payer conversion rate", short: "Buyers", fmt: "pct", bad: 0.14, good: 1.12, p50: "0.36%", p90: "1.61%", pBad: 17, pGood: 83, dBad: 8.2,
-      fix: "Starter pack at the right moment", tag: "Starter pack", mult: 1, problem: "spend", service: "Monetization",
-      why: "There's no offer when they're most excited.",
-      on: "A starter pack after the first win: <b>8×</b> more buyers." },
-    { key: "arppu", name: "Avg. revenue per paying user", short: "Avg. spend", fmt: "rbx", bad: 74.5, good: 288, p50: "129.6", p90: "431.8", pBad: 22, pGood: 76, dBad: 6.4,
-      fix: "A real price ladder", tag: "Price ladder", mult: 1, problem: "spend", service: "Monetization",
-      why: "Buyers have nothing bigger to buy.",
-      on: "A real price ladder: buyers spend <b>3.9×</b> more." }
-  ];
-  var BASE = 420, DAU_PER_CCU = 18, BOOST = [1, 1, 1.08, 1.18, 1.35];
-
-  function ordinal(n) { var s = ["th", "st", "nd", "rd"], v = n % 100; return n + (s[(v - 20) % 10] || s[v] || s[0]); }
-  function tween(ms, step, done) {
-    if (reduceMotion) { step(1); if (done) done(); return function () {}; }
-    var t0 = performance.now(), raf = 0;
-    (function f(now) {
-      var p = Math.min(1, (now - t0) / ms);
-      step(1 - Math.pow(1 - p, 3));
-      if (p < 1) raf = requestAnimationFrame(f); else if (done) done();
-    })(t0);
-    return function () { cancelAnimationFrame(raf); };
-  }
-
-  function initDash() {
-    var dash = $("[data-dash]");
-    if (!dash) return;
-    var grid = $("[data-bms]", dash), ai = $("[data-ai]", dash), feed = $("[data-ai-feed]", dash);
-    var chart = $("[data-chart]", dash), line = $("[data-line]", dash), area = $("[data-area]", dash), dot = $("[data-dot]", dash);
-    var marksEl = $("[data-marks]", dash), yLabels = $$("[data-y] span", dash), fx = $("[data-fx]", dash);
-    var ccuEl = $("[data-ccu]", dash), ccuDelta = $("[data-ccu-delta]", dash), rec = $("[data-rec]", dash), recText = $("[data-rec-text]", dash);
-    var kDau = $('[data-kpi="dau"]', dash), kRev = $('[data-kpi="rev"]', dash), kRev2 = $('[data-kpi="rev2"]', dash), kRank = $('[data-kpi="rank"]', dash);
-    var score = $("[data-score]", dash), arc = $("[data-arc]", dash), scoreN = $("[data-score-n]", dash), status = $("[data-ai-status]", dash);
-    var hud = $("[data-hud]"), hudCcu = $("[data-hud-ccu]"), hudDelta = $("[data-hud-delta]"), hudRev = $("[data-hud-rev]");
-    var allChip = $(".ai__all", dash), fixedCount = $("[data-fixed]", dash);
-    var fixed = {}, cards = [], byKey = {}, batch = false, celebrated = false, scanned = false;
-
-    // ---- the six benchmark cards
-    METRICS.forEach(function (m) {
-      var el = document.createElement("article");
-      el.className = "bm";
-      el.innerHTML =
-        '<div class="bm__head"><h3 class="bm__name"></h3><span class="bm__short" aria-hidden="true"></span><span class="bm__flag">Scanning</span></div>' +
-        '<div class="bm__val"><b>—</b><span class="delta"></span></div>' +
-        '<div class="bm__track" aria-hidden="true"><span class="bm__seg"><i></i></span><span class="bm__seg"><i></i></span><span class="bm__seg"><i></i></span><span class="bm__pct"></span><span class="bm__knob"></span></div>' +
-        '<div class="bm__marks" aria-hidden="true"><span class="bm__mark bm__mark--50">50th<b></b></span><span class="bm__mark bm__mark--90">90th<b></b></span></div>' +
-        '<label class="bm__fix"><input type="checkbox" role="switch"><span class="sw" aria-hidden="true"></span><span class="bm__fixtext"><small>Khaiel\'s fix</small><b></b></span></label>';
-      $(".bm__name", el).textContent = m.name;
-      $(".bm__short", el).textContent = m.short;
-      var tags = $$(".bm__mark b", el), pre = m.fmt === "rbx" ? RBX : "";
-      tags[0].innerHTML = pre + m.p50;
-      tags[1].innerHTML = pre + m.p90;
-      $(".bm__fixtext b", el).textContent = m.fix;
-      var c = { m: m, el: el, val: $(".bm__val b", el), delta: $(".delta", el), pct: $(".bm__pct", el), flag: $(".bm__flag", el), input: $("input", el), v: 0, p: 0, stop: null };
-      c.input.setAttribute("aria-label", m.fix + ", fixes " + m.name);
-      c.input.addEventListener("change", function () { toggle(c, c.input.checked); });
-      grid.appendChild(el);
-      cards.push(c);
-      byKey[m.key] = c;
-    });
-
-    function fmt(m, v) {
-      if (m.fmt === "min") return v.toFixed(1) + " min";
-      if (m.fmt === "rbx") return RBX + v.toFixed(1);
-      return v.toFixed(2) + "%";
-    }
-    function paint(c, v, p) {
-      c.v = v; c.p = p;
-      var s = c.el.style, clamp = function (x) { return Math.max(0, Math.min(1, x)); };
-      s.setProperty("--a", clamp(p / 50));
-      s.setProperty("--b", clamp((p - 50) / 40));
-      s.setProperty("--c2", clamp((p - 90) / 10));
-      s.setProperty("--ga", clamp(p - 50));
-      s.setProperty("--gb", clamp(p - 90));
-      c.el.classList.toggle("is-above", p >= 50);
-      c.val.innerHTML = fmt(c.m, v);
-      c.pct.textContent = ordinal(Math.round(p));
-    }
-    function setCard(c, on) {
-      var m = c.m, v0 = c.v, p0 = c.p, v1 = on ? m.good : m.bad, p1 = on ? m.pGood : m.pBad;
-      fixed[m.key] = on;
-      c.input.checked = on;
-      c.el.classList.toggle("is-fixed", on);
-      c.el.classList.toggle("is-bad", !on);
-      c.flag.textContent = on ? "Fixed" : "Leak";
-      c.delta.className = "delta " + (on ? "is-up" : "is-down");
-      c.delta.innerHTML = on ? UP + Math.round((m.good / m.bad - 1) * 100) + "%" : DOWN + m.dBad + "%";
-      if (c.stop) c.stop();
-      c.stop = tween(on ? 1400 : 1000, function (k) { paint(c, v0 + (v1 - v0) * k, p0 + (p1 - p0) * k); });
-    }
-
-    // ---- the game: CCU follows the fixes, and keeps leaking while the retention fixes are off
-    function model() {
-      var mult = 1, g = 0;
-      METRICS.forEach(function (m) { if (fixed[m.key]) { mult *= m.mult; if (m.growth) g++; } });
-      return { mult: mult * BOOST[g], growth: g, floor: 1 - 0.04 * (4 - g) };
-    }
-    function revenue(ccu, payPct, arppu) { return ccu * DAU_PER_CCU * payPct / 100 * arppu; }
-    function finalValue(key) { return fixed[key] ? byKey[key].m.good : byKey[key].m.bad; }
-
-    var TICK = 520, N = 44, DX = 600 / (N - 2);
-    var sim = { cur: BASE, leak: 1, noise: 0, t: 0, phase: 0, pts: [], maxY: 0, yTop: 0, marks: [], up: false };
-    for (var k = N; k > 0; k--) sim.pts.push({ t: -k + 1, v: BASE * (1 + 0.16 * k / N) * (1 + (Math.random() - 0.5) * 0.035) });
-    sim.t = 0;
-
-    function nice(v) {
-      var mag = Math.pow(10, Math.floor(Math.log10(Math.max(v, 1)))), steps = [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10];
-      for (var i = 0; i < steps.length; i++) if (steps[i] * mag >= v) return steps[i] * mag;
-      return 10 * mag;
-    }
-    function smooth(p) {
-      var d = "M" + p[0][0].toFixed(1) + " " + p[0][1].toFixed(1);
-      for (var i = 0; i < p.length - 1; i++) {
-        var p0 = p[i - 1] || p[i], p1 = p[i], p2 = p[i + 1], p3 = p[i + 2] || p2;
-        var x1 = Math.min(p1[0] + (p2[0] - p0[0]) / 6, p2[0]), x2 = Math.max(p2[0] - (p3[0] - p1[0]) / 6, p1[0]);
-        d += "C" + x1.toFixed(1) + " " + (p1[1] + (p2[1] - p0[1]) / 6).toFixed(1) + "," + x2.toFixed(1) + " " + (p2[1] - (p3[1] - p1[1]) / 6).toFixed(1) + "," + p2[0].toFixed(1) + " " + p2[1].toFixed(1);
-      }
-      return d;
-    }
-    function tick() {
-      sim.t++;
-      sim.pts.push({ t: sim.t, v: sim.cur });
-      while (sim.pts.length > N) sim.pts.shift();
-      sim.noise = sim.noise * 0.55 + (Math.random() - 0.5) * 0.045;
-      // green while the players are coming back, red while they're leaking out
-      var md = model(), steady = BASE * md.mult * md.floor;
-      sim.up = steady > sim.cur * 1.03 ? true : steady < sim.cur * 0.97 ? false : sim.cur >= BASE * 0.97;
-      chart.classList.toggle("is-up", sim.up);
-      hud.classList.toggle("is-up", sim.up);
-    }
-    function draw() {
-      var now = sim.t + sim.phase, H = 180;
-      var list = sim.pts.map(function (p) { return [600 - (now - p.t) * DX, p.v]; });
-      list.push([600, sim.cur]);
-      var hi = 0;
-      list.forEach(function (p) { if (p[1] > hi) hi = p[1]; });
-      var top = nice(hi * 1.2);
-      sim.maxY = sim.maxY ? sim.maxY + (top - sim.maxY) * 0.07 : top;
-      if (top !== sim.yTop) {
-        sim.yTop = top;
-        yLabels[0].textContent = compact(top);
-        yLabels[1].textContent = compact(top / 2);
-      }
-      var pts = list.map(function (p) { return [p[0], H - (p[1] / sim.maxY) * (H - 6)]; });
-      var d = smooth(pts);
-      line.setAttribute("d", d);
-      area.setAttribute("d", d + "L600 " + H + "L" + pts[0][0].toFixed(1) + " " + H + "Z");
-      dot.style.top = (pts[pts.length - 1][1] / H * 100).toFixed(2) + "%";
-      sim.marks = sim.marks.filter(function (mk) {
-        var x = 600 - (now - mk.t) * DX;
-        if (x < -20) { mk.el.remove(); return false; }
-        mk.el.style.left = (x / 6).toFixed(2) + "%";
-        mk.el.style.opacity = Math.max(0, Math.min(1, x / 150)).toFixed(2);
-        return true;
-      });
-    }
-
-    // ---- everything that reads the simulation: big number, KPIs, health, the floating HUD
-    var shown = {};
-    function put(key, el, html) { if (shown[key] !== html) { shown[key] = html; el.innerHTML = html; } }
-    function deltaHtml(d) { return (d >= 0 ? UP : DOWN) + Math.abs(d).toLocaleString("en-US") + "%"; }
-    function readouts() {
-      var ccu = Math.round(sim.cur), d = Math.round((sim.cur / BASE - 1) * 100);
-      put("ccu", ccuEl, ccu.toLocaleString("en-US"));
-      put("hudCcu", hudCcu, ccu.toLocaleString("en-US"));
-      var cls = "delta " + (d >= 0 ? "is-up" : "is-down");
-      if (ccuDelta.className !== cls) { ccuDelta.className = cls; hudDelta.className = cls; }
-      put("delta", ccuDelta, deltaHtml(d));
-      put("hudDelta", hudDelta, deltaHtml(d));
-      put("dau", kDau, compact(sim.cur * DAU_PER_CCU));
-      var rev = compact(revenue(sim.cur, byKey.pay.v, byKey.arppu.v));
-      put("rev", kRev, rev);
-      put("rev2", kRev2, rev);
-      put("hudRev", hudRev, rev);
-      var health = cards.reduce(function (s, c) { return s + c.p; }, 0) / cards.length, h = Math.round(health);
-      put("score", scoreN, String(h));
-      arc.style.strokeDashoffset = (138.23 * (1 - health / 100)).toFixed(2);
-      score.classList.toggle("is-mid", h >= 40 && h < 70);
-      score.classList.toggle("is-good", h >= 70);
-      dash.classList.toggle("is-good", h >= 60);
-      put("rank", kRank, scanned ? ordinal(Math.max(1, h)) : "—");
-    }
-
-    var raf = 0, last = 0;
-    function frame(now) {
-      raf = requestAnimationFrame(frame);
-      var dt = Math.min(100, now - last);
-      last = now;
-      sim.phase += dt / TICK;
-      while (sim.phase >= 1) { sim.phase -= 1; tick(); }
-      var md = model();
-      sim.leak += (md.floor - sim.leak) * (1 - Math.exp(-dt / 9000));
-      var target = BASE * md.mult * sim.leak * (1 + sim.noise);
-      sim.cur += (target - sim.cur) * (1 - Math.exp(-dt / 750));
-      draw();
-      readouts();
-    }
-    function settle() {
-      // reduced motion: no stream, just the new steady state
-      var md = model();
-      sim.leak = md.floor;
-      sim.cur = BASE * md.mult * sim.leak;
-      sim.pts.forEach(function (p) { p.v = sim.cur; });
-      chart.classList.toggle("is-up", sim.cur >= BASE * 0.97);
-      draw();
-      readouts();
-    }
-    if (reduceMotion) settle();
-    else {
-      draw();
-      readouts();
-      whenVisible(dash, function () { last = performance.now(); raf = requestAnimationFrame(frame); },
-        function () { cancelAnimationFrame(raf); });
-    }
-
-    var lastMark = { t: -99, lane: 0 };
-    function mark(text, off) {
-      if (reduceMotion) return;
-      var el = document.createElement("span"), t = sim.t + sim.phase;
-      // markers close together stack their labels instead of overlapping
-      lastMark.lane = t - lastMark.t < 8 ? (lastMark.lane + 1) % 4 : 0;
-      lastMark.t = t;
-      el.style.setProperty("--lane", lastMark.lane);
-      el.className = "mark" + (off ? " is-off" : "");
-      el.innerHTML = "<span></span>";
-      el.firstChild.textContent = text;
-      el.style.left = "100%";
-      marksEl.appendChild(el);
-      sim.marks.push({ t: sim.t + sim.phase, el: el });
-    }
-    function popup(text, up) {
-      if (reduceMotion) return;
-      var el = document.createElement("span");
-      el.className = "pop " + (up ? "is-up" : "is-down");
-      el.textContent = text;
-      el.style.left = (ccuEl.offsetWidth + 12) + "px";
-      fx.appendChild(el);
-      // down at the switches, the chart is off screen: the HUD shows it instead
-      var twin = hud.classList.contains("is-on") ? el.cloneNode(true) : null;
-      if (twin) { twin.style.left = ""; hud.appendChild(twin); }
-      setTimeout(function () { el.remove(); if (twin) twin.remove(); }, 1800);
-    }
-    function burst() {
-      if (reduceMotion) return;
-      var colors = ["#12d68b", "#ffc83d", "#ffffff", "#3b7bff", "#00b06f"];
-      for (var i = 0; i < 30; i++) {
-        var s = document.createElement("i"), a = Math.random() * Math.PI * 2, r = 70 + Math.random() * 140;
-        s.className = "stud";
-        s.style.setProperty("--k", colors[i % colors.length]);
-        s.style.setProperty("--x", Math.round(Math.cos(a) * r * 1.4) + "px");
-        s.style.setProperty("--y", Math.round(Math.sin(a) * r - 40) + "px");
-        s.style.setProperty("--r", Math.round(Math.random() * 720 - 360) + "deg");
-        s.style.left = Math.round(ccuEl.offsetWidth / 2) + "px";
-        fx.appendChild(s);
-        setTimeout(function (el) { return function () { el.remove(); }; }(s), 1400);
-      }
-    }
-
-    function syncState() {
-      var n = cards.filter(function (c) { return fixed[c.m.key]; }).length, md = model();
-      fixedCount.textContent = n + " of 6";
-      dash.classList.toggle("has-fixed", n > 0);
-      rec.classList.toggle("is-on", md.growth === 4);
-      rec.classList.toggle("is-mid", md.growth >= 2 && md.growth < 4);
-      recText.textContent = md.growth === 4 ? "Recommended on Home" : md.growth >= 2 ? "Picking up" : "Rarely recommended";
-      if (scanned) status.textContent = n === 6 ? "No leaks left" : (6 - n) + (6 - n === 1 ? " leak left" : " leaks left");
-      $("span", allChip).textContent = n === 6 ? "Reset the game" : "Fix everything";
-      allChip.setAttribute("data-ask", n === 6 ? "reset" : "all");
-      dash.classList.toggle("is-max", n === 6);
-      if (n === 6 && !celebrated) {
-        celebrated = true;
-        burst();
-        var bestCcu = Math.round(BASE * md.mult / 10) * 10;
-        say("Every leak plugged: <b>" + bestCcu.toLocaleString("en-US") + " players</b>, Robux/day <b>" +
-          compact(revenue(BASE * 0.84, METRICS[4].bad, METRICS[5].bad)) + " → " + compact(revenue(BASE * md.mult, METRICS[4].good, METRICS[5].good)) +
-          "</b>, and it's on Home. That's what I do to real games." +
-          '<br><a class="ai__go" href="#send" data-dash-cta>Do this to my game ' + RIGHT + "</a>");
-      }
-      if (n < 6) celebrated = false;
-      $("[data-banner-rank]", dash).textContent = "Top " + Math.max(1, Math.round(100 - METRICS.reduce(function (s, m) { return s + m.pGood; }, 0) / 6)) + "% of its genre";
-      if (reduceMotion) settle();
-    }
-
-    function toggle(c, on) {
-      var before = model(), m = c.m;
-      setCard(c, on);
-      var after = model();
-      // one switch at a time gets its own popup, marker and comment; "Fix everything" and "Reset" speak once
-      if (batch) { syncState(); return; }
-      if (m.mult !== 1) {
-        var diff = Math.round(BASE * (after.mult - before.mult));
-        popup((diff >= 0 ? "+" : "−") + Math.abs(diff).toLocaleString("en-US") + " players", diff >= 0);
-      } else {
-        var rNow = revenue(BASE * after.mult, finalValue("pay"), finalValue("arppu"));
-        var rWas = revenue(BASE * after.mult, m.key === "pay" ? (on ? m.bad : m.good) : finalValue("pay"), m.key === "arppu" ? (on ? m.bad : m.good) : finalValue("arppu"));
-        popup((rNow >= rWas ? "+R$ " : "−R$ ") + compact(Math.abs(rNow - rWas)) + "/day", rNow >= rWas);
-      }
-      mark(on ? m.tag : "Removed: " + m.tag, !on);
-      say(on ? m.on : "Fix removed: <b>" + m.short.toLowerCase() + "</b> drops and players leave.");
-      syncState();
-    }
-
-    // ---- the analyst: a typed chat that reads the dashboard
-    var queue = [], busy = false;
-    function say(html, me) {
-      queue.push({ html: html, me: me });
-      if (!busy) next();
-    }
-    function add(li) {
-      feed.appendChild(li);
-      while (feed.children.length > 12) feed.removeChild(feed.firstChild);
-      feed.scrollTop = feed.scrollHeight;
-    }
-    function next() {
-      var msg = queue.shift();
-      if (!msg) { busy = false; ai.classList.remove("is-thinking"); return; }
-      busy = true;
-      var li = document.createElement("li");
-      li.className = "ai__msg" + (msg.me ? " ai__msg--me" : "");
-      if (msg.me) { li.textContent = msg.html; add(li); setTimeout(next, 260); return; }
-      ai.classList.add("is-thinking");
-      li.innerHTML = '<span class="ai__dots"><i></i><i></i><i></i></span>';
-      add(li);
-      setTimeout(function () { typeOut(li, msg.html); }, reduceMotion ? 0 : queue.length ? 140 : 560);
-    }
-    function typeOut(li, html) {
-      li.innerHTML = html;
-      if (reduceMotion) { feed.scrollTop = feed.scrollHeight; next(); return; }
-      var nodes = [], walk = document.createTreeWalker(li, NodeFilter.SHOW_TEXT), n;
-      while ((n = walk.nextNode())) { nodes.push({ n: n, full: n.textContent }); n.textContent = ""; }
-      li.classList.add("is-typing");
-      var i = 0, j = 0;
-      (function step() {
-        var budget = queue.length ? 9 : 3;
-        while (budget-- > 0 && i < nodes.length) {
-          j++;
-          nodes[i].n.textContent = nodes[i].full.slice(0, j);
-          if (j >= nodes[i].full.length) { i++; j = 0; }
-        }
-        feed.scrollTop = feed.scrollHeight;
-        if (i < nodes.length) requestAnimationFrame(step);
-        else { li.classList.remove("is-typing"); next(); }
-      })();
-    }
-    function ping(keys) {
-      keys.forEach(function (k) {
-        var el = byKey[k].el;
-        el.classList.remove("is-ping");
-        void el.offsetWidth;
-        el.classList.add("is-ping");
-      });
-    }
-
-    function fixAll() {
-      var todo = cards.filter(function (c) { return !fixed[c.m.key]; });
-      batch = true;
-      say("On it. Fixing " + (todo.length === 6 ? "all six" : todo.length === 1 ? "the last one" : "the " + todo.length + " left") + "…");
-      setTimeout(function () { mark(todo.length === 6 ? "Every fix" : "The rest of the fixes"); }, reduceMotion ? 0 : 700);
-      todo.forEach(function (c, i) {
-        setTimeout(function () {
-          toggle(c, true);
-          if (i === todo.length - 1) batch = false;
-        }, (reduceMotion ? 0 : 700) + i * 480);
-      });
-    }
-    function reset() {
-      batch = true;
-      cards.forEach(function (c) { if (fixed[c.m.key]) toggle(c, false); });
-      batch = false;
-      mark("Reset", true);
-      say("Back to leaking. Try one fix at a time.");
-    }
-    var ASK = {
-      leak: function () {
-        var order = ["play", "ptr", "d1", "d7", "pay", "arppu"], k = order.filter(function (x) { return !fixed[x]; })[0];
-        if (!k) { say("No leaks left. Every metric is in the top 25%."); return; }
-        var m = byKey[k].m;
-        ping([k]);
-        say("Biggest leak: <b>" + m.short.toLowerCase() + "</b>, " + ordinal(m.pBad) + " percentile. " + m.why + " Fix it first.");
-      },
-      home: function () {
-        ping(["ptr", "play", "d1", "d7"]);
-        say("Roblox pushes games people <b>click</b>, <b>play long</b> and <b>come back to</b>. Fix those four.");
-      },
-      buy: function () {
-        ping(["pay", "arppu"]);
-        if (fixed.pay && fixed.arppu) { say("Fixed: <b>1.12%</b> buy now, spending <b>R$ 288</b> each."); return; }
-        say("Only <b>0.14%</b> buy, spending <b>R$ 74.5</b>. Flip the two money fixes.");
-      },
-      all: fixAll,
-      reset: reset
-    };
-    $$("[data-ask]", dash).forEach(function (b) {
-      b.addEventListener("click", function () {
-        var kind = b.getAttribute("data-ask");
-        say(b.getAttribute("data-q") || b.textContent.trim(), true);
-        ASK[kind]();
-      });
-    });
-    $("[data-dash-reset]", dash).addEventListener("click", reset);
-
-    // "Do this to my game" carries what you fixed into the form
-    dash.addEventListener("click", function (e) {
-      if (!e.target.closest("[data-dash-cta]")) return;
-      var on = cards.filter(function (c) { return fixed[c.m.key]; });
-      if (!on.length) { prefill({ problem: "unsure", service: "Game audit" }); return; }
-      on.forEach(function (c) { prefill({ problem: c.m.problem, service: c.m.service }); });
-    });
-
-    // ---- the first look: scan the game, reveal the leaks, then hand over the switches
-    function scan() {
-      scanned = true;
-      var health = Math.round(METRICS.reduce(function (s, m) { return s + m.pBad; }, 0) / 6);
-      function reveal() {
-        cards.forEach(function (c, i) {
-          setTimeout(function () { c.el.classList.remove("is-scan"); if (!fixed[c.m.key]) setCard(c, false); }, reduceMotion ? 0 : i * 140);
-        });
-      }
-      function report() {
-        status.textContent = "6 leaks found";
-        say("Found <b>6 leaks</b>. Bottom " + health + "% of its genre, so Roblox stopped showing it.");
-        say("Tap a red one to fix it. Or hit <b>Fix everything</b>.");
-        syncState();
-      }
-      if (reduceMotion) { reveal(); report(); return; }
-      status.textContent = "Scanning your game…";
-      ai.classList.add("is-thinking");
-      grid.classList.add("is-scanning");
-      cards.forEach(function (c, i) { setTimeout(function () { c.el.classList.add("is-scan"); }, i * 90); });
-      setTimeout(function () { grid.classList.remove("is-scanning"); reveal(); }, 1500);
-      setTimeout(report, 2300);
-    }
-    if ("IntersectionObserver" in window && !reduceMotion) {
-      var seen = new IntersectionObserver(function (en) {
-        if (!latest(en).isIntersecting) return;
-        seen.disconnect();
-        scan();
-      }, { rootMargin: "0px 0px -35% 0px" });
-      seen.observe(dash);
-    } else scan();
-
-    // the HUD rides along once the chart scrolls away but the switches are still on screen
-    if ("IntersectionObserver" in window) {
-      var seeChart = true, seeGrid = false;
-      var sync = function () { hud.classList.toggle("is-on", seeGrid && !seeChart); };
-      new IntersectionObserver(function (en) { seeChart = latest(en).isIntersecting; sync(); }, { rootMargin: "-90px 0px 0px 0px" }).observe($("[data-ccu-panel]", dash));
-      new IntersectionObserver(function (en) { seeGrid = latest(en).isIntersecting; sync(); }, { rootMargin: "-25% 0px -10% 0px" }).observe(grid);
-    }
-  }
-
-  // the audit card: a Creator Hub-style scan finds the leaks, ranks the fixes, then shows them applied
-  function initAudit() {
-    var vis = $('[data-vis="audit"]');
-    if (!vis) return;
-    var ccu = $("[data-hub-ccu]", vis), status = $("[data-hub-status]", vis), count = $("[data-hub-count]", vis);
-    var STATES = ["is-r1", "is-r2", "is-r3", "is-plan", "is-after", "is-out"], stop = function () {};
-    function set(s, c) { status.textContent = s; count.textContent = c; }
-    function clear() { STATES.forEach(function (c) { vis.classList.remove(c); }); set("Auditing your game", "0 / 3"); ccu.textContent = "412"; }
-    if (reduceMotion) { vis.classList.add("is-r1", "is-r2", "is-r3", "is-plan", "is-after"); set("Fixes applied", "3 / 3"); ccu.textContent = "1,836"; return; }
-    var s = 0;
-    clear();
-    ticker(vis, 720, function () {
-      s++;
-      if (s <= 3) { vis.classList.add("is-r" + s); count.textContent = s + " / 3"; }
-      else if (s === 5) { vis.classList.add("is-plan"); status.textContent = "2 leaks found"; }
-      else if (s === 8) {
-        vis.classList.add("is-after");
-        status.textContent = "Fixes applied";
-        stop();
-        stop = tween(1600, function (k) { ccu.textContent = Math.round(412 + (1836 - 412) * k).toLocaleString("en-US"); });
-      }
-      else if (s === 13) vis.classList.add("is-out");
-      else if (s === 14) { stop(); clear(); s = 0; }
-    });
   }
 
   /* ------------------------------------------------ services on phones: swipe or tap a tab
@@ -1362,6 +784,7 @@
 
   function setStep(n, focus) {
     var back = n < step;
+    if (focus) track("Form step " + n);
     glide(function () {
       step = n;
       form.classList.toggle("is-back", back);
@@ -1505,32 +928,21 @@
     }).join("\n");
   }
 
-  // a Discord message with every answer, laid out as an embed. Pings are switched off, so nothing
-  // anyone types (like @everyone) can notify your server.
-  function discordMessage(data) {
-    var inline = ["budget", "email", "discord", "name"];
-    var fields = Object.keys(LABELS).filter(function (k) { return data[k] && k !== "source"; }).map(function (k) {
-      var v = k === "problem" ? data[k].split(", ").map(function (p) { return PROBLEM[p] || p; }).join(", ") : data[k];
-      return { name: LABELS[k], value: String(v).slice(0, 1000), inline: inline.indexOf(k) !== -1 };
-    });
-    return {
-      username: "Khaiel site",
-      allowed_mentions: { parse: [] },
-      embeds: [{
-        title: ("New project: " + (data.game_link || "starting from an idea")).slice(0, 250),
-        color: 0x00b06f,
-        fields: fields.slice(0, 25),
-        footer: { text: (data.source ? "Came from " + data.source : "Direct visit").slice(0, 200) },
-        timestamp: data.submitted_at
-      }]
-    };
-  }
+  // the form goes to /api/lead, which posts it to Discord. The webhook stays on the server.
   function post(url, body) {
     return fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify(body)
-    }).then(function (res) { if (!res.ok) throw new Error(res.status); });
+    }).then(function (res) { if (!res.ok) { var e = new Error(res.status); e.status = res.status; throw e; } });
+  }
+
+  // how far people get in the form, in Vercel → Analytics → Events (custom events need the Pro plan)
+  var tracked = {};
+  function track(name) {
+    if (tracked[name] || typeof window.va !== "function") return;
+    tracked[name] = true;
+    window.va("event", { name: name });
   }
 
   function finish(data, fallback) {
@@ -1542,7 +954,7 @@
       $("[data-done-title]").textContent = "Almost there. One more tap.";
       $("[data-done-text]").hidden = true;
       $("[data-fallback]").hidden = false;
-      $("[data-mailto]").href = "mailto:" + (CFG.contactEmail || "") + "?subject=" + encodeURIComponent("New project: " + (data.game_link || "starting from an idea")) + "&body=" + encodeURIComponent(summary(data));
+      $("[data-mailto]").href = CFG.discordUrl || "#";
       $("[data-copy]").addEventListener("click", function (e) {
         var b = e.currentTarget;
         (navigator.clipboard ? navigator.clipboard.writeText(summary(data)) : Promise.reject()).then(
@@ -1611,20 +1023,22 @@
       if (!validate(LAST)) return;
       var data = collect();
       data.submitted_at = new Date().toISOString();
-      // Discord first, then a form service; with neither, the visitor gets a prefilled email
-      var sent = CFG.discordWebhook ? post(CFG.discordWebhook, discordMessage(data))
-        : CFG.formEndpoint ? post(CFG.formEndpoint, Object.assign({ _subject: "New project: " + (data.game_link || "starting from an idea") }, data))
-        : null;
-      if (!sent) { finish(data, true); return; }
+      var sent = CFG.formEndpoint
+        ? post(CFG.formEndpoint, Object.assign({ _subject: "New project: " + (data.game_link || "starting from an idea") }, data))
+        : post("/api/lead", data);
       var btn = $("[data-submit]", form), label = $("span", btn);
       btn.classList.add("is-loading");
       label.textContent = "Sending…";
       sent.then(function () {
+        track("Form sent");
         finish(data, false);
-      }).catch(function () {
+      }).catch(function (err) {
         btn.classList.remove("is-loading");
         label.textContent = "Send it";
-        setError("That didn't send. Check your connection and try again. Your answers are saved.");
+        // the server side isn't set up (or is down): hand them the answers to DM instead
+        if (err && (err.status === 503 || err.status === 404 || err.status === 502)) { finish(data, true); return; }
+        setError(err && err.status === 429 ? "That's a lot of sends. Give it a few minutes, or just DM me on Discord."
+          : "That didn't send. Check your connection and try again. Your answers are saved.");
       });
     });
 
@@ -1648,14 +1062,9 @@
       $("a", dock).tabIndex = on ? 0 : -1;
     }
     new IntersectionObserver(function (en) { heroSeen = latest(en).isIntersecting; update(); }).observe($(".hero__actions"));
-    // hide it wherever the page already shows its own buttons: the live demo, the services, the form
-    var seen = new Map();
-    var io = new IntersectionObserver(function (en) {
-      en.forEach(function (x) { seen.set(x.target, x.isIntersecting); });
-      covered = Array.from(seen.values()).some(Boolean);
-      update();
-    }, { rootMargin: "-25% 0px -25% 0px" });
-    [$("[data-dash]"), $("[data-svc-grid]"), $(".svc-extra")].forEach(function (el) { if (el) io.observe(el); });
+    // hide it wherever the page already shows its own buttons: the services, the form
+    var grid = $("[data-svc-grid]");
+    if (grid) new IntersectionObserver(function (en) { covered = latest(en).isIntersecting; update(); }, { rootMargin: "-25% 0px -25% 0px" }).observe(grid);
     // and from the moment the send section (the form and the Discord card) comes into view
     new IntersectionObserver(function (en) { atEnd = latest(en).isIntersecting || latest(en).boundingClientRect.top < 0; update(); }).observe($("section.send") || $("#send"));
   }
@@ -1666,10 +1075,7 @@
   initGames();
   initLive();
   initWall();
-  initCreed();
   initServices();
-  initDash();
-  initAudit();
   initSvcTabs();
   initAccordions();
   initForm();

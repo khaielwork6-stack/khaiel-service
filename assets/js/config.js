@@ -18,25 +18,19 @@ window.SITE_CONFIG = {
   // biggest ones (data/roblox.config.json); this number shows as "30+" across the page.
   gamesWorkedOn: 30,
 
-  // Discord webhook for the intake form: every submission arrives as a message in that channel.
-  // Discord → your server → Edit channel → Integrations → Webhooks → New Webhook → Copy Webhook URL.
-  // Use a private channel. Anyone can see this URL in the page source, so if it ever gets spammed,
-  // delete the webhook in Discord and paste a new one here.
-  discordWebhook: "https://discord.com/api/webhooks/1555393903291539526/P8X4wBwGsbuj3RqMUKnboLyN98iJ1wsMR2FMxnBDjXyAGlRfslSGCb4vhPTwEsYtNo31",
-
-  // Or, instead of Discord: where the intake form posts. Works with Formspree (https://formspree.io/f/xxxx),
-  // Basin, Getform, or any endpoint that accepts a JSON POST.
-  // Leave empty and the form falls back to a prefilled email to `contactEmail`.
+  // The form posts to /api/lead, which sends it to Discord. The webhook URL is NOT here: it's in
+  // Vercel → your project → Settings → Environment Variables → DISCORD_WEBHOOK, so nobody can read it.
+  // Only fill this in to send the form somewhere else instead (Formspree, Basin, any JSON POST endpoint).
   formEndpoint: "",
 
   // Shown in the email fallback and the footer. Leave empty to hide.
   contactEmail: "",
 
   // Optional social links. Leave empty to hide.
-  tiktokUrl: "",
+  tiktokUrl: "https://www.tiktok.com/@khaieldev",
   discordUrl: "https://discord.com/users/875776204387520552",
 
   // Your Discord username (without the @). Shows on the "DM me on Discord" card and
   // adds a "Copy username" button. Leave empty to show just the button.
-  discordUsername: ""
+  discordUsername: "khaieldev"
 };
