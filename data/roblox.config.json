@@ -8,6 +8,7 @@
     { "placeId": 91394684838353,  "role": null, "peakCCU": null },
     { "placeId": 118805555015549, "role": null, "peakCCU": null },
     { "placeId": 96510596525082,  "role": null, "peakCCU": null },
-    { "placeId": 87016173484759,  "role": null, "peakCCU": null }
+    { "placeId": 87016173484759,  "role": null, "peakCCU": null },
+    { "placeId": 109607959528470, "role": "Scripted it", "peakCCU": null }
   ]
 }

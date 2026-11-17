@@ -235,6 +235,7 @@
       link.className = "row__link";
       if (link.tagName === "A") { link.href = g.url; link.target = "_blank"; link.rel = "noopener"; }
       var meta = [];
+      if (g.role) meta.push('<span class="row__role"></span>');
       if (g.creator) meta.push('<span class="row__studio"></span>');
       if (hasPeak && g.playing != null) meta.push('<span><i class="live"></i>' + compact(g.playing) + " playing</span>");
       if (g.likeRatio != null) meta.push("<span>" + THUMB + g.likeRatio + "%</span>");
@@ -247,6 +248,7 @@
       $("img", link).src = g.icon;
       $("b", link).textContent = g.name;
       if (g.creator) $(".row__studio", link).textContent = "by " + g.creator;
+      if (g.role) $(".row__role", link).textContent = g.role;
       li.appendChild(link);
       rows.appendChild(li);
     });
@@ -374,6 +376,23 @@
       mini.hidden = false;
       countUp($("[data-live-mini-n]", mini), playing, function (n) { return Math.round(n).toLocaleString("en-US"); });
     }
+  }
+
+  /* ------------------------------------------------ results: the third card is a game you built, live from Roblox
+     It shows the first game in data/roblox.config.json that has a role, e.g. "Scripted it". */
+  function initResults() {
+    var card = $("[data-res-live]");
+    if (!card) return;
+    var g = realGames().filter(function (x) { return x.role; })[0];
+    if (!g) return;
+    $("[data-res-link]", card).href = g.url;
+    $("[data-res-img]", card).src = g.thumb;
+    $("[data-res-role]", card).textContent = g.role;
+    $("[data-res-name]", card).textContent = g.name;
+    $("[data-res-visits]", card).textContent = compact(g.visits);
+    $("[data-res-playing]", card).textContent = compact(g.playing);
+    $("[data-res-likes]", card).innerHTML = g.likeRatio != null ? THUMB + g.likeRatio + "% liked" : "";
+    card.hidden = false;
   }
 
   /* ------------------------------------------------ closing: moving wall of the real thumbnails */
@@ -1074,6 +1093,7 @@
   initHeader();
   initGames();
   initLive();
+  initResults();
   initWall();
   initServices();
   initSvcTabs();

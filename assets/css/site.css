@@ -6,15 +6,15 @@
    ===================================================================== */
 
 :root {
-  --bg: #111214;
-  --bg-2: #17181b;
-  --card: #1e2023;
-  --card-2: #26282c;
+  --bg: #0b0d12;
+  --bg-2: #0f121a;
+  --card: #151922;
+  --card-2: #1c2130;
   --line: rgba(255, 255, 255, 0.08);
   --line-2: rgba(255, 255, 255, 0.14);
   --text: #ffffff;
-  --text-2: #bdbec1;
-  --text-3: #8c8f94;
+  --text-2: #c3c8d3;
+  --text-3: #8b92a1;
   --green: #00b06f;
   --green-hi: #12d68b;
   --green-rgb: 0, 176, 111;
@@ -27,7 +27,8 @@
   --orange: #f68802;
   --caution: #ffd60a;
 
-  --font: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: "Montserrat", "Inter", system-ui, sans-serif;
   --header-h: 64px;
   --gutter: clamp(18px, 5vw, 48px);
   --maxw: 1200px;
@@ -332,6 +333,7 @@ p { margin: 0; }
 .row__stats .is-live .live { width: 7px; height: 7px; }
 .row:nth-child(n+2) .row__stats .is-live .live::after { display: none; }
 .row__studio { overflow: hidden; text-overflow: ellipsis; color: var(--text-3); }
+.row__role { padding: 1px 7px; border-radius: 6px; background: rgba(var(--green-rgb), 0.16); color: var(--green-hi); font-weight: 800; }
 
 
 .board__foot { padding: 12px 18px 16px; font-size: 0.8rem; font-weight: 600; color: var(--text-3); border-top: 1px solid var(--line); }
@@ -949,3 +951,130 @@ input.is-invalid { box-shadow: inset 0 0 0 2px var(--red); }
 
 /* spam trap in the form: off screen for people, still there for bots */
 .trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* =====================================================================
+   Polish: calmer and richer. Deep blue-black, a soft glow behind the page,
+   Inter for reading and Montserrat only for the loud bits.
+   ===================================================================== */
+h1, h2, h3, h4, .btn, .logo, .eyebrow, .stat__num, .live__count b, .svc__price, .row__stats,
+.fstep__q, .hub__big, .res__huge, .hero__proof b, .dc__title, .qa button, .svc-tabs button { font-family: var(--display); }
+body { font-weight: 450; line-height: 1.65; }
+
+/* a slow green and blue glow behind everything, plus a very faint grid */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20vmax;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(40vmax 30vmax at 18% 12%, rgba(18, 214, 139, 0.10), transparent 70%),
+    radial-gradient(36vmax 28vmax at 85% 30%, rgba(80, 120, 255, 0.09), transparent 70%),
+    radial-gradient(44vmax 32vmax at 50% 95%, rgba(18, 214, 139, 0.06), transparent 70%);
+  animation: drift 40s ease-in-out infinite alternate;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000, transparent 75%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000, transparent 75%);
+}
+@keyframes drift { to { transform: translate3d(3vmax, -2vmax, 0) scale(1.06); } }
+html, body { background-color: var(--bg); }
+.games { background: transparent; }
+.header.is-scrolled, .header.is-open { background: rgba(11, 13, 18, 0.78); }
+.menu { background: rgba(11, 13, 18, 0.97); }
+.dock { background: linear-gradient(180deg, rgba(11, 13, 18, 0), rgba(11, 13, 18, 0.95) 35%); }
+
+/* cards get a lit top edge, like light catching glass */
+.svc, .stat, .board, .send__card, .qa, .livecard, .res, .svc-strip, .chip span, .pick > span {
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0) 38%);
+}
+.svc, .board, .send__card, .livecard, .res { border-radius: 22px; }
+.board { background-color: rgba(21, 25, 34, 0.92); }
+.send__card { background-color: rgba(21, 25, 34, 0.9); }
+
+/* the green button: glossy, with a slow sheen */
+.btn--primary {
+  background: linear-gradient(180deg, #1ee69a, #00b06f 58%, #01a467);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), inset 0 -4px 0 rgba(0, 0, 0, 0.18), 0 12px 32px -10px rgba(18, 214, 139, 0.65);
+  overflow: hidden;
+}
+.btn--primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.28) 50%, transparent 62%);
+  transform: translateX(-120%);
+  animation: sheen 5.5s var(--ease) infinite;
+  pointer-events: none;
+}
+@keyframes sheen { 0%, 70% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
+@media (hover: hover) { .btn--primary:hover { background: linear-gradient(180deg, #2af0a5, #06bf79 58%, #02ad6c); } }
+
+/* headline accent: a soft green-to-mint gradient instead of flat green */
+.hero__title span {
+  background: linear-gradient(92deg, #12d68b, #6cf5c2 55%, #12d68b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- results ---------- */
+.res-grid { display: grid; gap: 16px; }
+@media (min-width: 900px) { .res-grid { grid-template-columns: 1.25fr 1fr; } .res--hub { grid-row: span 2; } }
+.res { display: flex; flex-direction: column; overflow: hidden; background-color: var(--card); box-shadow: inset 0 0 0 1px var(--line), 0 30px 70px -40px rgba(0, 0, 0, 0.9); }
+.res__body { display: grid; gap: 8px; padding: 20px 22px 22px; }
+.res h3 { font-size: 1.35rem; font-weight: 900; letter-spacing: -0.02em; }
+.res__body p { color: var(--text-2); }
+.res__src { font-size: 0.78rem; font-weight: 600; color: var(--text-3) !important; }
+
+/* the Creator Hub panel, as it looks in Roblox */
+.hub { margin: 8px 8px 0; padding: 22px 24px 18px; border-radius: 16px; background: #0d1016; box-shadow: inset 0 0 0 1px var(--line); }
+.hub__label { font-size: 0.85rem; font-weight: 600; color: var(--text-2); }
+.hub__big { margin: 2px 0 14px; font-size: clamp(2.6rem, 6vw, 3.4rem); font-weight: 900; line-height: 1; letter-spacing: -0.03em; }
+.hub__rows { display: grid; gap: 2px; margin: 0; }
+.hub__rows div { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid var(--line); }
+.hub__rows dt { font-size: 0.92rem; font-weight: 600; color: var(--text-2); }
+.hub__rows dd { display: inline-flex; align-items: center; gap: 10px; margin: 0; font-family: var(--display); font-size: 1.05rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.hub__rows dd svg { width: 0.9em; height: 0.9em; margin-right: -4px; }
+.hub__rows .up { display: inline-flex; align-items: center; gap: 4px; min-width: 64px; justify-content: flex-end; font-size: 0.82rem; font-weight: 800; color: var(--green-hi); }
+.hub__rows .up::before { content: "\2191"; }
+
+/* the big-number card */
+.res--stat { justify-content: space-between; }
+.res__huge { display: flex; align-items: baseline; gap: 10px; margin: 0; padding: 26px 24px 0; }
+.res__huge span {
+  font-size: clamp(3.4rem, 9vw, 5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  background: linear-gradient(180deg, #ffe58a, #ffc83d 60%, #e9a91b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.res__huge small { font-size: 1.1rem; font-weight: 800; color: var(--text-2); }
+
+/* the live game card */
+.res__thumb { position: relative; display: block; margin: 8px 8px 0; overflow: hidden; border-radius: 16px; aspect-ratio: 16 / 9; background: #0d1016; }
+.res__thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
+@media (hover: hover) { .res__thumb:hover img { transform: scale(1.04); } }
+.res__tag { position: absolute; left: 10px; top: 10px; padding: 4px 10px; border-radius: 8px; background: rgba(11, 13, 18, 0.82); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: var(--green-hi); font-size: 0.78rem; font-weight: 800; }
+.res__stats { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.9rem; font-weight: 600; }
+.res__stats span { display: inline-flex; align-items: center; gap: 6px; }
+.res__stats b { color: var(--text); font-weight: 800; }
+.res__stats svg { width: 13px; height: 13px; }
+.res__stats .live { width: 7px; height: 7px; }
+@media (prefers-reduced-motion: reduce) { body::before, .btn--primary::after { animation: none; } }
+@media (max-width: 480px) {
+  .hub { padding: 18px 16px 14px; }
+  .hub__rows dt { font-size: 0.86rem; white-space: nowrap; }
+  .hub__rows dd { gap: 8px; font-size: 0.98rem; }
+  .hub__rows .up { min-width: 50px; font-size: 0.78rem; }
+}
